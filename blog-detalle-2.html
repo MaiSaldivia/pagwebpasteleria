@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caso curioso #2 · Mil Sabores</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/blog2.css" />
+</head>
+<body>
+<header class="barra-superior">
+  <div class="contenedor barra-superior__interior">
+    <div class="marca">
+      <span class="marca__punto"></span>
+      <a class="marca__nombre" href="index.html">Mil Sabores</a>
+    </div>
+    <nav class="navegacion">
+      <a href="index.html" class="navegacion__enlace">Inicio</a>
+      <a href="productos.html" class="navegacion__enlace">Productos</a>
+      <a href="nosotros.html" class="navegacion__enlace">Nosotros</a>
+      <a href="blog.html" class="navegacion__enlace">Blog</a>
+      <a href="contacto.html" class="navegacion__enlace">Contacto</a>
+    </nav>
+    <div class="acciones">
+      <a href="login.html" class="enlace">Iniciar sesión</a>
+      <span class="separador">|</span>
+      <a href="registro.html" class="enlace">Registrarse</a>
+      <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor relleno">
+  <a href="blog.html">⟵ Volver al blog</a>
+
+  <!-- Artículo -->
+  <article class="post">
+    <h1 class="titulo-seccion">CASO CURIOSO #2: Galletas 100% veganas</h1>
+
+    <div class="blog-bloque__imagen">
+      <img src="img/blog2.png" alt="Galletas 100% veganas" class="blog-detalle-img">
+      <figcaption class="caption">Selección de galletas veganas de temporada.</figcaption>
+    </div>
+
+    <p>
+      En Mil Sabores siempre hemos buscado innovar para atender a todos nuestros clientes. 
+      Una de nuestras mayores apuestas fue desarrollar una receta de <strong>galletas 100% veganas</strong>, 
+      sin ingredientes de origen animal, que mantuvieran la textura crujiente y el sabor dulce 
+      de las clásicas galletas caseras.
+    </p>
+
+    <p>
+      El proceso no fue sencillo: probamos diferentes combinaciones de harinas, aceites vegetales y 
+      endulzantes naturales hasta encontrar la mezcla perfecta. Tras varias pruebas en nuestro taller, 
+      logramos un producto que no solo cumplió con nuestras expectativas, sino que encantó a quienes 
+      lo probaron en la primera degustación abierta al público.
+    </p>
+
+    <p>
+      Estas galletas no solo son una alternativa deliciosa para clientes veganos, sino también para 
+      quienes buscan opciones más saludables y sostenibles. Usamos ingredientes de productores locales, 
+      lo que refuerza nuestro compromiso con la comunidad y el medio ambiente.
+    </p>
+
+    <p>
+      Hoy forman parte de nuestro catálogo fijo y se han convertido en uno de los productos más 
+      pedidos en nuestra tienda online. ¡Una muestra de que con creatividad y dedicación se pueden 
+      lograr sabores sorprendentes sin renunciar a la calidad!
+    </p>
+  </article>
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie__rejilla">
+    <div>
+      <p class="marca__nombre marca__nombre--pie">Mil Sabores</p>
+      <nav class="pie__enlaces">
+        <a href="productos.html" class="enlace">Tortas Cuadradas</a>
+        <a href="productos.html" class="enlace">Tortas Circulares</a>
+        <a href="productos.html" class="enlace">Sin Azúcar</a>
+        <a href="productos.html" class="enlace">Veganas</a>
+        <a href="productos.html" class="enlace">Sin Gluten</a>
+      </nav>
+      <div class="pago"><span>💳</span><span>💳</span><span>🏦</span></div>
+    </div>
+
+    <form id="newsletterForm" class="boletin" novalidate>
+      <label for="email" class="boletin__etiqueta">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="boletin__fila">
+        <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
+        <button class="btn btn--principal" type="submit">Suscribirse</button>
+      </div>
+      <small id="emailHelp" class="ayuda"></small>
+    </form>
+  </div>
+  <p class="derechos">© 2025 Pastelería Mil Sabores</p>
+</footer>
+
+<script src="js/data/data.js"></script>
+<script src="js/data/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+/* Reinicio universal */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos básicos */
+body {
+    background-color: #FFF5E1;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #8B4513;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* --- Encabezado --- */
+.header {
+    background: #e9e3d3;
+    border-bottom: 1px solid #e6ddcb;
+    padding: 12px 16px;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #8B4513;
+}
+
+.brand-name {
+    font-family: 'Pacifico', cursive;
+    font-size: 24px;
+    color: #8B4513;
+}
+
+.nav {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    color: #333;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sep {
+    color: #B0BEC5;
+}
+
+.cart-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* --- Contenido Principal y Formulario --- */
+.main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 16px;
+}
+
+.auth-hero {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.auth-title {
+    font-size: 2.2rem;
+    color: #8B4513;
+}
+
+.auth-card {
+    background: #eee5d7;
+    border-radius: 12px;
+    border: 1px solid #e6ddcb;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.06) inset;
+}
+
+.card-header {
+    background: #e2d7c7;
+    border-bottom: 1px solid #d9cdbb;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    padding: 12px;
+    border-radius: 12px 12px 0 0;
+}
+
+.auth-form {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #bba48a;
+    border-radius: 6px;
+    background: white;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 600px) {
+    .grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.form-actions {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #FFC0CB;
+    color: #333;
+}
+
+.btn-primary:hover {
+    background-color: #FFB0C0;
+}
+
+/* --- Pie de Página --- */
+.footer {
+    background: #f7efe1;
+    border-top: 1px solid #e6ddcb;
+    margin-top: 40px;
+    padding: 24px 16px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1.2fr 1fr;
+    }
+}
+
+.footer-links-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-link {
+    font-size: 14px;
+}
+
+.pay-icons span {
+    font-size: 1.5rem;
+    margin-right: 5px;
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.newsletter-row {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-row input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.copy {
+    text-align: center;
+    margin-top: 14px;
+    color: #B0BEC5;
+}

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Producto · Mil Sabores</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/producto.css" />
+</head>
+<body>
+<header class="barra-superior">
+  <div class="contenedor barra-superior__interior">
+    <div class="marca">
+      <span class="marca__punto"></span>
+      <a class="marca__nombre" href="index.html">Mil Sabores</a>
+    </div>
+    <nav class="navegacion">
+      <a href="index.html" class="navegacion__enlace">Inicio</a>
+      <a href="productos.html" class="navegacion__enlace">Productos</a>
+      <a href="nosotros.html" class="navegacion__enlace">Nosotros</a>
+      <a href="blog.html" class="navegacion__enlace">Blog</a>
+      <a href="contacto.html" class="navegacion__enlace">Contacto</a>
+    </nav>
+    <div class="acciones">
+      <a href="login.html" class="enlace">Iniciar sesión</a>
+      <span class="separador">|</span>
+      <a href="registro.html" class="enlace">Registrarse</a>
+      <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor relleno">
+
+  <nav class="ruta-navegacion" aria-label="Ruta de navegación">
+    <a href="index.html">Inicio</a>
+    <span class="separador-ruta">›</span>
+    <a href="productos.html">Productos</a>
+    <span class="separador-ruta">›</span>
+    <span id="crumbCat" class="oculto"></span><span id="crumbCatSep" class="separador-ruta oculto">›</span>
+    <span id="crumbName" aria-current="page">Producto</span>
+  </nav>
+
+  <section class="detalle-producto">
+    <div class="detalle-producto__galeria">
+      <div class="detalle-producto__hero" id="heroImg" aria-label="Imagen producto"></div>
+    </div>
+
+    <div class="detalle-producto__info">
+      <h1 id="pName" class="detalle-producto__titulo">Nombre producto</h1>
+      <div class="detalle-producto__meta">
+        <a id="pCat" href="productos.html" class="enlace">Categoría</a>
+        <span id="pAttr" class="silenciado">• atributo</span>
+      </div>
+      <p id="pPrice" class="detalle-producto__precio">$0</p>
+
+      <p id="pLong" class="detalle-producto__descripcion">Descripción larga del producto…</p>
+
+      <div class="detalle-producto__fila-compra">
+        <label for="qty" class="silenciado">Cantidad</label>
+        <input id="qty" type="number" min="1" value="1" class="input detalle-producto__cantidad" />
+        <button id="addBtn" class="btn btn--principal detalle-producto__añadir">Añadir al carrito</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="detalle-producto__relacionados">
+    <h2 class="titulo-seccion">También te puede gustar</h2>
+    <div id="related" class="rejilla-productos"></div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie__rejilla">
+    <div>
+      <p class="marca__nombre marca__nombre--pie">Mil Sabores</p>
+      <nav class="pie__enlaces">
+        <a class="enlace" href="productos.html">Tortas Cuadradas</a>
+        <a class="enlace" href="productos.html">Tortas Circulares</a>
+        <a class="enlace" href="productos.html">Sin Azúcar</a>
+        <a class="enlace" href="productos.html">Veganas</a>
+        <a class="enlace" href="productos.html">Sin Gluten</a>
+      </nav>
+      <div class="pago"><span>💳</span><span>💳</span><span>🏦</span></div>
+    </div>
+
+    <form id="newsletterForm" class="boletin" novalidate>
+      <label for="email" class="boletin__etiqueta">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="boletin__fila">
+        <input id="email" type="email" required placeholder="Ingresa tu email" />
+        <button class="btn btn--principal">Suscribirse</button>
+      </div>
+      <small id="emailHelp" class="ayuda"></small>
+    </form>
+  </div>
+  <p class="derechos">© 2025 Pastelería Mil Sabores</p>
+</footer>
+
+<script src="js/data/data.js"></script>
+<script src="js/data/script.js"></script>
+<script src="js/data/producto.js"></script>
+
+</body>
+</html>

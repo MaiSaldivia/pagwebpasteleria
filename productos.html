@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Productos · Mil Sabores</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/productos.css" />
+</head>
+<body>
+<header class="barra-superior">
+  <div class="contenedor barra-superior__interior">
+    <div class="marca">
+      <span class="marca__punto"></span>
+      <a class="marca__nombre" href="index.html">Mil Sabores</a>
+    </div>
+    <nav class="navegacion">
+      <a href="index.html" class="navegacion__enlace">Inicio</a>
+      <a href="productos.html" class="navegacion__enlace">Productos</a>
+      <a href="nosotros.html" class="navegacion__enlace">Nosotros</a>
+      <a href="blog.html" class="navegacion__enlace">Blog</a>
+      <a href="contacto.html" class="navegacion__enlace">Contacto</a>
+    </nav>
+    <div class="acciones">
+      <a href="login.html" class="enlace">Iniciar sesión</a>
+      <span class="separador">|</span>
+      <a href="registro.html" class="enlace">Registrarse</a>
+      <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor relleno">
+  <h1 class="titulo-seccion">Productos</h1>
+
+  <section class="barra-herramientas-productos">
+    <div class="barra-herramientas__fila">
+      <div class="busqueda">
+        <input id="q" class="input" type="search" placeholder="Buscar producto (ej. vainilla, vegana)"/>
+      </div>
+
+      <div class="selectores">
+        <select id="cat" class="input">
+          <option value="__all__">Todas las categorías</option>
+          </select>
+
+        <select id="sort" class="input">
+          <option value="rel">Ordenar: Relevancia</option>
+          <option value="price-asc">Precio: menor a mayor</option>
+          <option value="price-desc">Precio: mayor a menor</option>
+          <option value="name-asc">Nombre: A → Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="chips" class="chips">
+      </div>
+  </section>
+
+  <div id="grid" class="rejilla-productos"></div>
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie__rejilla">
+    <div>
+      <p class="marca__nombre marca__nombre--pie">Mil Sabores</p>
+      <nav class="pie__enlaces">
+        <a class="enlace" href="productos.html">Tortas Cuadradas</a>
+        <a class="enlace" href="productos.html">Tortas Circulares</a>
+        <a class="enlace" href="productos.html">Sin Azúcar</a>
+        <a class="enlace" href="productos.html">Veganas</a>
+        <a class="enlace" href="productos.html">Sin Gluten</a>
+      </nav>
+      <div class="pago"><span>💳</span><span>💳</span><span>🏦</span></div>
+    </div>
+
+    <form id="newsletterForm" class="boletin" novalidate>
+      <label class="boletin__etiqueta" for="email">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="boletin__fila">
+        <input id="email" type="email" required placeholder="Ingresa tu email" />
+        <button class="btn btn--principal">Suscribirse</button>
+      </div>
+      <small id="emailHelp" class="ayuda"></small>
+    </form>
+  </div>
+  <p class="derechos">© 2025 Pastelería Mil Sabores</p>
+</footer>
+
+<script defer src="js/data/data.js"></script>
+<script defer src="js/data/script.js"></script>
+<script defer src="js/data/productos.js"></script>
+
+</body>
+</html>

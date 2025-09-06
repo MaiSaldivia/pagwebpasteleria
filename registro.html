@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registro de Usuario · Mil Sabores</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/registro.css" />
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="brand">
+            <span class="brand-dot"></span>
+            <a class="brand-name" href="index.html">Mil Sabores</a>
+        </div>
+        <nav class="nav">
+            <a href="index.html" class="nav-link">Inicio</a>
+            <a href="productos.html" class="nav-link">Productos</a>
+            <a href="nosotros.html" class="nav-link">Nosotros</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="contacto.html" class="nav-link">Contacto</a>
+        </nav>
+        <div class="actions">
+            <a href="login.html" class="link">Iniciar sesión</a><span class="sep">|</span>
+            <a href="registro.html" class="link">Registrarse</a>
+            <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+        </div>
+    </div>
+</header>
+
+<main class="main">
+    <section class="auth-hero">
+        <h1 class="auth-title">Pastelería Mil Sabores</h1>
+    </section>
+
+    <section class="auth-card">
+        <div class="card-header">Registro de usuario</div>
+
+        <form class="auth-form">
+            <div class="form-group grid-2">
+                <div>
+                    <label for="run">RUN (sin puntos ni guion)</label>
+                    <input id="run" class="form-control" type="text" required />
+                </div>
+                <div>
+                    <label for="tipo">Tipo de Usuario</label>
+                    <select id="tipo" class="form-control" required>
+                        <option value="">Seleccione</option>
+                        <option>Cliente</option>
+                        <option>Vendedor</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group grid-2">
+                <div>
+                    <label for="nombre">Nombres</label>
+                    <input id="nombre" class="form-control" type="text" required />
+                </div>
+                <div>
+                    <label for="apellidos">Apellidos</label>
+                    <input id="apellidos" class="form-control" type="text" required />
+                </div>
+            </div>
+
+            <div class="form-group grid-2">
+                <div>
+                    <label for="correo">Correo</label>
+                    <input id="correo" type="email" class="form-control" required />
+                </div>
+                <div>
+                    <label for="fnac">Fecha de nacimiento (opcional)</label>
+                    <input id="fnac" type="date" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group grid-2">
+                <div>
+                    <label for="region">Región</label>
+                    <select id="region" class="form-control"></select>
+                </div>
+                <div>
+                    <label for="comuna">Comuna</label>
+                    <select id="comuna" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <input id="direccion" class="form-control" type="text" required />
+            </div>
+
+            <div class="form-group grid-2">
+                <div>
+                    <label for="pass">Contraseña</label>
+                    <input id="pass" type="password" class="form-control" required />
+                </div>
+                <div>
+                    <label for="pass2">Confirmar contraseña</label>
+                    <input id="pass2" type="password" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="form-group grid-2">
+                <div>
+                    <label for="fono">Teléfono (opcional)</label>
+                    <input id="fono" class="form-control" type="text" />
+                </div>
+                <div></div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Registrarse</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-links-col">
+            <p class="brand-name">Mil Sabores</p>
+            <nav>
+                <a href="productos.html" class="footer-link">Tortas Cuadradas</a>
+                <a href="productos.html" class="footer-link">Tortas Circulares</a>
+                <a href="productos.html" class="footer-link">Sin Azúcar</a>
+                <a href="productos.html" class="footer-link">Veganas</a>
+                <a href="productos.html" class="footer-link">Sin Gluten</a>
+            </nav>
+            <div class="pay-icons"><span>💳</span><span>💳</span><span>🏦</span></div>
+        </div>
+
+        <form class="newsletter-form">
+            <label for="email" class="newsletter-label">Recibe actualizaciones, novedades y promociones.</label>
+            <div class="newsletter-row">
+                <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
+                <button class="btn btn-primary" type="submit">Suscribirse</button>
+            </div>
+        </form>
+    </div>
+    <p class="copy">© 2025 Pastelería Mil Sabores</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto - Mil Sabores</title>
+  <link rel="stylesheet" href="css/nosotros.css">
+</head>
+<body>
+
+  <header class="barra-superior">
+    <div class="contenedor barra-superior__interior">
+      <div class="marca">
+        <span class="marca__punto"></span>
+        <a class="marca__nombre" href="index.html">Mil Sabores</a>
+      </div>
+      <nav class="navegacion">
+        <a href="index.html" class="navegacion__enlace">Inicio</a>
+        <a href="productos.html" class="navegacion__enlace">Productos</a>
+        <a href="nosotros.html" class="navegacion__enlace">Nosotros</a>
+        <a href="blog.html" class="navegacion__enlace">Blog</a>
+        <a href="contacto.html" class="navegacion__enlace">Contacto</a>
+      </nav>
+      <div class="acciones">
+        <a href="login.html" class="enlace">Iniciar sesión</a>
+        <span class="separador">|</span>
+        <a href="registro.html" class="enlace">Registrarse</a>
+        <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="contenedor relleno">
+    <section class="contacto-hero">
+      <h1 class="titulo-seccion">Contáctanos</h1>
+      <p>Río Quiapo 1955, Villa Valle Central, Chillán</p>
+      <p>contacto@milsabores.cl</p>
+      <p>+56 9 5006 0498</p>
+    </section>
+    
+    <section class="contacto-tarjeta">
+      <h3 class="contacto-tarjeta__encabezado">Envía un mensaje</h3>
+      <form action="#" method="post" class="formulario-contacto">
+        <div class="form-grupo">
+          <label for="nombre">Tu nombre</label>
+          <input type="text" id="nombre" name="nombre">
+        </div>
+        <div class="form-grupo">
+          <label for="correo">Tu Correo</label>
+          <input type="email" id="correo" name="correo">
+        </div>
+        <div class="form-grupo">
+          <label for="mensaje">Mensaje aquí...</label>
+          <textarea id="mensaje" name="mensaje"></textarea>
+        </div>
+        <button type="submit" class="btn btn--principal">ENVIAR MENSAJE</button>
+      </form>
+    </section>
+  </main>
+  
+  <footer class="pie">
+    <div class="contenedor pie__rejilla">
+      <div>
+        <p class="marca__nombre marca__nombre--pie">Mil Sabores</p>
+        <nav class="pie__enlaces">
+          <a href="productos.html" class="enlace">Tortas Cuadradas</a>
+          <a href="productos.html" class="enlace">Tortas Circulares</a>
+          <a href="productos.html" class="enlace">Sin Azúcar</a>
+          <a href="productos.html" class="enlace">Veganas</a>
+          <a href="productos.html" class="enlace">Sin Gluten</a>
+        </nav>
+        <div class="pago"><span>💳</span><span>💳</span><span>🏦</span></div>
+      </div>
+  
+      <form id="newsletterForm" class="boletin" novalidate>
+        <label for="email" class="boletin__etiqueta">Recibe actualizaciones, novedades y promociones.</label>
+        <div class="boletin__fila">
+          <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
+          <button class="btn btn--principal" type="submit">Suscribirse</button>
+        </div>
+        <small id="emailHelp" class="ayuda"></small>
+      </form>
+    </div>
+    <p class="derechos">© 2025 Pastelería Mil Sabores</p>
+  </footer>
+  
+</body>
+</html>

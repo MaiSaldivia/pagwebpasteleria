@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog · Mil Sabores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Blog.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar__inner">
+            <div class="brand"><a class="brand__name" href="index.html">Mil Sabores</a></div>
+            <nav class="nav">
+                <a href="index.html" class="nav__link">Inicio</a>
+                <a href="productos.html" class="nav__link">Productos</a>
+                <a href="nosotros.html" class="nav__link">Nosotros</a>
+                <a href="blog.html" class="nav__link">Blog</a>
+                <a href="contacto.html" class="nav__link">Contacto</a>
+            </nav>
+            <div class="actions">
+                <a href="login.html" class="link">Iniciar sesión</a>
+                <a href="registro.html" class="link">Registrarse</a>
+                <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container contenedor-blog">
+            <h1 class="titulo-principal-blog">Nuestro Blog de Noticias</h1>
+
+            <section class="articulo-blog articulo-blog--1">
+                <div class="contenido-blog">
+                    <h2 class="titulo-articulo">CASO CURIOSO #1</h2>
+                    <p class="resumen-articulo">
+                        Cómo se preparó la torta gigante que nos dio un récord y qué aprendimos
+                        para producir a gran escala en días festivos.
+                    </p>
+                    <a class="btn btn--principal" href="blog-detalle-1.html">Leer más</a>
+                </div>
+            </section>
+
+            <section class="articulo-blog articulo-blog--2">
+                <div class="contenido-blog">
+                    <h2 class="titulo-articulo">CASO CURIOSO #2</h2>
+                    <p class="resumen-articulo">
+                        Secretos de nuestra masa de galletas veganas: textura crujiente con
+                        ingredientes 100% de origen vegetal.
+                    </p>
+                    <a class="btn btn--principal" href="blog-detalle-2.html">Leer más</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__grid">
+            <div>
+                <p class="brand__name brand__name--footer">Mil Sabores</p>
+                <nav class="footer__links">
+                    <a class="link" href="productos.html">Tortas Cuadradas</a>
+                    <a class="link" href="productos.html">Tortas Circulares</a>
+                    <a class="link" href="productos.html">Sin Azúcar</a>
+                    <a class="link" href="productos.html">Veganas</a>
+                    <a class="link" href="productos.html">Sin Gluten</a>
+                </nav>
+                <div class="pay"><span>💳</span><span>💳</span><span>🏦</span></div>
+            </div>
+            <form id="newsletterForm" class="newsletter" novalidate>
+                <label class="newsletter__label" for="email">Recibe actualizaciones, novedades y promociones.</label>
+                <div class="newsletter__row">
+                    <input id="email" type="email" required placeholder="Ingresa tu email" />
+                    <button class="btn btn--principal">Suscribirse</button>
+                </div>
+                <small id="emailHelp" class="help"></small>
+            </form>
+        </div>
+        <p class="copy">© 2025 Pastelería Mil Sabores</p>
+    </footer>
+</body>
+</html>

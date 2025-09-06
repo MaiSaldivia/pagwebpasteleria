@@ -1,0 +1,185 @@
+/* Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Lato', sans-serif;
+  color: #5D4037;
+  line-height: 1.6;
+}
+
+body {
+  background-color: #FFF5E1;
+}
+
+.contenedor {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 16px;
+}
+
+.relleno {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+a {
+  color: #8B4513;
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+/* Encabezado */
+.barra-superior {
+  background: #e9e3d3;
+  border-bottom: 1px solid #e6ddcb;
+}
+.barra-superior__interior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 12px 0;
+}
+.marca { display: flex; align-items: center; gap: 10px; }
+.marca__punto { width: 14px; height: 14px; border-radius: 50%; background: #8B4513; }
+.marca__nombre { font-family: 'Pacifico', cursive; font-size: 24px; color: #8B4513; }
+.navegacion { display: flex; gap: 14px; flex-wrap: wrap; }
+.acciones { display: flex; align-items: center; gap: 8px; }
+.carrito { border: 0; background: transparent; cursor: pointer; }
+.separador { color: #B0BEC5; }
+
+/* Secciones de Productos */
+.titulo-seccion {
+  font-size: 28px;
+  margin: 28px 0 12px;
+}
+
+.barra-herramientas-productos {
+  margin: 8px 0 14px;
+  display: grid;
+  gap: 10px;
+}
+.barra-herramientas__fila {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.busqueda { flex: 1 1 320px; }
+
+.busqueda .input,
+.selectores .input {
+  padding: 10px;
+  border: 2px solid #8B4513;
+  border-radius: 8px;
+  background: #fff;
+  width: 100%;
+}
+
+.selectores { display: flex; gap: 10px; }
+.selectores .input { min-width: 200px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1px solid #e6ddcb;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform .05s ease;
+}
+.chip:hover { transform: translateY(-1px); }
+
+/* ===== Grid y Tarjetas ===== */
+.rejilla-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* cards ~260px+ */
+  gap: 24px;
+}
+
+.tarjeta {
+  background: #eee7da;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .08) inset;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Contenedor de la imagen */
+.tarjeta__imagen {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #bdb8ae;
+  background: #d4d0c8;      /* color de fondo mientras carga */
+  aspect-ratio: 4 / 3;      /* controla la altura de la foto */
+}
+
+/* La imagen */
+.tarjeta__imagen img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;         /* rellena sin deformar */
+}
+
+/* Texto y precio */
+.tarjeta__titulo {
+  font-weight: 700;
+  text-decoration: none;
+  color: #5D4037;
+}
+.tarjeta__atributo { color: #7a6b61; font-size: .9rem; margin: 0; min-height: 1.2em; }
+.tarjeta__precio   { font-weight: 700; margin: 0; }
+
+/* Botones */
+.btn {
+  display: inline-block;
+  border: 2px solid #8B4513;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+.btn--principal { background: #FFC0CB; }
+.btn--fantasma  { background: transparent; }
+
+.boton-añadir-carrito { width: 100%; }
+
+/* Pie de página */
+.pie {
+  margin-top: 40px;
+  padding: 24px 0;
+  border-top: 1px solid #e6ddcb;
+  background: #f7efe1;
+}
+.pie__rejilla {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+}
+.pie__enlaces { display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 12px; }
+.derechos { text-align: center; color: #B0BEC5; margin: 14px 0 0; }
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .rejilla-productos { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+}
+@media (max-width: 560px) {
+  .rejilla-productos { grid-template-columns: 1fr; }
+  .navegacion { display: none; }
+}
+
+/* Pantallas grandes: cards un poco más amplias */
+@media (min-width: 1200px) {
+  .rejilla-productos { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+}

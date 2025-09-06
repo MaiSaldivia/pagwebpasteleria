@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caso curioso #1 · Mil Sabores</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/blog1.css" />
+</head>
+<body>
+<header class="barra-superior">
+  <div class="contenedor barra-superior__interior">
+    <div class="marca">
+      <span class="marca__punto"></span>
+      <a class="marca__nombre" href="index.html">Mil Sabores</a>
+    </div>
+    <nav class="navegacion">
+      <a href="index.html" class="navegacion__enlace">Inicio</a>
+      <a href="productos.html" class="navegacion__enlace">Productos</a>
+      <a href="nosotros.html" class="navegacion__enlace">Nosotros</a>
+      <a href="blog.html" class="navegacion__enlace">Blog</a>
+      <a href="contacto.html" class="navegacion__enlace">Contacto</a>
+    </nav>
+    <div class="acciones">
+      <a href="login.html" class="enlace">Iniciar sesión</a>
+      <span class="separador">|</span>
+      <a href="registro.html" class="enlace">Registrarse</a>
+      <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor relleno">
+  <a href="blog.html">⟵ Volver al blog</a>
+
+  <!-- Artículo -->
+  <article class="post">
+    <h1 class="titulo-seccion">CASO CURIOSO #1: La torta gigante del récord</h1>
+
+    <div class="blog-bloque__imagen">
+      <img src="img/blog1.png" alt="Torta gigante del récord" class="blog-detalle-img">
+      <figcaption class="caption">La torta gigante celebrada en la plaza principal.</figcaption>
+    </div>
+
+    <p>
+      En 1995, Mil Sabores sorprendió al país con una de las <strong>tortas más grandes
+      jamás preparadas</strong>. Fue un desafío histórico que puso a prueba nuestra logística,
+      creatividad y, sobre todo, la pasión por endulzar grandes momentos.
+    </p>
+
+    <p>
+      El proyecto nació como parte de las celebraciones de aniversario de la ciudad. La meta era
+      reunir a miles de personas en torno a un único postre, uniendo tradición y comunidad. Para lograrlo,
+      se necesitaron más de 200 kilos de harina, 150 litros de leche y cientos de horas de trabajo en equipo.
+    </p>
+
+    <p>
+      El día del evento, la plaza principal se llenó de aromas dulces mientras hornos industriales funcionaban
+      sin descanso. La coordinación con voluntarios, estudiantes de gastronomía y maestros pasteleros fue clave
+      para que todo resultara a la perfección.
+    </p>
+
+    <p>
+      Al final, la torta no solo batió un récord local, sino que también quedó en la memoria colectiva de quienes
+      participaron. Este hito marcó un antes y un después en nuestra historia, consolidando a Mil Sabores como un
+      referente en innovación pastelera.
+    </p>
+  </article>
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie__rejilla">
+    <div>
+      <p class="marca__nombre marca__nombre--pie">Mil Sabores</p>
+      <nav class="pie__enlaces">
+        <a href="productos.html" class="enlace">Tortas Cuadradas</a>
+        <a href="productos.html" class="enlace">Tortas Circulares</a>
+        <a href="productos.html" class="enlace">Sin Azúcar</a>
+        <a href="productos.html" class="enlace">Veganas</a>
+        <a href="productos.html" class="enlace">Sin Gluten</a>
+      </nav>
+      <div class="pago"><span>💳</span><span>💳</span><span>🏦</span></div>
+    </div>
+
+    <form id="newsletterForm" class="boletin" novalidate>
+      <label for="email" class="boletin__etiqueta">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="boletin__fila">
+        <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
+        <button class="btn btn--principal" type="submit">Suscribirse</button>
+      </div>
+      <small id="emailHelp" class="ayuda"></small>
+    </form>
+  </div>
+  <p class="derechos">© 2025 Pastelería Mil Sabores</p>
+</footer>
+
+<script src="js/data/data.js"></script>
+<script src="js/data/script.js"></script>
+</body>
+</html>

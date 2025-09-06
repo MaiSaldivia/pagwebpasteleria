@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrito · Mil Sabores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="container topbar__inner">
+    <div class="brand"><span class="brand__dot"></span><a class="brand__name" href="index.html">Mil Sabores</a></div>
+    <nav class="nav">
+      <a href="index.html" class="nav__link">Inicio</a>
+      <a href="productos.html" class="nav__link">Productos</a>
+      <a href="nosotros.html" class="nav__link">Nosotros</a>
+      <a href="blog.html" class="nav__link">Blog</a>
+      <a href="contacto.html" class="nav__link">Contacto</a>
+    </nav>
+    <div class="actions">
+      <a href="login.html" class="link">Iniciar sesión</a><span class="sep">|</span>
+      <a href="registro.html" class="link">Registrarse</a>
+      <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="container pad">
+  <h1 class="section-title">Carrito de compras</h1>
+  <div id="cartPage"><!-- renderCart() --></div>
+</main>
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div>
+      <p class="brand__name brand__name--footer">Mil Sabores</p>
+      <nav class="footer__links">
+        <a class="link" href="productos.html">Tortas Cuadradas</a>
+        <a class="link" href="productos.html">Tortas Circulares</a>
+        <a class="link" href="productos.html">Sin Azúcar</a>
+        <a class="link" href="productos.html">Veganas</a>
+        <a class="link" href="productos.html">Sin Gluten</a>
+      </nav>
+      <div class="pay"><span>💳</span><span>💳</span><span>🏦</span></div>
+    </div>
+    <form id="newsletterForm" class="newsletter" novalidate>
+      <label class="newsletter__label" for="email">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="newsletter__row"><input id="email" type="email" required placeholder="Ingresa tu email" />
+        <button class="btn btn--primary">Suscribirse</button></div>
+      <small id="emailHelp" class="help"></small>
+    </form>
+  </div>
+  <p class="copy">© 2025 Pastelería Mil Sabores</p>
+</footer>
+
+<script src="js/data/data.js"></script>
+<script src="js/data/script.js"></script>
+</body>
+</html>
