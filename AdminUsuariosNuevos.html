@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Nuevo Usuario</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/Admin.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <h2 class="sidebar__title">Mil Sabores</h2>
+      <nav class="sidebar__nav">
+        <a href="AdminHome.html" class="sidebar__link">🏠 Inicio</a>
+        <a href="AdminProductos.html" class="sidebar__link">🧁 Productos</a>
+        <a href="AdminUsuario.html" class="sidebar__link">👥 Usuarios</a>
+        <a href="index.html" class="sidebar__link">🛍️ Volver a tienda</a>
+        <a href="AdminLogin.html" class="sidebar__link logout">🚪 Cerrar sesión</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="admin-header">
+        <h1 class="admin-title">Nuevo Usuario</h1>
+        <p class="admin-subtitle">Completa el formulario para registrar un usuario.</p>
+      </header>
+
+      <form id="formUsuario" class="admin-form" novalidate>
+        <div class="form-group">
+          <label for="run">RUN</label>
+          <input type="text" id="run" name="run" required minlength="7" maxlength="9" placeholder="19011022K" />
+          <small class="help" id="runHelp"></small>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required maxlength="50" />
+            <small class="help" id="nombreHelp"></small>
+          </div>
+          <div class="form-group">
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos" name="apellidos" required maxlength="100" />
+            <small class="help" id="apellidosHelp"></small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="correo">Correo</label>
+          <input type="email" id="correo" name="correo" required maxlength="100" placeholder="usuario@duoc.cl" />
+          <small class="help" id="correoHelp"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="fechaNacimiento">Fecha de Nacimiento</label>
+          <input type="date" id="fechaNacimiento" name="fechaNacimiento" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rol">Tipo de Usuario</label>
+            <select id="rol" name="rol" required>
+              <option value="">-- Selecciona --</option>
+              <option value="Administrador">Administrador</option>
+              <option value="Vendedor">Vendedor</option>
+              <option value="Cliente">Cliente</option>
+            </select>
+            <small class="help" id="rolHelp"></small>
+          </div>
+          <div class="form-group">
+            <label for="region">Región</label>
+            <select id="region" name="region" required></select>
+            <small class="help" id="regionHelp"></small>
+          </div>
+          <div class="form-group">
+            <label for="comuna">Comuna</label>
+            <select id="comuna" name="comuna" required></select>
+            <small class="help" id="comunaHelp"></small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="direccion">Dirección</label>
+          <input type="text" id="direccion" name="direccion" required maxlength="300" />
+          <small class="help" id="direccionHelp"></small>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--principal">Guardar</button>
+          <a href="AdminUsuario.html" class="btn btn--secundario">Cancelar</a>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <script src="js/data/AdminValidaciones.js"></script>
+  <script src="js/data/DataAdmin.js"></script>
+</body>
+</html>

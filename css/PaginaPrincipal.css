@@ -1,244 +1,172 @@
-/* ==================================== */
-/* 1. CONFIGURACIÓN BÁSICA              */
-/* ==================================== */
-:root {
-  /* Paleta de colores */
-  --color-principal: #8a4f3a; /* Color para títulos y botones */
-  --color-texto: #333; /* Color oscuro para el texto */
-  --color-fondo: #f0f0f0; /* Color gris claro para fondos */
-  --color-blanco: #fff; /* Blanco */
+/* ====================================
+   1) TOKENS / BASE
+==================================== */
+:root{
+  /* Paleta unificada con el resto del sitio */
+  --bg:#FFF5E1;
+  --text:#5D4037;
+  --brand:#8a4f3a;
+  --brand-600:#6F3F2E;
+  --line:#e6ddcb;
+  --muted:#B0BEC5;
+  --surface:#fff;
 }
 
-/* Reglas básicas para todo el documento */
-body {
-  font-family: 'Lato', sans-serif;
-  color: var(--color-texto);
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
+body{
+  font-family:'Lato', sans-serif;
+  color:var(--text);
+  line-height:1.6;
+  margin:0;
+  padding:0;
+  background:var(--bg);           /* ← elimina el blanco del fondo */
 }
 
-/* Contenedor central para el contenido */
-.container {
-  max-width: 1200px; /* Ancho máximo de la página */
-  margin: 0 auto; /* Centrar el contenedor */
-  padding: 0 20px; /* Espacio a los lados */
+/* Contenedor */
+.container{ max-width:1200px; margin:0 auto; padding:0 20px; }
+
+/* Títulos */
+h1,h2,h3{
+  font-family:'Pacifico', cursive;
+  font-weight:400;
+  text-align:center;
+  margin-bottom:24px;
 }
 
-/* Títulos y fuentes */
-h1, h2, h3 {
-  font-family: 'Pacifico', cursive;
-  font-weight: normal;
-  text-align: center;
-  margin-bottom: 24px; /* Espacio inferior en píxeles */
+/* ====================================
+   2) HEADER (igual al resto)
+==================================== */
+.topbar{
+  background:#fff;
+  box-shadow:0 2px 5px rgba(0,0,0,.1);
+  padding:16px 0;
+  position:sticky; top:0; z-index:40;
+}
+.topbar__inner{ display:flex; justify-content:space-between; align-items:center; }
+.brand__name{
+  color:var(--brand);
+  font-size:28px;
+  text-decoration:none;
+  font-family:'Pacifico', cursive;
+  line-height:1;
+}
+.nav{ display:flex; gap:24px; }
+.nav__link{
+  color:#333; text-decoration:none; font-weight:bold;
+  padding:8px 10px; border-radius:8px;
+}
+.nav__link:hover{ background:#F7EFE1; text-decoration:none; }
+.actions{ display:flex; align-items:center; gap:16px; }
+.cart{ background:none; border:0; font-size:24px; cursor:pointer; }
+
+/* ====================================
+   3) BOTONES
+==================================== */
+.btn{
+  display:inline-block;
+  padding:10px 20px;
+  text-align:center;
+  text-decoration:none;
+  border-radius:10px;
+  font-weight:bold;
+  border:1px solid transparent;
+  transition:background .2s, transform .05s, box-shadow .15s;
+}
+.btn--principal{
+  background:var(--brand);
+  color:#fff;
+  border-color:var(--brand);
+  box-shadow:0 8px 18px rgba(139,69,19,.16);
+}
+.btn--principal:hover{ background:var(--brand-600); }
+.btn--secundario{
+  background:transparent; color:#fff; border:2px solid #fff;
+}
+.btn--secundario:hover{ background:#fff; color:var(--brand); }
+
+/* ====================================
+   4) HERO
+==================================== */
+.hero-alt{
+  height:60vh;
+  background-image:url('../img/vitrina1.png');
+  background-size:cover;
+  background-position:center;
+  color:#fff;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  text-align:center; padding:0 16px; position:relative;
+}
+.hero-alt::before{
+  content:""; position:absolute; inset:0; background:rgba(0,0,0,.4);
+}
+.hero-alt .container{ position:relative; z-index:1; }
+.title-alt{ font-size:48px; margin-bottom:16px; }
+.lead-alt{ font-size:19px; margin-bottom:32px; }
+
+/* ====================================
+   5) SECCIONES
+==================================== */
+.section{ padding:64px 0; }
+.section--clara{ background:#F7EFE1; }  /* tono del tema, no gris */
+
+/* Tarjetas demo (si usas grillas en index) */
+.products__grid, .blog__grid{
+  display:grid; gap:32px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
+.product-card, .blog-card{
+  background:#fff; border-radius:12px; overflow:hidden;
+  box-shadow:0 4px 8px rgba(0,0,0,.1);
+}
+.product-card__info, .blog-card__content{ padding:16px; text-align:center; }
+.product-card img, .blog-card img{ width:100%; height:auto; display:block; }
+
+/* ====================================
+   6) FOOTER (igual al resto)
+==================================== */
+.footer{
+  background:#F7EFE1;            /* ← footer claro */
+  color:var(--text);
+  padding:24px 0;
+  margin-top:40px;
+  border-top:1px solid var(--line);
+}
+.footer__grid{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:24px;
+}
+.brand__name--footer{
+  color:var(--brand);
+  font-size:28px;
+  margin-bottom:0;
+}
+.footer__links{
+  display:flex; gap:10px; flex-wrap:wrap;
+  margin:8px 0 12px;
+}
+.footer .link{ color:var(--brand); text-decoration:none; }
+.newsletter{ text-align:initial; }
+.newsletter__row{ display:flex; gap:8px; }
+.newsletter input{
+  padding:10px;
+  border:1px solid #bba48a;
+  border-radius:6px;
+  width:100%;
+  background:#fff;
+}
+.copy{
+  text-align:center;
+  padding-top:16px;
+  margin-top:16px;
+  color:var(--muted);
+  border-top:1px solid rgba(0,0,0,0);
 }
 
-/* ==================================== */
-/* 2. ENCABEZADO (HEADER)               */
-/* ==================================== */
-.topbar {
-  background-color: var(--color-blanco);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 16px 0; /* Espacio arriba y abajo */
-}
-
-.topbar__inner {
-  display: flex; /* Alinear elementos en fila */
-  justify-content: space-between; /* Espaciar elementos a los lados */
-  align-items: center; /* Alinear verticalmente */
-}
-
-.brand__name {
-  color: var(--color-principal);
-  font-size: 28px;
-  text-decoration: none;
-}
-
-.nav {
-  display: flex; /* Los enlaces se alinean en una fila */
-  gap: 24px; /* Espacio entre los enlaces */
-}
-
-.nav__link {
-  color: var(--color-texto);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.cart {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* ==================================== */
-/* 3. BOTONES Y ENLACES                 */
-/* ==================================== */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s ease; /* Efecto de transición al pasar el mouse */
-}
-
-.btn--principal {
-  background-color: var(--color-principal);
-  color: var(--color-blanco);
-  border: 2px solid var(--color-principal);
-}
-
-.btn--principal:hover {
-  background-color: #6a3e2e; /* Un tono más oscuro */
-}
-
-.btn--secundario {
-  background-color: transparent;
-  color: var(--color-blanco);
-  border: 2px solid var(--color-blanco);
-}
-
-.btn--secundario:hover {
-  background-color: var(--color-blanco);
-  color: var(--color-principal);
-}
-
-/* ==================================== */
-/* 4. SECCIÓN HERO                      */
-/* ==================================== */
-.hero-alt {
-  height: 60vh; /* 60% de la altura de la pantalla */
-  background-image: url('../img/vitrina1.png'); /* Imagen de fondo */
-  background-size: cover; /* Cubre todo el espacio */
-  background-position: center;
-  color: var(--color-blanco);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0 16px;
-  position: relative;
-}
-
-.hero-alt::before { /* Esto crea la capa oscura sobre la imagen */
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%; /* Ocupa el 100% del ancho */
-  height: 100%; /* Ocupa el 100% del alto */
-  background-color: rgba(0, 0, 0, 0.4); /* Negro con 40% de opacidad */
-}
-
-.hero-alt .container {
-  position: relative; /* Para que el contenido esté sobre la capa oscura */
-  z-index: 1;
-}
-
-.title-alt {
-  font-size: 48px;
-  margin-bottom: 16px;
-}
-
-.lead-alt {
-  font-size: 19px;
-  margin-bottom: 32px;
-}
-
-/* ==================================== */
-/* 5. SECCIONES DE CONTENIDO            */
-/* ==================================== */
-.section {
-  padding: 64px 0; /* Espacio arriba y abajo */
-}
-
-.section--clara {
-  background-color: var(--color-fondo);
-}
-
-/* Estilo para las tarjetas de productos y blog */
-.products__grid,
-.blog__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas que se ajustan automáticamente */
-  gap: 32px;
-}
-
-.product-card,
-.blog-card {
-  background-color: var(--color-blanco);
-  border-radius: 8px;
-  overflow: hidden; /* Ocultar el contenido que se sale de los bordes */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-.product-card__info,
-.blog-card__content {
-  padding: 16px;
-  text-align: center;
-}
-
-.product-card img,
-.blog-card img {
-  width: 100%; /* Ocupa el 100% del ancho del contenedor */
-  height: auto;
-  display: block;
-}
-
-/* ==================================== */
-/* 6. PIE DE PÁGINA (FOOTER)            */
-/* ==================================== */
-.footer {
-  background-color: var(--color-texto);
-  color: var(--color-blanco);
-  padding: 32px 0;
-}
-
-.footer__grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 32px;
-}
-
-.footer__links {
-  display: flex;
-  flex-direction: column;
-}
-
-.footer .link {
-  color: var(--color-blanco);
-}
-
-.newsletter {
-  text-align: right;
-}
-
-.newsletter__row {
-  display: flex;
-  gap: 8px;
-}
-
-.newsletter input {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  width: 100%;
-}
-
-.copy {
-  text-align: center;
-  padding-top: 16px;
-  margin-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+/* ====================================
+   7) RESPONSIVE
+==================================== */
+@media (max-width:768px){
+  .footer__grid{ grid-template-columns:1fr; }
+  .brand__name--footer, .footer__links, .newsletter{ text-align:center; }
+  .newsletter__row{ flex-direction:column; }
 }

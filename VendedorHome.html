@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vendedor | Inicio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/Vendedor.css" />
+</head>
+<body data-role="Vendedor">
+  <div class="vendedor-layout">
+    <aside class="vendedor-sidebar">
+      <h2 class="sidebar__title">Mil Sabores</h2>
+      <nav class="sidebar__nav">
+        <a href="VendedorHome.html" class="sidebar__link active">🏠 Inicio</a>
+        <a href="VendedorPedidos.html" class="sidebar__link">🛒 Pedidos</a>
+        <a href="VendedorInventario.html" class="sidebar__link">📦 Inventario</a>
+        <a href="VendedorClientes.html" class="sidebar__link">👥 Clientes</a>
+        <a href="index.html" class="sidebar__link">🛍️ Volver a tienda</a>
+        <button id="logoutBtn" class="sidebar__link logout">🚪 Cerrar sesión</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="vendedor-header">
+        <h1 class="vendedor-title">Panel de Vendedor</h1>
+        <p class="vendedor-subtitle">Bienvenido, aquí tienes un resumen de tus tareas.</p>
+      </header>
+
+      <section class="vendedor-widgets">
+        <div class="widget">
+          <h3>Pedidos Pendientes</h3>
+          <p>Revisa y gestiona los pedidos por preparar y enviar.</p>
+          <a href="VendedorPedidos.html" class="btn btn--principal">Ir a Pedidos</a>
+        </div>
+
+        <div class="widget">
+          <h3>Inventario Crítico</h3>
+          <p>Identifica los productos con bajo stock para reponer.</p>
+          <a href="VendedorInventario.html" class="btn btn--principal">Revisar Inventario</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/data/guard.js" defer></script>
+</body>
+</html>

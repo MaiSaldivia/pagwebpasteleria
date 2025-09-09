@@ -1,241 +1,138 @@
-/* Reinicio universal */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ===============================
+   Reset
+=============================== */
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ===============================
+   Tokens (alineados al tema)
+=============================== */
+:root{
+  --bg:#FFF5E1;
+  --text:#5D4037;
+  --line:#e6ddcb;
+  --muted:#B0BEC5;
+  --choco:#8B4513;           /* color marca */
+  --surface:#fff;            /* tarjetas blancas */
+  --radius:12px;
+  --shadow:0 10px 24px rgba(139,69,19,.08);
 }
 
-/* Estilos básicos */
-body {
-    background-color: #FFF5E1;
-    color: #333;
+/* ===============================
+   Base
+=============================== */
+body{ background:var(--bg); color:var(--text); font-family:'Lato',sans-serif; }
+a{ color:var(--choco); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+.container{ max-width:1200px; margin:0 auto; padding:0 16px; }
+
+/* ===============================
+   Main / Registro
+=============================== */
+.main{ max-width:900px; margin:24px auto; padding:0 16px; }
+
+.auth-hero{ text-align:center; margin-bottom:24px; }
+.auth-title{ font-size:2.2rem; color:var(--choco); }
+
+/* Card del formulario */
+.auth-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.card-header{
+  background:#F7EFE1;
+  border-bottom:1px solid var(--line);
+  text-transform:none;            /* sin mayúsculas forzadas */
+  font-weight:700;
+  text-align:center;
+  padding:12px;
+  border-radius:var(--radius) var(--radius) 0 0;
 }
 
-a {
-    text-decoration: none;
-    color: #8B4513;
+.auth-form{ padding:20px; }
+.form-group{ margin-bottom:16px; }
+.form-group label{ display:block; margin-bottom:8px; font-weight:600; color:var(--text); }
+
+.form-control{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid #bba48a;
+  border-radius:10px;
+  background:#fff;
+  outline:none;
+}
+.form-control:focus{
+  border-color:#d8c8b8;
+  box-shadow:0 0 0 3px rgba(139,69,19,.10);
 }
 
-a:hover {
-    text-decoration: underline;
+.grid-2{ display:grid; grid-template-columns:1fr; gap:16px; }
+@media (min-width:600px){ .grid-2{ grid-template-columns:1fr 1fr; } }
+
+.form-actions{ margin-top:24px; text-align:center; }
+
+/* Botones (tema unificado) */
+.btn{
+  padding:12px 20px;
+  border-radius:10px;
+  border:1px solid transparent;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .15s, box-shadow .15s;
+}
+.btn-primary{
+  background:var(--choco);
+  color:#fff;
+  border-color:var(--choco);
+  box-shadow:0 8px 18px rgba(139,69,19,.16);
+}
+.btn-primary:hover{ background:#6F3F2E; }
+
+/* ===============================
+   Footer (mismo estilo global)
+=============================== */
+.footer{
+  background:#f7efe1;
+  border-top:1px solid var(--line);
+  margin-top:40px;
+  padding:24px 16px;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+  max-width:1200px;
+  margin:auto;
+}
+@media (min-width:768px){
+  .footer-grid{ grid-template-columns:1.2fr 1fr; }
+}
+.footer-links-col{ display:flex; flex-direction:column; gap:8px; }
+.footer-link{ font-size:14px; color:var(--text); }
+.pay-icons span{ font-size:1.5rem; margin-right:5px; }
+
+.newsletter-form{ display:flex; flex-direction:column; gap:10px; }
+.newsletter-row{ display:flex; gap:10px; }
+.newsletter-row input{
+  flex:1; padding:10px;
+  border:1px solid #bba48a; border-radius:10px; background:#fff;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-}
+.copy{ text-align:center; margin-top:14px; color:var(--muted); }
 
-/* --- Encabezado --- */
-.header {
-    background: #e9e3d3;
-    border-bottom: 1px solid #e6ddcb;
-    padding: 12px 16px;
+/* ===============================
+   (Opcional) Si tu registro.html
+   usa estas clases en el header.
+   No afectan si no existen.
+=============================== */
+.brand-name{
+  font-family:'Pacifico',cursive;
+  font-size:28px;
+  color:var(--choco);
 }
-
-.header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 18px;
-    max-width: 1200px;
-    margin: auto;
+.nav-link{
+  color:#333; text-decoration:none; font-weight:bold;
+  padding:8px 10px; border-radius:8px;
 }
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.brand-dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #8B4513;
-}
-
-.brand-name {
-    font-family: 'Pacifico', cursive;
-    font-size: 24px;
-    color: #8B4513;
-}
-
-.nav {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-}
-
-.nav-link {
-    color: #333;
-}
-
-.actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.sep {
-    color: #B0BEC5;
-}
-
-.cart-btn {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-}
-
-/* --- Contenido Principal y Formulario --- */
-.main {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 0 16px;
-}
-
-.auth-hero {
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.auth-title {
-    font-size: 2.2rem;
-    color: #8B4513;
-}
-
-.auth-card {
-    background: #eee5d7;
-    border-radius: 12px;
-    border: 1px solid #e6ddcb;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.06) inset;
-}
-
-.card-header {
-    background: #e2d7c7;
-    border-bottom: 1px solid #d9cdbb;
-    text-transform: uppercase;
-    font-weight: 700;
-    text-align: center;
-    padding: 12px;
-    border-radius: 12px 12px 0 0;
-}
-
-.auth-form {
-    padding: 20px;
-}
-
-.form-group {
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.form-control {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #bba48a;
-    border-radius: 6px;
-    background: white;
-}
-
-.grid-2 {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-}
-
-@media (min-width: 600px) {
-    .grid-2 {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-.form-actions {
-    margin-top: 24px;
-    text-align: center;
-}
-
-.btn {
-    padding: 12px 20px;
-    border-radius: 8px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-primary {
-    background-color: #FFC0CB;
-    color: #333;
-}
-
-.btn-primary:hover {
-    background-color: #FFB0C0;
-}
-
-/* --- Pie de Página --- */
-.footer {
-    background: #f7efe1;
-    border-top: 1px solid #e6ddcb;
-    margin-top: 40px;
-    padding: 24px 16px;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    max-width: 1200px;
-    margin: auto;
-}
-
-@media (min-width: 768px) {
-    .footer-grid {
-        grid-template-columns: 1.2fr 1fr;
-    }
-}
-
-.footer-links-col {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.footer-link {
-    font-size: 14px;
-}
-
-.pay-icons span {
-    font-size: 1.5rem;
-    margin-right: 5px;
-}
-
-.newsletter-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.newsletter-row {
-    display: flex;
-    gap: 10px;
-}
-
-.newsletter-row input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.copy {
-    text-align: center;
-    margin-top: 14px;
-    color: #B0BEC5;
-}
+.nav-link:hover{ background:#F7EFE1; text-decoration:none; }

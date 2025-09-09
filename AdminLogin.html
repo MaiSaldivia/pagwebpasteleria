@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Iniciar Sesión</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/Admin.css" />
+</head>
+<body class="login-body">
+  <main class="login-container">
+    <div class="login-card">
+      <h1 class="login-title">Panel Administrativo</h1>
+      <form id="adminLoginForm" class="login-form" novalidate>
+        <div class="form-group">
+          <label for="correo">Correo</label>
+          <input type="email" id="correo" name="correo" placeholder="ejemplo@duoc.cl" required />
+          <small class="help" id="correoHelp"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="contrasena">Contraseña</label>
+          <input type="password" id="contrasena" name="contrasena" placeholder="********" required minlength="4" maxlength="10" />
+          <small class="help" id="contrasenaHelp"></small>
+        </div>
+
+        <button type="submit" class="btn btn--principal">Ingresar</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer-login">
+    <p class="copy">© 2025 Pastelería Mil Sabores - Admin</p>
+  </footer>
+
+  <!-- Data primero, validaciones después (rutas correctas) -->
+  <script src="js/data/DataAdmin.js" defer></script>
+  <script src="js/data/AdminValidaciones.js" defer></script>
+
+
+</body>
+</html>

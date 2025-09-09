@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Nuevo Producto</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/Admin.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <h2 class="sidebar__title">Mil Sabores</h2>
+      <nav class="sidebar__nav">
+        <a href="AdminHome.html" class="sidebar__link">🏠 Inicio</a>
+        <a href="AdminProductos.html" class="sidebar__link">🧁 Productos</a>
+        <a href="AdminUsuario.html" class="sidebar__link">👥 Usuarios</a>
+        <a href="index.html" class="sidebar__link">🛍️ Volver a tienda</a>
+        <a href="AdminLogin.html" class="sidebar__link logout">🚪 Cerrar sesión</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="admin-header">
+        <h1 class="admin-title">Nuevo Producto</h1>
+        <p class="admin-subtitle">Completa el formulario para registrar un producto.</p>
+      </header>
+
+      <form id="formProducto" class="admin-form" novalidate>
+        <div class="form-group">
+          <label for="codigo">Código</label>
+          <input type="text" id="codigo" name="codigo" required minlength="3" />
+          <small class="help" id="codigoHelp"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" required maxlength="100" />
+          <small class="help" id="nombreHelp"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" name="descripcion" maxlength="500"></textarea>
+          <small class="help" id="descripcionHelp"></small>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="precio">Precio ($)</label>
+            <input type="number" id="precio" name="precio" required min="0" step="0.01" />
+            <small class="help" id="precioHelp"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" name="stock" required min="0" />
+            <small class="help" id="stockHelp"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="stockCritico">Stock Crítico</label>
+            <input type="number" id="stockCritico" name="stockCritico" min="0" />
+            <small class="help" id="stockCriticoHelp"></small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoría</label>
+          <select id="categoria" name="categoria" required>
+            <option value="">-- Selecciona --</option>
+            <option value="Tortas">Tortas</option>
+            <option value="Pasteles">Pasteles</option>
+            <option value="Cupcakes">Cupcakes</option>
+            <option value="Otros">Otros</option>
+          </select>
+          <small class="help" id="categoriaHelp"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="imagen">Imagen (URL)</label>
+          <input type="url" id="imagen" name="imagen" placeholder="https://..." />
+          <small class="help" id="imagenHelp"></small>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--principal">Guardar</button>
+          <a href="AdminProductos.html" class="btn btn--secundario">Cancelar</a>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <script src="js/data/DataAdmin.js"></script>
+  <script src="js/data/AdminValidaciones.js"></script>
+</body>
+</html>

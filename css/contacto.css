@@ -1,197 +1,154 @@
-/*
-    Estilos para la barra de navegación
-*/
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ===============================
+   Reset
+=============================== */
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+/* Tokens locales (respetan los globales de styles.css) */
+:root{
+  --brand:     var(--choco, #8B4513);
+  --brand-600: #6F3F2E;
+  --bgc:       var(--bg, #FFF5E1);
+  --linec:     var(--line, #e6ddcb);
+  --textc:     var(--text, #5D4037);
+  --mutedc:    var(--muted, #B0BEC5);
+  --surface:   #fff;
+  --shadow:    0 10px 24px rgba(139,69,19,.08);
+  --radius:    12px;
 }
 
-body {
-    background-color: #f0f2f5;
-}
+body{ background:var(--bgc); color:var(--textc); font-family:'Lato',sans-serif; }
 
-.navbar {
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    background-color: #333;
-    overflow: hidden;
-    z-index: 1000;
-    position: relative;
-    margin-bottom: 20px;
+/* ===============================
+   Header (igual al resto)
+=============================== */
+.topbar{
+  background:#fff;
+  box-shadow:0 2px 5px rgba(0,0,0,.1);
+  padding:16px 0;
+  position:sticky; top:0; z-index:40;
+  border-bottom:1px solid var(--linec);
 }
-
-.navbar a {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
+.topbar__inner{ display:flex; justify-content:space-between; align-items:center; }
+.brand__name{
+  font-family:'Pacifico',cursive; font-weight:400; font-size:28px;
+  color:var(--brand); text-decoration:none; line-height:1;
 }
-
-/* -------------------------------------------------- */
-
-/* Estilos de la sección principal de contacto */
-.main-content {
-    padding-bottom: 50px;
+.nav{ display:flex; gap:24px; }
+.nav__link{
+  color:#333; text-decoration:none; font-weight:bold;
+  padding:8px 10px; border-radius:8px;
 }
+.nav__link:hover{ background:#F7EFE1; text-decoration:none; }
+.actions{ display:flex; align-items:center; gap:16px; }
+.cart{ background:none; border:0; font-size:24px; cursor:pointer; }
 
-.main-contacto {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0;
-}
+/* ===============================
+   Sección principal
+=============================== */
+.main-content{ padding-bottom:50px; }
 
-.contacto-wrapper {
-    position: relative;
-    width: 900px;
-    height: 500px;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    padding-left: 50px;
-    color: white;
+.main-contacto{
+  display:flex; justify-content:center; align-items:center;
+  padding:50px 0;
 }
+.contacto-wrapper{
+  position:relative; width:min(900px,100%); height:500px;
+  background-size:cover; background-position:center;
+  display:flex; align-items:center; padding-left:50px; color:#fff;
+  border-radius:var(--radius); overflow:hidden;
+  box-shadow:var(--shadow); border:1px solid var(--linec);
+  background-color:#ddd; /* fallback si no hay imagen */
+}
+.contacto-wrapper::before{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.30); z-index:1; }
+.contacto-info{ position:relative; z-index:2; font-size:20px; width:420px; max-width:90%; }
+.contacto-info h1{ font-size:40px; margin-bottom:10px; }
+.contacto-info p{ font-size:16px; margin:5px 0; }
 
-.contacto-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: 1;
+/* Tarjeta del formulario */
+.formulario-flotante{
+  position:absolute; right:50px; width:350px; max-width:92%;
+  background:#fff; padding:24px; border:1px solid var(--linec);
+  border-radius:var(--radius); box-shadow:var(--shadow); z-index:2;
 }
-
-.contacto-info {
-    position: relative;
-    z-index: 2;
-    font-size: 20px;
-    width: 400px;
-}
-
-.contacto-info h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
-
-.contacto-info p {
-    font-size: 16px;
-    margin: 5px 0;
-}
-
-.formulario-flotante {
-    position: absolute;
-    right: 50px;
-    width: 350px;
-    background-color: white;
-    padding: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 2;
-}
-
-.formulario-contacto {
-    width: 100%;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #666;
-}
+.formulario-contacto{ width:100%; }
+.form-group{ margin-bottom:16px; }
+.form-group label{ display:block; margin:0 0 6px; font-size:14px; color:#6b5f53; font-weight:600; }
 
 .form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+.form-group textarea{
+  width:100%; padding:10px 12px;
+  border:1px solid #bba48a; border-radius:8px; background:#fff; outline:none;
 }
-
-.form-group textarea {
-    height: 100px;
-    resize: none;
+.form-group input:focus,
+.form-group textarea:focus{
+  border-color:#d8c8b8; box-shadow:0 0 0 3px rgba(139,69,19,.10);
 }
+.form-group textarea{ min-height:110px; resize:vertical; }
 
-.boton-enviar {
-    width: 100%;
-    padding: 12px;
-    background-color: #a0522d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
+/* ===============================
+   Botones (unificados, sin rosados)
+=============================== */
+
+/* botón del formulario */
+.boton-enviar{
+  width:100%; padding:12px 14px;
+  background:var(--brand) !important;
+  color:#fff !important;
+  border:1px solid var(--brand) !important;
+  border-radius:10px; cursor:pointer; font-weight:700; font-size:16px;
+  box-shadow:0 8px 18px rgba(139,69,19,.16);
+  transition:background .15s;
 }
+.boton-enviar:hover{ background:var(--brand-600) !important; }
 
-.boton-enviar:hover {
-    background-color: #8c4626;
+/* mapea cualquier clase antigua que aún uses */
+.btn--principal,
+.btn--primary{
+  background:var(--brand) !important;
+  color:#fff !important;
+  border:1px solid var(--brand) !important;
+  border-radius:10px;
+  box-shadow:0 8px 18px rgba(139,69,19,.16);
 }
+.btn--principal:hover,
+.btn--primary:hover{ background:var(--brand-600) !important; }
 
-/* -------------------------------------------------- */
-
-/*
-    Estilos para el pie de página que proporcionaste
-*/
-.pieFondo {
-    width: 100vw;
-    background-color: #232121;
-    color: #ffffff; 
-    padding: 40px 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 30px;
+/* ===============================
+   Footer (mismo que global)
+=============================== */
+.footer{
+  background:#f7efe1; padding:24px 0; margin-top:40px;
+  border-top:1px solid var(--linec);
 }
-
-.logoTexto {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
+.footer__grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:24px; }
+.brand__name--footer{ color:var(--brand); font-size:28px; margin-bottom:0; }
+.footer__links{ display:flex; gap:10px; flex-wrap:wrap; margin:8px 0 12px; }
+.footer .link{ color:var(--brand); text-decoration:none; }
+.pay{ display:flex; gap:8px; font-size:24px; }
+.newsletter{ text-align:initial; }
+.newsletter__row{ display:flex; gap:8px; }
+.newsletter input{
+  width:100%; padding:10px;
+  border:1px solid #bba48a; border-radius:5px; background:#fff;
 }
+/* botón de newsletter (por si usa .btn--principal/.btn--primary) */
+.newsletter button{ border-radius:10px; }
 
-.slogan {
-    font-size: 23px;
-    letter-spacing: 2px;
-    margin: 0;
+/* Copyright */
+.copy{ text-align:center; color:var(--mutedc); margin:14px 0 0; }
+
+/* ===============================
+   Responsive
+=============================== */
+@media (max-width:900px){
+  .contacto-wrapper{ padding-left:24px; }
+  .formulario-flotante{ right:24px; }
 }
-
-.Informacion, .Redsocial {
-    text-align: left;
-}
-
-.Informacion h3, .Redsocial h3 {
-    font-size: 27px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.Informacion p {
-    margin: 5px;
-}
-
-.social-icon {
-    width: 30px;
-    height: 30px;
-    background-color: #333;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    border-radius: 5px;
+@media (max-width:680px){
+  .contacto-wrapper{ height:auto; padding:22px; align-items:flex-start; }
+  .formulario-flotante{ position:static; width:100%; margin-top:16px; }
+  .contacto-info{ width:100%; }
+  .footer__grid{ grid-template-columns:1fr; }
+  .brand__name--footer, .footer__links, .pay, .newsletter{ text-align:center; margin:0 auto; }
+  .newsletter__row{ flex-direction:column; }
 }

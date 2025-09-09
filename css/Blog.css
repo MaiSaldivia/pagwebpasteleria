@@ -5,6 +5,7 @@
   --color-blanco: #fff;
 }
 
+/* ===== Base ===== */
 body {
   font-family: 'Lato', sans-serif;
   color: var(--color-texto);
@@ -12,12 +13,7 @@ body {
   margin: 0;
   padding: 0;
 }
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
 h1, h2, h3 {
   font-family: 'Pacifico', cursive;
@@ -26,230 +22,129 @@ h1, h2, h3 {
   margin-bottom: 24px;
 }
 
-/* ==================================== */
-/* 2. ENCABEZADO (HEADER) Y PIE DE PÁGINA (FOOTER) */
-/* (Manten los estilos que ya tienes) */
-/* ==================================== */
+/* ===== Header (igual al resto) ===== */
 .topbar {
   background-color: var(--color-blanco);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 16px 0;
+  position: sticky; top: 0; z-index: 40;
 }
+.topbar__inner { display: flex; justify-content: space-between; align-items: center; }
+.brand__name { color: var(--color-principal); font-size: 28px; text-decoration: none; }
+.nav { display: flex; gap: 24px; }
+.nav__link { color: var(--color-texto); text-decoration: none; font-weight: bold; }
+.actions { display: flex; align-items: center; gap: 16px; }
+.cart { background: none; border: none; font-size: 24px; cursor: pointer; }
 
-.topbar__inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* ===== Footer (igual al global de styles.css) ===== */
+.footer{
+  background: #f7efe1;
+  color: var(--color-texto);
+  padding: 24px 0;
+  margin-top: 40px;
+  border-top: 1px solid #e6ddcb; /* var(--line) en styles.css */
 }
-
-.brand__name {
-  color: var(--color-principal);
-  font-size: 28px;
-  text-decoration: none;
-}
-
-.nav {
-  display: flex;
+.footer__grid{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
   gap: 24px;
 }
-
-.nav__link {
-  color: var(--color-texto);
-  text-decoration: none;
-  font-weight: bold;
+.brand__name--footer{
+  color: #8B4513;               /* var(--choco) */
+  font-size: 28px;
+  margin-bottom: 0;
 }
-
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.cart {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.footer {
-  background-color: var(--color-texto);
-  color: var(--color-blanco);
-  padding: 32px 0;
-}
-
-.footer__grid {
+.footer__links{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 32px;
+  gap: 10px;
+  margin: 8px 0 12px;
 }
-
-.brand__name--footer {
-  color: var(--color-blanco);
-  font-size: 28px;
-  margin-bottom: 16px;
-}
-
-.footer__links {
-  display: flex;
-  flex-direction: column;
-}
-
-.footer .link {
-  color: var(--color-blanco);
+.footer .link{
+  color: #8B4513;               /* var(--choco) */
   text-decoration: none;
 }
-
-.pay {
+.pay{
   display: flex;
+  gap: 8px;
   font-size: 24px;
-  gap: 8px;
-  margin-top: 16px;
+  margin-top: 0;
 }
-
-.newsletter {
-  text-align: right;
-}
-
-.newsletter__row {
-  display: flex;
-  gap: 8px;
-}
-
-.newsletter input {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
+.newsletter{ text-align: initial; }
+.newsletter__row{ display: flex; gap: 8px; }
+.newsletter input{
   width: 100%;
+  padding: 10px;
+  border: 1px solid #bba48a;
+  border-radius: 5px;
+  background: #fff;
 }
-
-.copy {
+.copy{
   text-align: center;
-  padding-top: 16px;
-  margin-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #B0BEC5;               /* var(--muted) */
+  margin: 14px 0 0;
+  padding-top: 0;
+  border-top: none;
 }
 
-/* ==================================== */
-/* 3. ESTILOS DE PÁGINA DE BLOG (¡NUEVO!) */
-/* ==================================== */
-.contenedor-blog {
-  padding: 40px 0;
-}
-
+/* ===== Página Blog ===== */
+.contenedor-blog { padding: 40px 0; }
 .titulo-principal-blog {
   font-size: 48px;
   color: var(--color-principal);
   margin-bottom: 40px;
 }
-
-.articulo-blog {
-  min-height: 400px; /* Tamaño mínimo para que se vean bien las imágenes */
+.articulo-blog{
+  min-height: 400px;
   background-size: cover;
   background-position: center;
   border-radius: 10px;
   position: relative;
   margin-bottom: 40px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,.2);
+  display: flex; align-items: center; justify-content: center;
 }
-
-/* Capa semitransparente para el texto */
-.articulo-blog::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1;
+.articulo-blog::before{
+  content:""; position:absolute; inset:0;
+  background: rgba(0,0,0,.4); z-index:1;
 }
-
-.contenido-blog {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  color: var(--color-blanco);
-  max-width: 70%;
+.contenido-blog{
+  position: relative; z-index: 2; text-align: center; color: #fff; max-width: 70%;
 }
-
-.titulo-articulo {
-  font-family: 'Lato', sans-serif;
-  font-size: 32px;
-  margin-bottom: 15px;
-  color: var(--color-blanco);
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+.titulo-articulo{
+  font-family:'Lato', sans-serif; font-size:32px; margin-bottom:15px;
+  color:#fff; text-shadow:1px 1px 3px rgba(0,0,0,.6);
 }
+.resumen-articulo{ font-size:18px; margin-bottom:20px; }
 
-.resumen-articulo {
-  font-size: 18px;
-  margin-bottom: 20px;
+/* Imágenes */
+.articulo-blog--1 { background-image: url('../img/blog1.png'); }
+.articulo-blog--2 { background-image: url('../img/blog2.png'); }
+
+/* Botones */
+.btn{
+  display:inline-block; padding:12px 24px; text-align:center;
+  text-decoration:none; border-radius:5px; font-weight:bold;
+  transition: background-color .3s ease;
 }
-
-/* Imágenes de fondo para cada blog */
-.articulo-blog--1 {
-  background-image: url('../img/blog1.png');
-}
-
-.articulo-blog--2 {
-  background-image: url('../img/blog2.png');
-}
-
-/* ==================================== */
-/* 4. BOTONES Y ENLACES                 */
-/* (Manten los estilos que ya tienes) */
-/* ==================================== */
-.btn {
-  display: inline-block;
-  padding: 12px 24px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.btn--principal {
+.btn--principal{
   background-color: var(--color-principal);
-  color: var(--color-blanco);
-  border: 2px solid var(--color-principal);
+  color:#fff; border:2px solid var(--color-principal);
 }
+.btn--principal:hover{ background-color:#6a3e2e; }
 
-.btn--principal:hover {
-  background-color: #6a3e2e;
-}
+/* ===== Responsive ===== */
+@media (max-width: 768px){
+  .articulo-blog{ padding:20px; min-height:300px; }
+  .contenido-blog{ max-width:90%; }
+  .titulo-articulo{ font-size:24px; }
+  .resumen-articulo{ font-size:16px; }
 
-/* ==================================== */
-/* 5. MEDIA QUERIES (RESPONSIVIDAD)     */
-/* ==================================== */
-@media (max-width: 768px) {
-  .articulo-blog {
-    padding: 20px;
-    min-height: 300px;
+  /* Footer responsive igual al global */
+  .footer__grid{ grid-template-columns: 1fr; }
+  .brand__name--footer, .footer__links, .pay, .newsletter{
+    text-align: center; margin: 0 auto;
   }
-  .contenido-blog {
-    max-width: 90%;
-  }
-  .titulo-articulo {
-    font-size: 24px;
-  }
-  .resumen-articulo {
-    font-size: 16px;
-  }
-  .footer__grid {
-    flex-direction: column;
-    text-align: center;
-  }
-  .brand__name--footer, .footer__links, .pay, .newsletter {
-    text-align: center;
-    margin: 0 auto;
-  }
-  .newsletter__row {
-    flex-direction: column;
-  }
+  .newsletter__row{ flex-direction: column; }
 }

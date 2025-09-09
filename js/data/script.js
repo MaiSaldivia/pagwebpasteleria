@@ -154,7 +154,7 @@ function renderCart(){
         </div>
       </section>
 
-      <aside class="cart-summary">
+      <aside class="cart-summary" data-cart-summary>
         <h3>Total del carrito</h3>
 
         <div class="sum-row">
@@ -170,6 +170,16 @@ function renderCart(){
             <option value="6000" ${shipCost===6000?'selected':''}>Envío regional ($6.000)</option>
           </select>
         </div>
+
+        <!-- ===== Vista del cupón (solo UI) ===== -->
+        <div class="coupon-box">
+          <label for="couponInput" class="coupon-label">Ingrese el cupón de descuento</label>
+          <div class="coupon-row">
+            <input type="text" id="couponInput" class="coupon-input" placeholder="Ej: DUOC10" />
+            <button type="button" class="coupon-btn" id="couponBtn">APLICAR</button>
+          </div>
+        </div>
+        <!-- ===================================== -->
 
         <div class="sum-row total">
           <span>Total</span>
@@ -218,6 +228,7 @@ function renderCart(){
     alert("¡Gracias! (demo)\nTotal: " + ($("#sum-total")?.textContent || ""));
   });
 }
+
 
 /* ======= Validaciones ======= */
 const EMAIL_OK = /@(?:duocuc\.cl|profesor\.duoc\.cl|gmail\.com)$/i;

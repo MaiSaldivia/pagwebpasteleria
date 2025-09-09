@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vendedor | Pedidos</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/Vendedor.css" />
+</head>
+<body>
+  <div class="vendedor-layout">
+    <aside class="vendedor-sidebar">
+      <h2 class="sidebar__title">Mil Sabores</h2>
+      <nav class="sidebar__nav">
+        <a href="VendedorHome.html" class="sidebar__link">🏠 Inicio</a>
+        <a href="VendedorPedidos.html" class="sidebar__link active">🛒 Pedidos</a>
+        <a href="VendedorInventario.html" class="sidebar__link">📦 Inventario</a>
+        <a href="VendedorClientes.html" class="sidebar__link">👥 Clientes</a>
+        <a href="index.html" class="sidebar__link logout">🚪 Volver a tienda</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="vendedor-header">
+        <h1 class="vendedor-title">Pedidos Pendientes</h1>
+        <p class="vendedor-subtitle">Tabla de pedidos para preparar o enviar.</p>
+      </header>
+
+      <section class="table-section">
+        <table class="vendedor-table" id="tablaPedidos">
+          <thead>
+            <tr>
+              <th>ID Pedido</th>
+              <th>Cliente</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script src="js/data/Vendedor.js"></script>
+</body>
+</html>

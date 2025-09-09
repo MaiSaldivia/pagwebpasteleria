@@ -4,29 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
 <header class="topbar">
-    <div class="container topbar__inner">
-        <div class="brand">
-            <span class="brand__dot" aria-hidden="true"></span>
-            <a class="brand__name" href="index.html">Mil Sabores</a>
-        </div>
-        <nav class="nav">
-            <a href="index.html" class="nav__link">Inicio</a>
-            <a href="productos.html" class="nav__link">Productos</a>
-            <a href="nosotros.html" class="nav__link">Nosotros</a>
-            <a href="blog.html" class="nav__link">Blog</a>
-            <a href="contacto.html" class="nav__link">Contacto</a>
-        </nav>
-        <div class="actions">
-            <a href="login.html" class="link">Iniciar sesión</a><span class="sep">|</span>
-            <a href="registro.html" class="link">Registrarse</a>
-            <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
-        </div>
+  <div class="container topbar__inner">
+    <div class="brand">
+      <a class="brand__name" href="index.html">Mil Sabores</a>
     </div>
+
+    <nav class="nav">
+      <a href="index.html" class="nav__link">Inicio</a>
+      <a href="productos.html" class="nav__link">Productos</a>
+      <a href="nosotros.html" class="nav__link">Nosotros</a>
+      <a href="blog.html" class="nav__link">Blog</a>
+      <a href="contacto.html" class="nav__link">Contacto</a>
+    </nav>
+
+    <div class="actions">
+      <a href="login.html" class="link">Iniciar sesión</a>
+      <a href="registro.html" class="link">Registrarse</a>
+      <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+    </div>
+  </div>
 </header>
 
 <main class="container pad auth">
@@ -35,7 +38,12 @@
     </section>
 
     <section class="auth-card">
-        <div class="auth-card__header">Inicio de sesión</div>
+        <div class="auth-card__header">
+            Inicio de sesión
+            <a href="AdminLogin.html" title="Panel administrativo" style="margin-left:8px; text-decoration:none; font-size:1.2rem;">
+                👤
+            </a>
+        </div>
 
         <form id="loginForm" class="auth-form" novalidate>
             <div class="form-row">

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Usuarios</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/Admin.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <h2 class="sidebar__title">Mil Sabores</h2>
+      <nav class="sidebar__nav">
+        <a href="AdminHome.html" class="sidebar__link">🏠 Inicio</a>
+        <a href="AdminProductos.html" class="sidebar__link">🧁 Productos</a>
+        <a href="AdminUsuario.html" class="sidebar__link active">👥 Usuarios</a>
+        <a href="index.html" class="sidebar__link">🛍️ Volver a tienda</a>
+        <a href="AdminLogin.html" class="sidebar__link logout">🚪 Cerrar sesión</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="admin-header">
+        <h1 class="admin-title">Gestión de Usuarios</h1>
+        <p class="admin-subtitle">Administra los clientes, vendedores y administradores del sistema.</p>
+      </header>
+
+      <div class="actions-top">
+        <a href="AdminUsuariosNuevos.html" class="btn btn--principal">➕ Nuevo Usuario</a>
+      </div>
+
+      <section class="table-section">
+        <table class="admin-table" id="tablaUsuarios">
+          <thead>
+            <tr>
+              <th>RUN</th>
+              <th>Nombre</th>
+              <th>Apellidos</th>
+              <th>Correo</th>
+              <th>Rol</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/data/DataAdmin.js"></script>
+  <script src="js/data/Admin.js"></script>
+</body>
+</html>

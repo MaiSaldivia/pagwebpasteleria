@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Panel Principal</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/Admin.css" />
+</head>
+<body data-role="Administrador">
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <h2 class="sidebar__title">Mil Sabores</h2>
+      <nav class="sidebar__nav">
+        <a href="AdminHome.html" class="sidebar__link active">🏠 Inicio</a>
+        <a href="AdminProductos.html" class="sidebar__link">🧁 Productos</a>
+        <a href="AdminUsuario.html" class="sidebar__link">👥 Usuarios</a>
+        <a href="index.html" class="sidebar__link">🛍️ Volver a tienda</a>
+        <button id="logoutBtn" class="sidebar__link logout">🚪 Cerrar sesión</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="admin-header">
+        <h1 class="admin-title">Panel Administrativo</h1>
+        <p class="admin-subtitle">Bienvenido al sistema de gestión de Pastelería Mil Sabores</p>
+      </header>
+
+      <section class="admin-widgets">
+        <div class="widget">
+          <h3>Productos</h3>
+          <p>Gestiona el inventario, agrega nuevos y controla stock.</p>
+          <a href="AdminProductos.html" class="btn btn--principal">Ir a Productos</a>
+        </div>
+
+        <div class="widget">
+          <h3>Usuarios</h3>
+          <p>Administra clientes, vendedores y administradores.</p>
+          <a href="AdminUsuario.html" class="btn btn--principal">Ir a Usuarios</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/data/guard.js" defer></script>
+</body>
+</html>
