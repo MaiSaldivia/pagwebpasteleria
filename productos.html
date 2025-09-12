@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/productos.css" />
   <link rel="stylesheet" href="css/styles.css">
-
 </head>
 <body>
 <header class="topbar">
@@ -33,7 +32,6 @@
   </div>
 </header>
 
-
 <main class="contenedor relleno">
   <h1 class="titulo-seccion">Productos</h1>
 
@@ -46,7 +44,7 @@
       <div class="selectores">
         <select id="cat" class="input">
           <option value="__all__">Todas las categorías</option>
-          </select>
+        </select>
 
         <select id="sort" class="input">
           <option value="rel">Ordenar: Relevancia</option>
@@ -57,8 +55,7 @@
       </div>
     </div>
 
-    <div id="chips" class="chips">
-      </div>
+    <div id="chips" class="chips"></div>
   </section>
 
   <div id="grid" class="rejilla-productos"></div>
@@ -90,9 +87,10 @@
   <p class="derechos">© 2025 Pastelería Mil Sabores</p>
 </footer>
 
-<script defer src="js/data/data.js"></script>
-<script defer src="js/data/script.js"></script>
-<script defer src="js/data/productos.js"></script>
-
+<!-- ORDEN CORRECTO DE SCRIPTS -->
+<script src="js/data/data.js"></script>
+<script src="js/data/productosTienda.js"></script>
+<script src="js/data/script.js"></script>
+<script src="js/data/productos.js"></script>
 </body>
 </html>

@@ -9,6 +9,37 @@ const LS = {
   set(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
 };
 
+/* ======= Sincroniza productos con lo guardado por el admin (si existe) ======= */
+(function syncAdminProducts(){
+  try{
+    const saved = JSON.parse(localStorage.getItem('ADMIN_PRODUCTS_V1') || '[]');
+    if (Array.isArray(saved) && saved.length){
+      window.PRODUCTS = saved.map(a => ({
+        id: a.codigo || a.id || "",
+        nombre: a.nombre || a.name || a.title || "",
+        precio: Number(a.precio ?? a.price ?? 0),
+        categoria: a.categoria || a.category || a.categoryName || "",
+        attr: a.attr || a.atributo || a.attributes || "",
+        img: a.imagen || a.img || a.image || a.picture || ""
+      }));
+    }
+  }catch(e){}
+})();
+
+/* ======= utils de productos ======= */
+const pid    = p => String(p?.id || p?.code || p?.codigo || "");
+const pprice = p => Number(String(p?.price ?? p?.precio ?? 0).toString().replace(/[^0-9.]/g,'')) || 0;
+
+/* ======= Cart helpers para limpiar “huérfanos” ======= */
+function pruneCartOrphans(){
+  const ids = new Set((window.PRODUCTS || []).map(p => pid(p)));
+  const cart = getCart();
+  const cleaned = cart.filter(it => ids.has(String(it.id)));
+  if (cleaned.length !== cart.length) {
+    saveCart(cleaned);
+  }
+}
+
 /* ======= Carrito ======= */
 function getCart(){ return LS.get("cart", []); }
 
@@ -19,9 +50,17 @@ function saveCart(cart){
 
 function addToCart(id, qty=1){
   id = decodeURIComponent(id);
+
+  // Evitar agregar productos que ya no existen en el catálogo
+  const exists = (window.PRODUCTS || []).some(p => pid(p) === String(id));
+  if (!exists){
+    alert("Este producto ya no está disponible.");
+    return;
+  }
+
   qty = Math.max(1, Number(qty||1));
   const cart = getCart();
-  const i = cart.findIndex(x => x.id === id);
+  const i = cart.findIndex(x => String(x.id) === String(id));
   if(i >= 0) cart[i].qty += qty;
   else cart.push({ id, qty });
   saveCart(cart);
@@ -31,7 +70,7 @@ function setQty(id, qty){
   id = decodeURIComponent(id);
   qty = Math.max(0, Number(qty||0));
   const cart = getCart();
-  const i = cart.findIndex(x => x.id === id);
+  const i = cart.findIndex(x => String(x.id) === String(id));
   if(i === -1) return;
   if(qty === 0){ cart.splice(i,1); }
   else { cart[i].qty = qty; }
@@ -40,7 +79,7 @@ function setQty(id, qty){
 
 function removeFromCart(id){
   id = decodeURIComponent(id);
-  const cart = getCart().filter(x => x.id !== id);
+  const cart = getCart().filter(x => String(x.id) !== String(id));
   saveCart(cart);
 }
 
@@ -50,16 +89,17 @@ function clearCart(){
 
 function cartTotals(){
   const cart = getCart();
+  const list = Array.isArray(window.PRODUCTS) ? window.PRODUCTS : [];
   const items = cart.map(it => {
-    const p = (window.PRODUCTS || []).find(p => (p.id || p.code) === it.id);
+    const p = list.find(pp => pid(pp) === String(it.id));
     if(!p) return null;
-    const price = Number(String(p.price ?? p.precio ?? 0).toString().replace(/[^0-9.]/g,'')) || 0;
+    const price = pprice(p);
     return {
       ...p,
-      id: (p.id || p.code),
-      name: (p.name || p.nombre),
-      category: (p.category || p.categoria || ""),
-      attr: (p.attr || p.atributo || ""),
+      id: pid(p),
+      name: p.name || p.nombre || p.title || "",
+      category: p.category || p.categoria || "",
+      attr: p.attr || p.atributo || "",
       price,
       qty: it.qty,
       subtotal: price * it.qty
@@ -72,9 +112,19 @@ function cartTotals(){
 }
 
 function updateCartBadge(){
-  const { totalQty } = cartTotals();
-  const a = document.getElementById("cartCount");        // ID antiguo
-  const b = document.getElementById("contadorCarrito");  // ID nuevo
+  let totalQty = 0;
+  const hasProducts = Array.isArray(window.PRODUCTS) && window.PRODUCTS.length > 0;
+
+  if (hasProducts){
+    pruneCartOrphans();               // limpia fantasmas si los hay
+    totalQty = cartTotals().totalQty; // cuenta solo ítems válidos
+  } else {
+    // fallback si en esta página no cargaste PRODUCTS
+    totalQty = getCart().reduce((s,it)=> s + Number(it.qty||0), 0);
+  }
+
+  const a = document.getElementById("cartCount");
+  const b = document.getElementById("contadorCarrito");
   if(a) a.textContent = String(totalQty);
   if(b) b.textContent = String(totalQty);
 }
@@ -85,13 +135,43 @@ window.removeFromCart = removeFromCart;
 window.updateCartBadge = updateCartBadge;
 window.setQty = setQty;
 
-/* ======= Carrito (página carrito.html) ======= */
-/* Envío simple persistido en localStorage */
-const SHIP_KEY = "shipCost";
+/* ======= Envío y Cupones ======= */
+const SHIP_KEY   = "shipCost";
+const COUPON_KEY = "couponCode_v1";
 
+// Mapa de cupones
+const COUPONS = {
+  "DUOC10":      { type: "percent", value: 10,   label: "10% OFF" },
+  "DUOC20":      { type: "percent", value: 20,   label: "20% OFF" },
+  "5000OFF":     { type: "amount",  value: 5000, label: "$5.000 OFF" },
+  "ENVIOGRATIS": { type: "ship",    value: 0,    label: "Envío gratis" }
+};
+
+const getCoupon = () => (LS.get(COUPON_KEY, "") || "").toString().trim().toUpperCase();
+const setCoupon = (code) => LS.set(COUPON_KEY, (code||"").toString().trim().toUpperCase());
+
+function evaluateCoupon(code, subTotal, shipCost){
+  code = (code||"").toUpperCase().trim();
+  const c = COUPONS[code];
+  if(!c) return { valid:false, discount:0, shipAfter:shipCost, label:"" };
+
+  let discount = 0, shipAfter = shipCost, label = c.label;
+  if(c.type === "percent"){
+    discount = Math.max(0, Math.min(subTotal, Math.round(subTotal * (c.value/100))));
+  } else if (c.type === "amount"){
+    discount = Math.max(0, Math.min(subTotal, Number(c.value||0)));
+  } else if (c.type === "ship"){
+    shipAfter = 0; // envío gratis
+  }
+  return { valid:true, discount, shipAfter, label, code };
+}
+
+/* ======= Carrito (página carrito.html) ======= */
 function renderCart(){
   const wrap = $("#cartPage");
   if(!wrap) return;
+
+  pruneCartOrphans(); // <-- importante: limpiar antes de calcular
 
   const {items, total: subTotal} = cartTotals();
 
@@ -112,8 +192,13 @@ function renderCart(){
     return;
   }
 
-  let shipCost = Number(LS.get(SHIP_KEY, 0)) || 0;
-  const total = subTotal + shipCost;
+  // Envío + Cupón
+  let chosenShip = Number(LS.get(SHIP_KEY, 0)) || 0;
+  const currentCoupon = getCoupon();
+  const cup = evaluateCoupon(currentCoupon, subTotal, chosenShip);
+  const shipCost = cup.valid ? cup.shipAfter : chosenShip;
+  const totalBefore = subTotal - (cup.valid ? cup.discount : 0);
+  const total = Math.max(0, totalBefore + shipCost);
 
   const rows = items.map(it => `
     <tr>
@@ -162,24 +247,35 @@ function renderCart(){
           <strong id="sum-sub">${money(subTotal)}</strong>
         </div>
 
+        ${
+          cup.valid
+            ? `<div class="sum-row">
+                 <span>Descuento ${cup.label ? `(${cup.label})` : ""}</span>
+                 <strong id="sum-disc">-${money(cup.discount || 0)}</strong>
+               </div>`
+            : ""
+        }
+
         <div class="sum-row">
           <label for="shipping">Envío</label>
-          <select id="shipping" class="input">
-            <option value="0" ${shipCost===0?'selected':''}>Retiro en tienda (gratis)</option>
-            <option value="3000" ${shipCost===3000?'selected':''}>Envío urbano ($3.000)</option>
-            <option value="6000" ${shipCost===6000?'selected':''}>Envío regional ($6.000)</option>
+          <select id="shipping" class="input" ${cup.valid && COUPONS[currentCoupon]?.type === "ship" ? "disabled" : ""}>
+            <option value="0" ${chosenShip===0?'selected':''}>Retiro en tienda (gratis)</option>
+            <option value="3000" ${chosenShip===3000?'selected':''}>Envío urbano ($3.000)</option>
+            <option value="6000" ${chosenShip===6000?'selected':''}>Envío regional ($6.000)</option>
           </select>
+          <strong style="margin-left:auto">${money(shipCost)}</strong>
         </div>
 
-        <!-- ===== Vista del cupón (solo UI) ===== -->
+        <!-- Cupones -->
         <div class="coupon-box">
           <label for="couponInput" class="coupon-label">Ingrese el cupón de descuento</label>
           <div class="coupon-row">
-            <input type="text" id="couponInput" class="coupon-input" placeholder="Ej: DUOC10" />
-            <button type="button" class="coupon-btn" id="couponBtn">APLICAR</button>
+            <input type="text" id="couponInput" class="coupon-input" placeholder="Ej: DUOC10" value="${currentCoupon || ""}" />
+            <button type="button" class="coupon-btn" id="couponBtn">${cup.valid ? "REAPLICAR" : "APLICAR"}</button>
+            ${cup.valid ? `<button type="button" class="coupon-btn" id="couponRemove" style="margin-left:6px; background:#eee;color:#333;">Quitar</button>` : ""}
           </div>
+          <small id="couponMsg" class="muted">${cup.valid ? "Cupón aplicado" : "Ej: DUOC10, ENVIOGRATIS, 5000OFF"}</small>
         </div>
-        <!-- ===================================== -->
 
         <div class="sum-row total">
           <span>Total</span>
@@ -187,7 +283,7 @@ function renderCart(){
         </div>
 
         <button class="btn btn--primary btn-block" id="checkoutBtn">Finalizar compra</button>
-        <p class="muted small">* Demo académica, no procesa pago real.</p>
+        <p class="muted small">* No procesa pago real.</p>
       </aside>
     </div>
   `;
@@ -223,14 +319,23 @@ function renderCart(){
     });
   }
 
-  // Checkout demo
+  // Cupón: aplicar / quitar
+  const applyCoupon = ()=>{
+    const code = ($("#couponInput")?.value || "").toUpperCase().trim();
+    setCoupon(code);
+    renderCart();
+  };
+  $("#couponBtn")?.addEventListener("click", applyCoupon);
+  $("#couponInput")?.addEventListener("keydown", (e)=>{ if(e.key === "Enter"){ e.preventDefault(); applyCoupon(); } });
+  $("#couponRemove")?.addEventListener("click", ()=>{ setCoupon(""); renderCart(); });
+
+  // Checkout
   $("#checkoutBtn")?.addEventListener("click", ()=>{
-    alert("¡Gracias! (demo)\nTotal: " + ($("#sum-total")?.textContent || ""));
+    alert("¡Gracias! \nTotal: " + ($("#sum-total")?.textContent || ""));
   });
 }
 
-
-/* ======= Validaciones ======= */
+/* ======= Validaciones varias (registro/contacto/login) ======= */
 const EMAIL_OK = /@(?:duocuc\.cl|profesor\.duoc\.cl|gmail\.com)$/i;
 
 function cleanRun(run){ return (run||"").toUpperCase().replace(/[^0-9K]/g,""); }
@@ -277,7 +382,7 @@ function bindUserForm(form){
     if(tipo && !tipo.value){ setErr(tipo,"Seleccione un tipo"); ok=false; } else setErr(tipo,"");
     if(region && !region.value){ setErr(region,"Seleccione región"); ok=false; } else setErr(region,"");
     if(comuna && !comuna.value){ setErr(comuna,"Seleccione comuna"); ok=false; } else setErr(comuna,"");
-    if(ok){ alert("Formulario OK (demo)."); form.reset(); }
+    if(ok){ alert("Registrado."); form.reset(); }
   });
 }
 
@@ -289,7 +394,7 @@ function bindLoginForm(){
     e.preventDefault(); let ok=true;
     if(!correo.value || correo.value.length>100 || !EMAIL_OK.test(correo.value)){ setErr(correo,"Correo permitido y máx 100."); ok=false; } else setErr(correo,"");
     if(!pass.value || pass.value.length<4 || pass.value.length>10){ setErr(pass,"Contraseña 4 a 10 caracteres."); ok=false; } else setErr(pass,"");
-    if(ok){ alert("Login válido (demo)."); form.reset(); }
+    if(ok){ alert("Login válido."); form.reset(); }
   });
 }
 
@@ -302,7 +407,7 @@ function bindContactForm(){
     if(!nombre.value || nombre.value.length>100){ setErr(nombre,"Requerido (máx 100)"); ok=false; } else setErr(nombre,"");
     if(correo.value && (correo.value.length>100 || !EMAIL_OK.test(correo.value))){ setErr(correo,"Dominio permitido y máx 100"); ok=false; } else setErr(correo,"");
     if(!msg.value || msg.value.length>500){ setErr(msg,"Requerido (máx 500)"); ok=false; } else setErr(msg,"");
-    if(ok){ alert("Mensaje enviado (demo)."); form.reset(); }
+    if(ok){ alert("Mensaje enviado."); form.reset(); }
   });
 }
 
@@ -320,8 +425,9 @@ function bindContactForm(){
 
 /* ======= Bootstrap común ======= */
 document.addEventListener("DOMContentLoaded", ()=>{
-  updateCartBadge(); // contador correcto
-  renderCart();      // si existe #cartPage, se dibuja
+  pruneCartOrphans();  // <-- limpiar residuales apenas cargue
+  updateCartBadge();
+  renderCart();
   bindLoginForm();
   bindContactForm();
   bindUserForm($("#registroForm"));

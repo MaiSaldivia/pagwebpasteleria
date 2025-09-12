@@ -7,6 +7,17 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/Vendedor.css" />
+
+  <!-- Estilos mínimos para el modal (puedes moverlos a css/Vendedor.css si prefieres) -->
+  <style>
+    .modal[hidden]{display:none;}
+    .modal{position:fixed;inset:0;background:#0007;display:flex;align-items:center;justify-content:center;z-index:9999;}
+    .modal__card{background:#fff;max-width:620px;width:92%;border-radius:12px;padding:18px 18px 14px;box-shadow:0 10px 30px #0003;}
+    .modal__close{border:0;background:transparent;font-size:22px;float:right;cursor:pointer;line-height:1;}
+    .modal__title{margin:6px 0 10px;}
+    .modal__body ul{margin:8px 0 0 18px;}
+    .modal__footer{margin-top:14px;text-align:right;}
+  </style>
 </head>
 <body>
   <div class="vendedor-layout">
@@ -16,7 +27,6 @@
         <a href="VendedorHome.html" class="sidebar__link">🏠 Inicio</a>
         <a href="VendedorPedidos.html" class="sidebar__link active">🛒 Pedidos</a>
         <a href="VendedorInventario.html" class="sidebar__link">📦 Inventario</a>
-        <a href="VendedorClientes.html" class="sidebar__link">👥 Clientes</a>
         <a href="index.html" class="sidebar__link logout">🚪 Volver a tienda</a>
       </nav>
     </aside>
@@ -38,12 +48,27 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            </tbody>
+          <tbody></tbody>
         </table>
       </section>
     </main>
   </div>
-  <script src="js/data/Vendedor.js"></script>
+
+  <!-- Modal reutilizable para el detalle de pedido -->
+  <div id="pedidoModal" class="modal" hidden>
+    <div class="modal__card">
+      <button class="modal__close" id="mClose" aria-label="Cerrar">×</button>
+      <h3 class="modal__title" id="mTitle">Detalle del pedido</h3>
+      <div id="mBody" class="modal__body"></div>
+      <div class="modal__footer">
+        <button class="btn btn--principal" id="mOk">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fallback de datos (productos) para que Vendedor.js pueda leer si aún no hay nada en LS -->
+  <script defer src="js/data/DataAdmin.js"></script>
+  <!-- Lógica del vendedor (lee ORDERS_V1 y ADMIN_PRODUCTS_V1, y maneja el modal) -->
+  <script defer src="js/data/Vendedor.js"></script>
 </body>
 </html>

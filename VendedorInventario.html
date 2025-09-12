@@ -16,7 +16,6 @@
         <a href="VendedorHome.html" class="sidebar__link">🏠 Inicio</a>
         <a href="VendedorPedidos.html" class="sidebar__link">🛒 Pedidos</a>
         <a href="VendedorInventario.html" class="sidebar__link active">📦 Inventario</a>
-        <a href="VendedorClientes.html" class="sidebar__link">👥 Clientes</a>
         <a href="index.html" class="sidebar__link logout">🚪 Volver a tienda</a>
       </nav>
     </aside>
@@ -37,12 +36,15 @@
               <th>Estado</th>
             </tr>
           </thead>
-          <tbody>
-            </tbody>
+          <tbody></tbody>
         </table>
       </section>
     </main>
   </div>
-  <script src="js/data/Vendedor.js"></script>
+
+  <!-- Fallback de datos (productos) para sincronizar con Admin -->
+  <script defer src="js/data/DataAdmin.js"></script>
+  <!-- Lógica del vendedor (usa ADMIN_PRODUCTS_V1) -->
+  <script defer src="js/data/Vendedor.js"></script>
 </body>
 </html>

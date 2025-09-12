@@ -22,7 +22,7 @@ window.CATEGORIES = [
   "Productos Vegana","Tortas Especiales"
 ];
 
-// Regiones y comunas (demo breve)
+// Regiones y comunas
 window.REGIONES = {
   "Metropolitana": ["Santiago","Puente Alto","Maipú"],
   "Valparaíso": ["Valparaíso","Viña del Mar"]

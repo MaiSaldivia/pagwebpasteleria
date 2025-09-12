@@ -1,11 +1,39 @@
 (function () {
+  // --- Fusionar base (data.js) + lo del admin (localStorage) ---
+  const STORE_KEY = 'ADMIN_PRODUCTS_V1';
+
+  const norm = p => ({
+    id:        p.id || p.codigo || p.code || p.nombre || p.name || '',
+    nombre:    p.nombre || p.name || '',
+    precio:    Number(p.precio ?? p.price ?? 0),
+    categoria: p.categoria || p.category || p.categoryName || '',
+    attr:      p.attr || p.atributo || p.attributes || '',
+    img:       p.imagen || p.img || p.image || p.picture || ''
+  });
+
+  const base  = Array.isArray(window.PRODUCTS) ? window.PRODUCTS.map(norm) : [];
+  let saved   = [];
+  try {
+    const raw = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+    if (Array.isArray(raw)) saved = raw.map(norm);
+  } catch (e) {}
+
+  // Map por id: primero base, luego saved (saved sobreescribe si coincide)
+  const byId = new Map();
+  for (const p of base)  if (p.id) byId.set(String(p.id), p);
+  for (const p of saved) if (p.id) byId.set(String(p.id), { ...byId.get(String(p.id)), ...p });
+
+  // Lista final y la dejamos disponible
+  const ALL = Array.from(byId.values());
+  window.PRODUCTS = ALL;
+
   // ===== Helpers para leer campos =====
   const getName  = p => p.name || p.nombre || p.title || "";
   const getCat   = p => p.category || p.categoria || p.categoryName || "";
   const getAttr  = p => p.attr || p.atributo || p.attributes || "";
   const getId    = p => p.id || p.code || getName(p);
-  const getImg   = p => p.img || p.image || p.picture || ""; // <- imagen del data.js
-  const getPrice = p => Number(String(p.price || p.precio).toString().replace(/[^0-9.]/g, "")) || 0;
+  const getImg   = p => p.img || p.image || p.picture || "";
+  const getPrice = p => Number(String(p.price ?? p.precio ?? 0).toString().replace(/[^0-9.]/g, "")) || 0;
 
   const grid  = document.getElementById("grid");
   const q     = document.getElementById("q");
@@ -47,7 +75,6 @@
     const name  = getName(p);
     const attr  = getAttr(p);
     const id    = encodeURIComponent(getId(p));
-    // encodeURI por si la ruta tiene espacios o tildes
     const src   = getImg(p) ? encodeURI(getImg(p)) : "img/placeholder.png";
 
     return `

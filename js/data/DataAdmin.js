@@ -1,55 +1,29 @@
 // ================================
-// DATA ADMIN (Productos, Usuarios, Regiones)
+// DATA BASE para Admin (semillas)
+// - Productos de ejemplo
+// - Usuarios de ejemplo
+// - Regiones y comunas
+// Todo expuesto en window.* porque otros scripts lo leen desde ahí
 // ================================
 
-// Productos de ejemplo
-const productos = [
+// Productos de ejemplo (para Admin de productos y para la tienda como fallback)
+window.productos = [
   { codigo: "P001", nombre: "Torta de Chocolate", precio: 15000, stock: 10, categoria: "Tortas" },
-  { codigo: "P002", nombre: "Cheesecake Frutos Rojos", precio: 18500, stock: 5, categoria: "Tortas" },
-  { codigo: "P003", nombre: "Pastel de Zanahoria", precio: 16200, stock: 8, categoria: "Pasteles" },
-  { codigo: "P004", nombre: "Cupcake Vainilla", precio: 2500, stock: 40, categoria: "Cupcakes" }
+  { codigo: "P002", nombre: "Cheesecake Frutos Rojos", precio: 18500, stock: 5,  categoria: "Tortas" },
+  { codigo: "P003", nombre: "Pastel de Zanahoria",    precio: 16200, stock: 8,  categoria: "Pasteles" },
+  { codigo: "P004", nombre: "Cupcake Vainilla",       precio: 2500,  stock: 40, categoria: "Cupcakes" }
 ];
 
-// Usuarios de ejemplo (con roles claros para login)
-const usuarios = [
-  { run: "19011022K", nombre: "Juan", apellidos: "Pérez Soto", correo: "admin@duoc.cl", rol: "Administrador" },
-  { run: "18022033K", nombre: "Ana", apellidos: "López Díaz", correo: "vendedor@duoc.cl", rol: "Vendedor" },
-  // Puedes dejar otros usuarios si lo necesitas, pero ojo: solo Admin y Vendedor se redirigen a paneles
-  { run: "20033044K", nombre: "Luis", apellidos: "Ramírez Fuentes", correo: "cliente@gmail.com", rol: "Cliente" }
+// Usuarios de ejemplo (para sembrar ADMIN_USERS_V1 la primera vez)
+window.usuarios = [
+  { run: "19011022K", nombre: "Juan", apellidos: "Pérez Soto",    correo: "admin@duoc.cl",    rol: "Administrador", region: "Región Metropolitana", comuna: "Santiago",      direccion: "Av. Siempre Viva 123" },
+  { run: "18022033K", nombre: "Ana",  apellidos: "López Díaz",    correo: "vendedor@duoc.cl", rol: "Vendedor",      region: "Valparaíso",          comuna: "Viña del Mar", direccion: "Calle Mar 456" },
+  { run: "20033044K", nombre: "Luis", apellidos: "Ramírez Fuentes",correo: "cliente@gmail.com",rol: "Cliente",        region: "Biobío",               comuna: "Concepción",    direccion: "Las Flores 789" }
 ];
 
-// Regiones y comunas
-const regiones = {
-  "Región Metropolitana": ["Santiago", "Puente Alto", "Maipú"],
-  "Valparaíso": ["Valparaíso", "Viña del Mar", "Quilpué"],
-  "Biobío": ["Concepción", "Los Ángeles", "Chillán"]
+// Regiones y comunas (usado por formularios)
+window.regiones = {
+  "Región Metropolitana": ["Santiago", "Puente Alto", "Maipú", "Las Condes", "Providencia"],
+  "Valparaíso":           ["Valparaíso", "Viña del Mar", "Quilpué", "Villa Alemana"],
+  "Biobío":               ["Concepción", "Los Ángeles", "Chillán"]
 };
-
-// ================================
-// Cargar regiones y comunas dinámicamente
-// ================================
-window.addEventListener("DOMContentLoaded", () => {
-  const regionSelect = document.getElementById("region");
-  const comunaSelect = document.getElementById("comuna");
-
-  if (regionSelect && comunaSelect) {
-    Object.keys(regiones).forEach(region => {
-      const option = document.createElement("option");
-      option.value = region;
-      option.textContent = region;
-      regionSelect.appendChild(option);
-    });
-
-    regionSelect.addEventListener("change", () => {
-      comunaSelect.innerHTML = "<option value=''>-- Selecciona --</option>";
-      if (regionSelect.value && regiones[regionSelect.value]) {
-        regiones[regionSelect.value].forEach(comuna => {
-          const opt = document.createElement("option");
-          opt.value = comuna;
-          opt.textContent = comuna;
-          comunaSelect.appendChild(opt);
-        });
-      }
-    });
-  }
-});

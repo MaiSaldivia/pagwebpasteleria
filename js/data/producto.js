@@ -1,12 +1,37 @@
 (function () {
-  // === Funciones de ayuda para leer la data ===
+  // --- Fusionar base (data.js) + lo del admin (localStorage) ---
+  const STORE_KEY = 'ADMIN_PRODUCTS_V1';
+  const norm = p => ({
+    id:        p.id || p.codigo || p.code || p.nombre || p.name || '',
+    nombre:    p.nombre || p.name || '',
+    precio:    Number(p.precio ?? p.price ?? 0),
+    categoria: p.categoria || p.category || p.categoryName || '',
+    attr:      p.attr || p.atributo || p.attributes || '',
+    img:       p.imagen || p.img || p.image || p.picture || ''
+  });
+
+  const base  = Array.isArray(window.PRODUCTS) ? window.PRODUCTS.map(norm) : [];
+  let saved   = [];
+  try {
+    const raw = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+    if (Array.isArray(raw)) saved = raw.map(norm);
+  } catch (e) {}
+
+  const byId = new Map();
+  for (const p of base)  if (p.id) byId.set(String(p.id), p);
+  for (const p of saved) if (p.id) byId.set(String(p.id), { ...byId.get(String(p.id)), ...p });
+
+  const ALL = Array.from(byId.values());
+  window.PRODUCTS = ALL; // dejarlo disponible para otras vistas
+
+  // === Helpers ===
   const getName  = p => p.name || p.nombre || p.title;
   const getCat   = p => p.category || p.categoria || p.categoryName;
   const getAttr  = p => p.attr || p.atributo || p.attributes || "";
   const getId    = p => p.id || p.code || getName(p);
-  const rawPrice = p => String(p.price || p.precio).toString();
+  const rawPrice = p => String(p.price ?? p.precio ?? 0).toString();
   const getPrice = p => Number(rawPrice(p).replace(/[^0-9.]/g, '')) || 0;
-  const getImg   = p => p.img || p.image || p.picture || ""; // imagen principal
+  const getImg   = p => p.img || p.image || p.picture || "";
   const fmtCLP   = n => (n || 0).toLocaleString('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 });
 
   // === Descripciones largas (fallback) ===
@@ -69,7 +94,7 @@
     crumbCat.innerHTML = `<a href="productos.html#${encodeURIComponent(cat)}">${cat}</a>`;
   }
 
-  // ===== Galería (solo 1 imagen — sin miniaturas) =====
+  // ===== Galería (solo 1 imagen) =====
   const hero = document.getElementById('heroImg');
   const heroSrc = encodeURI(getImg(prod) || 'img/placeholder.png');
   if (hero) {

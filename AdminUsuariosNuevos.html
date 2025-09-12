@@ -69,11 +69,13 @@
             </select>
             <small class="help" id="rolHelp"></small>
           </div>
+
           <div class="form-group">
             <label for="region">Región</label>
             <select id="region" name="region" required></select>
             <small class="help" id="regionHelp"></small>
           </div>
+
           <div class="form-group">
             <label for="comuna">Comuna</label>
             <select id="comuna" name="comuna" required></select>
@@ -95,7 +97,9 @@
     </main>
   </div>
 
-  <script src="js/data/AdminValidaciones.js"></script>
-  <script src="js/data/DataAdmin.js"></script>
+  <!-- Datos base (usuarios/regiones) -->
+  <script defer src="js/data/DataAdmin.js"></script>
+  <!-- CRUD de usuarios -->
+  <script defer src="js/data/AdminUsuarios.js"></script>
 </body>
 </html>

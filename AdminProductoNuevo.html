@@ -23,7 +23,7 @@
 
     <main class="main-content">
       <header class="admin-header">
-        <h1 class="admin-title">Nuevo Producto</h1>
+        <h1 class="admin-title" id="formTitle">Nuevo Producto</h1>
         <p class="admin-subtitle">Completa el formulario para registrar un producto.</p>
       </header>
 
@@ -69,11 +69,7 @@
         <div class="form-group">
           <label for="categoria">Categoría</label>
           <select id="categoria" name="categoria" required>
-            <option value="">-- Selecciona --</option>
-            <option value="Tortas">Tortas</option>
-            <option value="Pasteles">Pasteles</option>
-            <option value="Cupcakes">Cupcakes</option>
-            <option value="Otros">Otros</option>
+            <!-- Opciones cargadas dinámicamente por AdminValidaciones.js -->
           </select>
           <small class="help" id="categoriaHelp"></small>
         </div>
@@ -92,7 +88,10 @@
     </main>
   </div>
 
-  <script src="js/data/DataAdmin.js"></script>
-  <script src="js/data/AdminValidaciones.js"></script>
+  <!-- ORDEN CORRECTO DE SCRIPTS (defer para cargar después del HTML) -->
+  <script defer src="js/data/data.js"></script>
+  <script defer src="js/data/productosTienda.js"></script>
+  <script defer src="js/data/DataAdmin.js"></script>
+  <script defer src="js/data/AdminValidaciones.js"></script>
 </body>
 </html>

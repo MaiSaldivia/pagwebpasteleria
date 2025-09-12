@@ -108,7 +108,7 @@ h1,h2,h3{
 .section{ padding:64px 0; }
 .section--clara{ background:#F7EFE1; }  /* tono del tema, no gris */
 
-/* Tarjetas demo (si usas grillas en index) */
+/* Tarjetas (si usas grillas en index) */
 .products__grid, .blog__grid{
   display:grid; gap:32px;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
