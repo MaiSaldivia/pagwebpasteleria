@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar Sesión · Mil Sabores</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <!-- Solo el CSS general -->
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -32,67 +33,63 @@
   </div>
 </header>
 
-<main class="container pad auth">
-    <section class="auth-hero">
-        <h1 class="section-title auth-hero__title">Pastelería Mil Sabores</h1>
-    </section>
+<main class="container auth">
+  <section class="auth-hero">
+    <!-- Título con la fuente de marca -->
+    <h1 class="auth-hero__title font-brand">Pastelería Mil Sabores</h1>
+  </section>
 
-    <section class="auth-card">
-        <div class="auth-card__header">
-            Inicio de sesión
-            <a href="AdminLogin.html" title="Panel administrativo" style="margin-left:8px; text-decoration:none; font-size:1.2rem;">
-                👤
-            </a>
-        </div>
+  <section class="auth-card">
+    <div class="auth-card__header">
+      Inicio de sesión
+      <a href="AdminLogin.html" title="Panel administrativo" style="margin-left:8px; text-decoration:none; font-size:1.2rem;">👤</a>
+    </div>
 
-        <form id="loginForm" class="auth-form" novalidate>
-            <div class="form-row">
-                <label for="loginEmail">Correo</label>
-                <input id="loginEmail" type="email" class="input" maxlength="100" required />
-            </div>
+    <form id="loginForm" class="auth-form" novalidate>
+      <div class="form-row">
+        <label for="loginEmail">Correo</label>
+        <input id="loginEmail" type="email" class="input" maxlength="100" required />
+      </div>
 
-            <div class="form-row">
-                <label for="loginPass">Contraseña</label>
-                <input id="loginPass" type="password" class="input" minlength="4" maxlength="10" required />
-            </div>
+      <div class="form-row">
+        <label for="loginPass">Contraseña</label>
+        <input id="loginPass" type="password" class="input" minlength="4" maxlength="10" required />
+      </div>
 
-            <div class="form-actions">
-                <button class="btn btn--primary" type="submit">Ingresar</button>
-            </div>
+      <div class="form-actions">
+        <button class="btn btn--primary" type="submit">Ingresar</button>
+      </div>
 
-            <p class="auth-note">¿No tienes cuenta? <a class="link" href="registro.html">Regístrate</a></p>
-        </form>
-    </section>
+      <p class="auth-note">¿No tienes cuenta? <a class="link" href="registro.html">Regístrate</a></p>
+    </form>
+  </section>
 </main>
 
 <footer class="footer">
-    <div class="container footer__grid">
-        <div>
-            <p class="brand__name brand__name--footer">Mil Sabores</p>
-            <nav class="footer__links">
-                <a href="productos.html" class="link">Tortas Cuadradas</a>
-                <a href="productos.html" class="link">Tortas Circulares</a>
-                <a href="productos.html" class="link">Sin Azúcar</a>
-                <a href="productos.html" class="link">Veganas</a>
-                <a href="productos.html" class="link">Sin Gluten</a>
-            </nav>
-            <div class="pay">
-                <span aria-label="Visa">💳</span>
-                <span aria-label="Mastercard">💳</span>
-                <span aria-label="Transbank">🏦</span>
-            </div>
-        </div>
-
-        <form id="newsletterForm" class="newsletter" novalidate>
-            <label for="email" class="newsletter__label">Recibe actualizaciones, novedades y promociones.</label>
-            <div class="newsletter__row">
-                <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
-                <button class="btn btn--primary" type="submit">Suscribirse</button>
-            </div>
-            <small id="emailHelp" class="help"></small>
-        </form>
+  <div class="container footer__grid">
+    <div>
+      <p class="brand__name brand__name--footer">Mil Sabores</p>
+      <nav class="footer__links">
+        <a href="productos.html" class="link">Tortas Cuadradas</a>
+        <a href="productos.html" class="link">Tortas Circulares</a>
+        <a href="productos.html" class="link">Sin Azúcar</a>
+        <a href="productos.html" class="link">Veganas</a>
+        <a href="productos.html" class="link">Sin Gluten</a>
+      </nav>
+      <div class="pay"><span>💳</span><span>💳</span><span>🏦</span></div>
     </div>
-    <p class="copy">© 2025 Pastelería Mil Sabores</p>
+
+    <form id="newsletterForm" class="newsletter" novalidate>
+      <label for="email" class="newsletter__label">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="newsletter__row">
+        <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
+        <button class="btn btn--primary" type="submit">Suscribirse</button>
+      </div>
+      <small id="emailHelp" class="help"></small>
+    </form>
+  </div>
+  <p class="copy">© 2025 Pastelería Mil Sabores</p>
 </footer>
+
 </body>
 </html>

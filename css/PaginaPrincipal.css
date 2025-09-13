@@ -170,3 +170,34 @@ h1,h2,h3{
   .brand__name--footer, .footer__links, .newsletter{ text-align:center; }
   .newsletter__row{ flex-direction:column; }
 }
+
+/* ========= Responsive Fix Pack (home) ========= */
+
+/* Títulos del hero con clamp */
+.title-alt{ font-size: clamp(28px, 7vw, 48px); }
+.lead-alt{ font-size: clamp(14px, 2.8vw, 19px); max-width: 80ch; margin-left:auto; margin-right:auto; }
+
+/* Altura del hero en móviles */
+@media (max-width: 720px){
+  .hero-alt{ min-height: 56vh; height: auto; padding: 32px 0; }
+}
+
+/* Botón del hero visible en blanco */
+.hero-alt .btn--secondary,
+.hero-alt .btn.btn--secundario{
+  background: transparent;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,.18);
+}
+.hero-alt .btn--secondary:hover,
+.hero-alt .btn.btn--secundario:hover{
+  background: #fff; color: var(--brand) !important;
+}
+
+/* Cards y blog en una columna en pantallas pequeñas */
+@media (max-width: 720px){
+  .products__grid, .blog__grid{
+    grid-template-columns: 1fr;
+  }
+}

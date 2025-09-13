@@ -6,8 +6,8 @@
   <title>Registro de Usuario · Mil Sabores</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <!-- Solo el CSS general -->
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/registro.css" />
 </head>
 <body>
 <header class="topbar">
@@ -32,16 +32,18 @@
   </div>
 </header>
 
-<main class="main">
+<main class="container auth">
   <section class="auth-hero">
-    <h1 class="auth-title">Pastelería Mil Sabores</h1>
+    <!-- Título con la fuente de marca -->
+    <h1 class="auth-hero__title font-brand">Pastelería Mil Sabores</h1>
   </section>
 
   <section class="auth-card">
-    <div class="card-header">Registro de usuario</div>
+    <div class="auth-card__header">Registro de usuario</div>
 
     <!-- IMPORTANTE: id="registroForm" para que script.js lo detecte -->
-    <form id="registroForm" class="auth-form" novalidate>
+    <form id="registroForm" class="auth-form reg-form" novalidate>
+
       <div class="form-group grid-2">
         <div>
           <label for="run">RUN (sin puntos ni guion)</label>
@@ -131,31 +133,31 @@
       </div>
 
       <div class="form-actions">
-        <button class="btn btn-primary" type="submit">Registrarse</button>
+        <button class="btn btn--primary" type="submit">Registrarse</button>
       </div>
     </form>
   </section>
 </main>
 
 <footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-links-col">
-      <p class="brand-name">Mil Sabores</p>
-      <nav>
-        <a href="productos.html" class="footer-link">Tortas Cuadradas</a>
-        <a href="productos.html" class="footer-link">Tortas Circulares</a>
-        <a href="productos.html" class="footer-link">Sin Azúcar</a>
-        <a href="productos.html" class="footer-link">Veganas</a>
-        <a href="productos.html" class="footer-link">Sin Gluten</a>
+  <div class="container footer__grid">
+    <div>
+      <p class="brand__name brand__name--footer">Mil Sabores</p>
+      <nav class="footer__links">
+        <a href="productos.html" class="link">Tortas Cuadradas</a>
+        <a href="productos.html" class="link">Tortas Circulares</a>
+        <a href="productos.html" class="link">Sin Azúcar</a>
+        <a href="productos.html" class="link">Veganas</a>
+        <a href="productos.html" class="link">Sin Gluten</a>
       </nav>
-      <div class="pay-icons"><span>💳</span><span>💳</span><span>🏦</span></div>
+      <div class="pay"><span>💳</span><span>💳</span><span>🏦</span></div>
     </div>
 
-    <form id="newsletterForm" class="newsletter-form" novalidate>
-      <label for="email" class="newsletter-label">Recibe actualizaciones, novedades y promociones.</label>
-      <div class="newsletter-row">
+    <form id="newsletterForm" class="newsletter" novalidate>
+      <label for="email" class="newsletter__label">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="newsletter__row">
         <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
-        <button class="btn btn-primary" type="submit">Suscribirse</button>
+        <button class="btn btn--primary" type="submit">Suscribirse</button>
       </div>
       <small id="emailHelp" class="help"></small>
     </form>
@@ -163,7 +165,7 @@
   <p class="copy">© 2025 Pastelería Mil Sabores</p>
 </footer>
 
-<!-- Cargar datos (REGIONES) y scripts de la tienda -->
+<!-- Datos (Regiones/Comunas) y scripts de la tienda -->
 <script defer src="js/data/data.js"></script>
 <script defer src="js/data/script.js"></script>
 </body>

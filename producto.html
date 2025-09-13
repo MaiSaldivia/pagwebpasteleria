@@ -6,7 +6,7 @@
   <title>Producto · Mil Sabores</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/producto.css" />
+  <!-- SOLO el styles global -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -32,41 +32,43 @@
   </div>
 </header>
 
-<main class="contenedor relleno">
+<main class="container relleno">
 
-  <nav class="ruta-navegacion" aria-label="Ruta de navegación">
+  <!-- Breadcrumb global -->
+  <nav class="breadcrumb" aria-label="Ruta de navegación">
     <a href="index.html">Inicio</a>
-    <span class="separador-ruta">›</span>
+    <span class="crumb-sep">›</span>
     <a href="productos.html">Productos</a>
-    <span class="separador-ruta">›</span>
-    <span id="crumbCat" class="oculto"></span><span id="crumbCatSep" class="separador-ruta oculto">›</span>
+    <span class="crumb-sep">›</span>
+    <span id="crumbCat" class="hide"></span><span id="crumbCatSep" class="crumb-sep hide">›</span>
     <span id="crumbName" aria-current="page">Producto</span>
   </nav>
 
-  <section class="detalle-producto">
-    <div class="detalle-producto__galeria">
-      <div class="detalle-producto__hero" id="heroImg" aria-label="Imagen producto"></div>
+  <!-- PDP global -->
+  <section class="pdp">
+    <div class="pdp__gallery">
+      <div class="pdp__hero" id="heroImg" aria-label="Imagen producto"></div>
     </div>
 
-    <div class="detalle-producto__info">
-      <h1 id="pName" class="detalle-producto__titulo">Nombre producto</h1>
-      <div class="detalle-producto__meta">
+    <div class="pdp__info">
+      <h1 id="pName" class="pdp__title">Nombre producto</h1>
+      <div class="pdp__meta">
         <a id="pCat" href="productos.html" class="enlace">Categoría</a>
-        <span id="pAttr" class="silenciado">• atributo</span>
+        <span id="pAttr" class="muted">• atributo</span>
       </div>
-      <p id="pPrice" class="detalle-producto__precio">$0</p>
 
-      <p id="pLong" class="detalle-producto__descripcion">Descripción larga del producto…</p>
+      <p id="pPrice" class="pdp__price">$0</p>
+      <p id="pLong" class="pdp__desc">Descripción larga del producto…</p>
 
-      <div class="detalle-producto__fila-compra">
-        <label for="qty" class="silenciado">Cantidad</label>
-        <input id="qty" type="number" min="1" value="1" class="input detalle-producto__cantidad" />
-        <button id="addBtn" class="btn btn--principal detalle-producto__añadir">Añadir al carrito</button>
+      <div class="pdp__buyrow">
+        <label for="qty" class="muted">Cantidad</label>
+        <input id="qty" type="number" min="1" value="1" class="input pdp__qty" />
+        <button id="addBtn" class="btn btn--primary pdp__add">Añadir al carrito</button>
       </div>
     </div>
   </section>
 
-  <section class="detalle-producto__relacionados">
+  <section class="pdp__related">
     <h2 class="titulo-seccion">También te puede gustar</h2>
     <div id="related" class="rejilla-productos"></div>
   </section>
@@ -90,7 +92,7 @@
       <label class="boletin__etiqueta" for="email">Recibe actualizaciones, novedades y promociones.</label>
       <div class="boletin__fila">
         <input id="email" type="email" required placeholder="Ingresa tu email" />
-        <button class="btn btn--principal">Suscribirse</button>
+        <button class="btn btn--primary">Suscribirse</button>
       </div>
       <small id="emailHelp" class="ayuda"></small>
     </form>

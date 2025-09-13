@@ -629,3 +629,514 @@ input:focus, select:focus, textarea:focus{
 
 /* opcional: resaltar la página activa */
 .nav__link.active{ color:#8a4f3a; }
+
+/* =========================================================
+   BLOG (Listado + Detalle) - Estilos unificados
+   ========================================================= */
+
+/* Alias para compatibilidad (muchas vistas usan .btn--principal) */
+.btn--principal{
+  background: var(--brand) !important;
+  color:#fff !important;
+  border-color: var(--brand) !important;
+  box-shadow: 0 8px 18px rgba(139,69,19,.16);
+}
+.btn--principal:hover{ background: var(--brand-600) !important; }
+
+/* ---------- Listado (blog.html) ---------- */
+.contenedor-blog { padding: 40px 0; }
+.titulo-principal-blog{
+  font-size: 48px;
+  color: var(--brand);
+  margin-bottom: 40px;
+  font-family: 'Pacifico', cursive;
+  font-weight: normal;
+  text-align: center;
+}
+
+.articulo-blog{
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  position: relative;
+  margin-bottom: 40px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,.2);
+  display: flex; align-items: center; justify-content: center;
+}
+.articulo-blog::before{
+  content:""; position:absolute; inset:0;
+  background: rgba(0,0,0,.40); z-index:1;
+}
+.contenido-blog{
+  position: relative; z-index: 2;
+  text-align: center; color: #fff; max-width: 70%;
+}
+.titulo-articulo{
+  font-family:'Lato', sans-serif; font-size:32px; margin-bottom:15px;
+  color:#fff; text-shadow:1px 1px 3px rgba(0,0,0,.6);
+}
+.resumen-articulo{ font-size:18px; margin-bottom:20px; }
+
+/* Imágenes de fondo */
+.articulo-blog--1 { background-image: url('../img/blog1.png'); }
+.articulo-blog--2 { background-image: url('../img/blog2.png'); }
+
+/* Responsive listado */
+@media (max-width: 768px){
+  .articulo-blog{ padding:20px; min-height:300px; }
+  .contenido-blog{ max-width:90%; }
+  .titulo-articulo{ font-size:24px; }
+  .resumen-articulo{ font-size:16px; }
+}
+
+/* ---------- Detalle (blog-detalle-1/2.html) ---------- */
+.post { max-width: 820px; margin: 0 auto; }
+
+.titulo-seccion{
+  font-family:'Lato', sans-serif;
+  font-weight:800; font-size:34px; line-height:1.25;
+  letter-spacing:.2px; color:var(--text);
+  text-align:left; margin:22px 0 16px;
+}
+
+/* Imagen destacada + caption */
+.blog-bloque__imagen{
+  max-width:820px; width:100%; margin:12px auto 18px;
+  background:transparent; border:0; border-radius:12px;
+}
+.blog-bloque__imagen img,
+.blog-detalle-img{
+  display:block; width:100%; height:auto; border-radius:12px;
+  border:3px solid #c9c3b8; box-shadow:0 6px 22px rgba(0,0,0,.08);
+  object-fit:cover;
+}
+.caption{ text-align:center; color:#7f6a5e; font-size:.95rem; margin-top:8px; }
+
+/* Texto del artículo */
+.post p{ font-size:1.05rem; line-height:1.8; margin:0 0 16px; color:var(--text); }
+
+/* Bloques genéricos (por si los usas en listados internos) */
+.blog-bloque{
+  background:#eee5d7; border-radius:12px; padding:18px;
+  display:grid; grid-template-columns:1.2fr 1fr; gap:18px; align-items:center;
+  box-shadow:0 3px 0 rgba(0,0,0,.06) inset; margin-bottom:18px;
+}
+.blog-bloque h3{ margin:0 0 6px; font-size:26px; }
+.blog-bloque p{ margin:0 0 12px; max-width:60ch; }
+.blog-bloque .btn{ width:max-content; }
+
+@media (max-width:1000px){
+  .blog-bloque{ grid-template-columns:1fr; }
+}
+@media (max-width:560px){
+  .titulo-seccion{ font-size:26px; margin:16px 0 12px; }
+  .post p{ font-size:1rem; line-height:1.75; }
+}
+
+/* ===== Blog DETALLE (antes en blog1.css / blog2.css) ===== */
+.contenedor{ max-width:1200px; margin:auto; padding:0 16px; }
+.relleno{ padding-top:2rem; padding-bottom:2rem; }
+
+.post{ max-width:820px; margin:0 auto; }
+.titulo-seccion{
+  font-family:'Lato',sans-serif; font-weight:800; font-size:34px; line-height:1.25;
+  letter-spacing:.2px; color:var(--text); text-align:left; margin:22px 0 16px;
+}
+
+.blog-bloque__imagen{ max-width:820px; width:100%; margin:12px auto 18px; border-radius:12px; }
+.blog-bloque__imagen img,
+.blog-detalle-img{
+  display:block; width:100%; height:auto; border-radius:12px;
+  border:3px solid #c9c3b8; box-shadow:0 6px 22px rgba(0,0,0,.08); object-fit:cover;
+}
+.caption{ text-align:center; color:#7f6a5e; font-size:.95rem; margin-top:8px; }
+
+.post p{ font-size:1.05rem; line-height:1.8; margin:0 0 16px; color:var(--text); }
+
+/* ===== Aliases de footer para HTML antiguo (pie → footer) ===== */
+.pie{ margin-top:40px; padding:24px 0; border-top:1px solid var(--line); background:#f7efe1; }
+.pie__rejilla{ display:grid; grid-template-columns:1.2fr 1fr; gap:24px; }
+.pie__enlaces{ display:flex; gap:10px; flex-wrap:wrap; margin:8px 0 12px; }
+.derechos{ text-align:center; color:var(--muted); margin:14px 0 0; }
+
+/* ===== Blog detalle: Título y breadcrumb mejorados ===== */
+.post .titulo-seccion{
+  /* jerarquía clara y legible */
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;               /* en lugar de 800 */
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1.25;
+  letter-spacing: 0;              /* sin tracking extra */
+  color: var(--text);
+  text-transform: none;           /* evita MAYÚSCULAS forzadas */
+  text-wrap: balance;             /* reparte mejor las líneas */
+  margin: 18px 0 10px;
+  text-align: left;
+}
+.post .titulo-seccion::after{
+  content: "";
+  display: block;
+  width: 84px;
+  height: 4px;
+  margin: 10px 0 0;
+  border-radius: 999px;
+  background: rgba(139, 69, 19, .3); /* var(--brand) suavizado */
+}
+
+/* Breadcrumb/volver */
+.back-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--choco);
+  text-decoration: none;
+  font-weight: 600;
+  opacity: .9;
+}
+.back-link::before{ content: "←"; }
+.back-link:hover{ text-decoration: underline; opacity: 1; }
+
+/* Figura del post: un poco más protagonista */
+.blog-bloque__imagen img,
+.blog-detalle-img{
+  border-radius: 14px;            /* coherente con --radius */
+  border: 3px solid #c9c3b8;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+.caption{ color:#7a6a58; font-size:.95rem; text-align:center; margin-top:8px; }
+
+/* tipografía de marca (igual a brand__name pero sin cambiar tamaños) */
+.font-brand { 
+  font-family: 'Pacifico', cursive;
+  font-weight: 400; /* Pacifico es regular */
+}
+
+/* =========================================================
+   CONTACTO — Aliases a clases globales + avisos (flash)
+   Unificado para que luzca como Blog/Nosotros (cards blancas)
+   ========================================================= */
+
+/* Hero */
+.contact-hero,
+.contacto-hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-bottom:16px;
+  text-align:center;
+}
+.contact-hero__title{                 /* opcional si lo usas */
+  margin:0;
+  font-size:clamp(28px,3.2vw,44px);
+}
+.contact-hero a{ color:var(--choco); text-decoration:none; }
+.contact-hero a:hover{ text-decoration:underline; }
+
+/* Card (misma estética de todo el sitio) */
+.contact-card,
+.contacto-tarjeta{
+  max-width:760px;
+  margin:0 auto;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+/* Encabezado de la card */
+.contact-card__header,
+.contacto-tarjeta__encabezado{
+  background:#F7EFE1;
+  border-bottom:1px solid #d9cdbb;
+  text-transform:uppercase;
+  font-weight:700;
+  letter-spacing:.4px;
+  text-align:center;
+  padding:12px;
+  border-radius:var(--radius) var(--radius) 0 0;
+}
+
+/* Formulario */
+.contact-form,
+.formulario-contacto{
+  padding:20px;
+  display:grid;
+  gap:16px;
+}
+.form-row label,
+.form-grupo label{
+  display:block;
+  margin:0 0 6px;
+  font-weight:600;
+  color:#6b5f53;
+}
+.form-actions{
+  display:flex;
+  justify-content:center;
+  margin-top:6px;
+}
+
+/* Campos (fallback si no llevan la clase .input global) */
+.formulario-contacto input,
+.formulario-contacto textarea,
+.contact-form .input,
+.form-row .input{
+  width:100%;
+  padding:10px 12px;
+  font-size:1rem;
+  border:1px solid #bba48a;
+  border-radius:10px;              /* match inputs globales */
+  background:#fff;
+  box-sizing:border-box;
+}
+.formulario-contacto textarea,
+.contact-form textarea.input{
+  min-height:140px;
+  resize:vertical;
+}
+
+/* Avisos de éxito/error (flash) */
+.flash{
+  display:none;
+  margin:12px 20px 0;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #b7e2c0;
+  background:#e6f7e9;
+  color:#216e3a;
+}
+.flash.error{
+  border-color:#f5c6cb;
+  background:#fdecea;
+  color:#611a15;
+}
+
+/* ========= Responsive Fix Pack (global) ========= */
+
+/* Tipografías que escalan mejor */
+.brand__name{ font-size: clamp(22px, 5vw, 28px); }
+.section-title,
+.pdp__title,
+.blog-block h3{ font-size: clamp(20px, 3.8vw, 28px); }
+
+/* Contenedor con más respiro en pantallas chicas */
+@media (max-width: 720px){
+  .container{ padding: 0 14px; }
+}
+
+/* Header: que no desaparezca el menú en móviles */
+@media (max-width: 560px){
+  .topbar__inner{ flex-wrap: wrap; gap: 8px; }
+  .nav{
+    display: flex !important;            /* antes se ocultaba */
+    gap: 12px;
+    overflow-x: auto;                     /* “carrusel” horizontal si no entra */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar{ display:none; }
+  .actions{ margin-left: auto; }
+}
+
+/* Rejillas: 1 columna en móviles */
+@media (max-width: 1000px){
+  .products__grid{ grid-template-columns: repeat(2, 1fr); }
+  .cart-grid{ grid-template-columns: 1fr; }
+}
+@media (max-width: 560px){
+  .products__grid{ grid-template-columns: 1fr; }
+}
+
+/* Imágenes siempre fluidas */
+img, svg, video{ max-width: 100%; height: auto; }
+
+/* Blog detalle: mejor legibilidad en móviles */
+.post{ padding: 0 2px; }
+.post .titulo-seccion{
+  font-size: clamp(26px, 6vw, 44px);
+}
+
+/* Formularios y tablas cómodas en celular */
+.input, select, textarea{
+  font-size: 16px;        /* evita zoom automático en iOS */
+}
+.table, .cart-table{ display: block; overflow-x: auto; }
+
+/* Footer apilado */
+@media (max-width: 900px){
+  .footer__grid, .pie__rejilla{ grid-template-columns: 1fr; }
+  .newsletter__row{ flex-direction: column; }
+}
+
+/* Contacto (siempre ancho completo y cómodo) */
+@media (max-width: 760px){
+  .contact-card, .contacto-tarjeta{ margin: 0 6px; }
+  .form-actions .btn{ width: 100%; }
+}
+
+/* ====== Login / Auth: título con la tipografía de marca ====== */
+.auth-hero__title{
+  font-family: 'Pacifico', cursive;   /* mismo look que el resto */
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 44px);
+  color: var(--brand);
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+/* Un poco de respiro en móviles */
+@media (max-width: 760px){
+  .auth-card{ margin: 0 8px; }
+  .form-actions .btn{ width: 100%; }
+}
+
+/* ====== Registro: aliases y pequeños ajustes ====== */
+/* Título con tipografía de marca (igual que login) */
+.auth-hero__title{
+  font-family: 'Pacifico', cursive;
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 44px);
+  color: var(--brand);
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+/* Grid de 2 columnas dentro del registro */
+.reg-form .grid-2{ display:grid; grid-template-columns:1fr; gap:16px; }
+@media (min-width: 720px){
+  .reg-form .grid-2{ grid-template-columns:1fr 1fr; }
+}
+.reg-form .span-2{ grid-column: 1 / -1; }
+
+/* Espaciados y labels */
+.form-group{ margin-bottom:16px; }
+.form-group label{ display:block; margin:0 0 6px; font-weight:600; color:#6b5f53; }
+
+/* Controles de formulario usados en registro (alias de .input global) */
+.auth-form .form-control{ width:100%; }
+
+/* Botón del registro si alguna vez llega como .btn-primary */
+.btn-primary{ @apply none; }         /* no-op para evitar conflictos si quedara en HTML */
+.btn-primary{                         /* alias visual al primario del tema */
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-color: var(--brand) !important;
+  box-shadow: 0 8px 18px rgba(139,69,19,.16);
+}
+.btn-primary:hover{ background: var(--brand-600) !important; }
+
+/* Un poco de respiro en móviles */
+@media (max-width: 760px){
+  .auth-card{ margin: 0 8px; }
+  .form-actions .btn{ width: 100%; }
+}
+
+/* =========================================================
+   PRODUCTOS — compat con productos.html / productos.js
+   (migrado desde productos.css)
+   ========================================================= */
+
+/* Toolbar */
+.barra-herramientas-productos{ margin:8px 0 14px; display:grid; gap:10px; }
+.barra-herramientas__fila{
+  display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+}
+.busqueda{ flex:1 1 320px; }
+.busqueda .input{ width:100%; }
+.selectores{ display:flex; gap:10px; }
+.selectores .input{ min-width:200px; }
+
+/* Chips (ya existen estilos globales .chips/.chip; esto es opcional) */
+/* .chips{ display:flex; flex-wrap:wrap; gap:8px; } */
+
+/* Grid + tarjetas */
+.rejilla-productos{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:24px;
+}
+.tarjeta{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:12px;
+  display:flex; flex-direction:column; gap:8px;
+}
+.tarjeta__imagen{
+  display:block; width:100%;
+  border-radius:10px; overflow:hidden;
+  border:2px solid #bdb8ae;
+  background:#d4d0c8;
+  aspect-ratio:4/3;
+}
+.tarjeta__imagen img{ width:100%; height:100%; object-fit:cover; display:block; }
+.tarjeta__titulo{ font-weight:700; color:var(--text); margin:0; }
+.tarjeta__atributo{ color:#7a6b61; font-size:.9rem; margin:0; min-height:1.2em; }
+.tarjeta__precio{ font-weight:700; margin:0; }
+.boton-añadir-carrito{ width:100%; }
+
+/* Responsive del grid */
+@media (max-width:1000px){
+  .rejilla-productos{ grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+}
+@media (max-width:560px){
+  .rejilla-productos{ grid-template-columns:1fr; }
+}
+@media (min-width:1200px){
+  .rejilla-productos{ grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); }
+}
+
+/* =========================================================
+   FOOTER — Aliases para productos.html (boletín + enlaces)
+   ========================================================= */
+.marca__nombre{
+  font-family:'Pacifico', cursive;
+  font-weight:400;
+  font-size:24px;
+  color:var(--choco);
+  margin:0 0 8px;
+}
+
+.pie__enlaces .enlace{
+  font-size:14px;
+  color:var(--text);
+  text-decoration:none;
+}
+.pie__enlaces .enlace:hover{ text-decoration:underline; }
+
+.pago{ display:flex; gap:6px; font-size:1.4rem; margin-top:6px; }
+.pago span{ line-height:1; }
+
+/* Boletín (newsletter) */
+.boletin{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.boletin__etiqueta{
+  display:block;
+  font-weight:600;
+  color:var(--text);
+}
+.boletin__fila{
+  display:flex;
+  gap:10px;
+}
+.boletin__fila input{
+  flex:1;
+  padding:10px 12px;
+  border:1px solid #bba48a;
+  border-radius:10px;
+  background:#fff;
+}
+.ayuda{ color:var(--muted); font-size:.9rem; }
+
+/* En móviles, apilar input y botón */
+@media (max-width: 900px){
+  .boletin__fila{ flex-direction:column; }
+}

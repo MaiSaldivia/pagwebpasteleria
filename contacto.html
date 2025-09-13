@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contacto - Mil Sabores</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;800&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/nosotros.css">
-  <link rel="stylesheet" href="css/contacto.css">
 </head>
 <body>
 
@@ -22,7 +21,7 @@
       <a href="productos.html" class="nav__link">Productos</a>
       <a href="nosotros.html" class="nav__link">Nosotros</a>
       <a href="blog.html" class="nav__link">Blog</a>
-      <a href="contacto.html" class="nav__link">Contacto</a>
+      <a href="contacto.html" class="nav__link active">Contacto</a>
     </nav>
 
     <div class="actions">
@@ -33,61 +32,103 @@
   </div>
 </header>
 
+<main class="contenedor relleno">
+  <!-- Hero / encabezado -->
+  <section class="contact-hero">
+    <h1 class="contact-hero__title font-brand">Contáctanos</h1>
+    <p>Río Quiapo 1955, Villa Valle Central, Chillán</p>
+    <p><a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a></p>
+    <p>+56 9 5006 0498</p>
+  </section>
 
+  <!-- Tarjeta del formulario -->
+  <section class="contact-card">
+    <h3 class="contact-card__header">Envía un mensaje</h3>
 
-  <main class="contenedor relleno">
-    <section class="contacto-hero">
-      <h1 class="titulo-seccion">Contáctanos</h1>
-      <p>Río Quiapo 1955, Villa Valle Central, Chillán</p>
-      <p>contacto@milsabores.cl</p>
-      <p>+56 9 5006 0498</p>
-    </section>
-    
-    <section class="contacto-tarjeta">
-      <h3 class="contacto-tarjeta__encabezado">Envía un mensaje</h3>
-      <form action="#" method="post" class="formulario-contacto">
-        <div class="form-grupo">
-          <label for="nombre">Tu nombre</label>
-          <input type="text" id="nombre" name="nombre">
-        </div>
-        <div class="form-grupo">
-          <label for="correo">Tu Correo</label>
-          <input type="email" id="correo" name="correo">
-        </div>
-        <div class="form-grupo">
-          <label for="mensaje">Mensaje aquí...</label>
-          <textarea id="mensaje" name="mensaje"></textarea>
-        </div>
-        <button type="submit" class="btn btn--principal">ENVIAR MENSAJE</button>
-      </form>
-    </section>
-  </main>
-  
-  <footer class="pie">
-    <div class="contenedor pie__rejilla">
-      <div>
-        <p class="marca__nombre marca__nombre--pie">Mil Sabores</p>
-        <nav class="pie__enlaces">
-          <a href="productos.html" class="enlace">Tortas Cuadradas</a>
-          <a href="productos.html" class="enlace">Tortas Circulares</a>
-          <a href="productos.html" class="enlace">Sin Azúcar</a>
-          <a href="productos.html" class="enlace">Veganas</a>
-          <a href="productos.html" class="enlace">Sin Gluten</a>
-        </nav>
-        <div class="pago"><span>💳</span><span>💳</span><span>🏦</span></div>
+    <!-- Mensaje de feedback -->
+    <div id="contactFlash" class="flash" role="status" aria-live="polite"></div>
+
+    <form id="contactFormLite" class="contact-form" novalidate>
+      <div class="form-row">
+        <label for="nombre">Tu nombre</label>
+        <input class="input" type="text" id="nombre" name="nombre" maxlength="100" required>
       </div>
-  
-      <form id="newsletterForm" class="boletin" novalidate>
-        <label for="email" class="boletin__etiqueta">Recibe actualizaciones, novedades y promociones.</label>
-        <div class="boletin__fila">
-          <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
-          <button class="btn btn--principal" type="submit">Suscribirse</button>
-        </div>
-        <small id="emailHelp" class="ayuda"></small>
-      </form>
+      <div class="form-row">
+        <label for="correo">Tu Correo</label>
+        <input class="input" type="email" id="correo" name="correo" maxlength="100" placeholder="tucorreo@ejemplo.com" required>
+      </div>
+      <div class="form-row">
+        <label for="mensaje">Mensaje aquí…</label>
+        <textarea class="input" id="mensaje" name="mensaje" maxlength="500" required></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn--primary">ENVIAR MENSAJE</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<!-- footer igual al de blog -->
+<footer class="pie">
+  <div class="contenedor pie__rejilla">
+    <div>
+      <p class="brand__name brand__name--footer">Mil Sabores</p>
+      <nav class="pie__enlaces">
+        <a href="productos.html" class="enlace">Tortas Cuadradas</a>
+        <a href="productos.html" class="enlace">Tortas Circulares</a>
+        <a href="productos.html" class="enlace">Sin Azúcar</a>
+        <a href="productos.html" class="enlace">Veganas</a>
+        <a href="productos.html" class="enlace">Sin Gluten</a>
+      </nav>
+      <div class="pago"><span>💳</span><span>💳</span><span>🏦</span></div>
     </div>
-    <p class="derechos">© 2025 Pastelería Mil Sabores</p>
-  </footer>
-  
+
+    <form id="newsletterForm" class="boletin" novalidate>
+      <label for="email" class="boletin__etiqueta">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="boletin__fila">
+        <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
+        <button class="btn btn--primary" type="submit">Suscribirse</button>
+      </div>
+      <small id="emailHelp" class="ayuda"></small>
+    </form>
+  </div>
+  <p class="derechos">© 2025 Pastelería Mil Sabores</p>
+</footer>
+
+<!-- Scripts comunes -->
+<script defer src="js/data/data.js"></script>
+<script defer src="js/data/productosTienda.js"></script>
+<script defer src="js/data/script.js"></script>
+
+<!-- Envío del formulario (mensaje de éxito) -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form  = document.getElementById("contactFormLite");
+    const flash = document.getElementById("contactFlash");
+
+    function showFlash(msg, isError=false){
+      flash.textContent = msg;
+      flash.classList.toggle("error", !!isError);
+      flash.style.display = "block";
+      setTimeout(() => { flash.style.display = "none"; }, 5000);
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nombre  = document.getElementById("nombre");
+      const correo  = document.getElementById("correo");
+      const mensaje = document.getElementById("mensaje");
+
+      if (!nombre.value.trim() || !correo.validity.valid || !mensaje.value.trim()){
+        showFlash("Por favor completa todos los campos correctamente.", true);
+        return;
+      }
+
+      showFlash("¡Tu mensaje fue enviado con éxito! 👌 Nos pondremos en contacto pronto.");
+      form.reset();
+    });
+  });
+</script>
 </body>
 </html>

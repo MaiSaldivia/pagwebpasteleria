@@ -7,8 +7,6 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;800&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/blog1.css" />
-  
 </head>
 <body>
 <header class="topbar">
@@ -33,12 +31,12 @@
   </div>
 </header>
 
-<main class="contenedor relleno">
-  <a href="blog.html">⟵ Volver al blog</a>
+<main class="container relleno">
+  <a href="blog.html" class="back-link">Volver al blog</a>
 
-  <!-- Artículo -->
   <article class="post">
-    <h1 class="titulo-seccion">CASO CURIOSO #1: La torta gigante del récord</h1>
+    <!-- Título con la tipografía/estilo unificado -->
+    <h1 class="post__title font-brand">Caso curioso #1: La torta gigante del récord</h1>
 
     <div class="blog-bloque__imagen">
       <img src="img/blog1.png" alt="Torta gigante del récord" class="blog-detalle-img">
@@ -71,30 +69,38 @@
   </article>
 </main>
 
-<footer class="pie">
-  <div class="contenedor pie__rejilla">
+<!-- CTA igual al de nosotros.html -->
+<section class="about-cta container">
+  <h3>¿Listo para celebrar con nosotros?</h3>
+  <p>Explora nuestras tortas y encuentra el sabor perfecto para tu ocasión.</p>
+  <a class="btn btn--primary" href="productos.html">Ver catálogo</a>
+</section>
+
+<!-- Footer unificado -->
+<footer class="footer">
+  <div class="container footer__grid">
     <div>
-      <p class="marca__nombre marca__nombre--pie">Mil Sabores</p>
-      <nav class="pie__enlaces">
-        <a href="productos.html" class="enlace">Tortas Cuadradas</a>
-        <a href="productos.html" class="enlace">Tortas Circulares</a>
-        <a href="productos.html" class="enlace">Sin Azúcar</a>
-        <a href="productos.html" class="enlace">Veganas</a>
-        <a href="productos.html" class="enlace">Sin Gluten</a>
+      <p class="brand__name brand__name--footer">Mil Sabores</p>
+      <nav class="footer__links">
+        <a class="link" href="productos.html">Tortas Cuadradas</a>
+        <a class="link" href="productos.html">Tortas Circulares</a>
+        <a class="link" href="productos.html">Sin Azúcar</a>
+        <a class="link" href="productos.html">Veganas</a>
+        <a class="link" href="productos.html">Sin Gluten</a>
       </nav>
-      <div class="pago"><span>💳</span><span>💳</span><span>🏦</span></div>
+      <div class="pay"><span>💳</span><span>💳</span><span>🏦</span></div>
     </div>
 
-    <form id="newsletterForm" class="boletin" novalidate>
-      <label for="email" class="boletin__etiqueta">Recibe actualizaciones, novedades y promociones.</label>
-      <div class="boletin__fila">
-        <input type="email" id="email" name="email" placeholder="Ingresa tu email" required />
-        <button class="btn btn--principal" type="submit">Suscribirse</button>
+    <form id="newsletterForm" class="newsletter" novalidate>
+      <label class="newsletter__label" for="email">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="newsletter__row">
+        <input id="email" type="email" required placeholder="Ingresa tu email" />
+        <button class="btn btn--primary" type="submit">Suscribirse</button>
       </div>
-      <small id="emailHelp" class="ayuda"></small>
+      <small id="emailHelp" class="help"></small>
     </form>
   </div>
-  <p class="derechos">© 2025 Pastelería Mil Sabores</p>
+  <p class="copy">© 2025 Pastelería Mil Sabores</p>
 </footer>
 
 <script src="js/data/data.js"></script>
