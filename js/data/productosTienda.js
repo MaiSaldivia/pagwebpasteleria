@@ -24,7 +24,6 @@
     localStorage.setItem(KEY, JSON.stringify(list));
   }
 
-  // Si LS está vacío, sembramos con los productos de data.js (una sola vez).
   (function seedIfNeeded() {
     const cur = getLS();
     if (!cur.length) setLS(getBase());
@@ -56,7 +55,7 @@
       const list = getLS().filter(p => (p.id || p.codigo || p.code || p.nombre || p.name) !== id);
       setLS(list);
     },
-    getRaw() { return getLS(); },     // sin completar
-    setRaw(list) { setLS(list); }     // escribe tal cual
+    getRaw() { return getLS(); },
+    setRaw(list) { setLS(list); }
   };
 })();

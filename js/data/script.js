@@ -166,7 +166,7 @@ function evaluateCoupon(code, subTotal, shipCost){
   return { valid:true, discount, shipAfter, label, code };
 }
 
-/* ======= Carrito (página carrito.html) ======= */
+/* ======= Carrito ======= */
 function renderCart(){
   const wrap = $("#cartPage");
   if(!wrap) return;
@@ -425,7 +425,7 @@ function bindContactForm(){
 
 /* ======= Bootstrap común ======= */
 document.addEventListener("DOMContentLoaded", ()=>{
-  pruneCartOrphans();  // <-- limpiar residuales apenas cargue
+  pruneCartOrphans();
   updateCartBadge();
   renderCart();
   bindLoginForm();

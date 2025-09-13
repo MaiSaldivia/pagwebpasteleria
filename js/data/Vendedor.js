@@ -1,5 +1,5 @@
 // ================================
-// VENDEDOR - Pedidos e Inventario (sincronizado con Admin)
+// VENDEDOR - Pedidos e Inventario
 // ================================
 (function () {
   const PRODUCTS_KEY = "ADMIN_PRODUCTS_V1";
@@ -17,7 +17,7 @@
     });
   });
 
-  // ---------- Productos (mismo origen que Admin) ----------
+  // ---------- Productos ----------
   const toAdmin = p => ({
     codigo: (p.codigo||p.id||p.code||"").toString(),
     nombre: p.nombre || p.name || p.title || "",
@@ -47,7 +47,7 @@
     localStorage.setItem(PRODUCTS_KEY, JSON.stringify(list));
   }
 
-  // ---------- Pedidos (demo con persistencia opcional) ----------
+  // ---------- Pedidos ----------
   function seedOrders(){
     return [
       { id:"PED001", cliente:"Ana López",  total:25000, estado:"Pendiente", items:[{codigo:"P001", nombre:"Torta de Chocolate", qty:1, price:25000}] },
@@ -124,7 +124,6 @@
       </tr>
     `).join("");
 
-    // ¡OJO! sin { once:true } para que funcione en todos los clicks
     tbody.addEventListener("click", (e)=>{
       const id = e.target?.dataset?.detalle;
       if(!id) return;

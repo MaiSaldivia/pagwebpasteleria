@@ -1,5 +1,5 @@
 /* ===============================
-   THEME (igual al Vendedor)
+  THEME (igual al Vendedor)
 =============================== */
 :root{
   --color-principal:#5D4037;   /* café oscuro */
@@ -11,7 +11,7 @@
 }
 
 /* ===============================
-   Base / reset
+  Base / reset
 =============================== */
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-family:'Lato',sans-serif;color:var(--color-texto);line-height:1.6}
@@ -20,7 +20,7 @@ a{color:var(--color-principal);text-decoration:none}
 a:hover{text-decoration:underline}
 
 /* ===============================
-   Login (se mantiene)
+  Login
 =============================== */
 .login-body{
   background-color:var(--color-fondo);
@@ -80,7 +80,7 @@ a:hover{text-decoration:underline}
   background:var(--color-blanco);
 }
 
-/* Header (alineado a la izquierda como Vendedor) */
+/* Header (alineado como Vendedor) */
 .admin-header{margin-bottom:24px}
 .admin-title{
   font-size:32px;font-family:'Pacifico',cursive;
@@ -113,7 +113,7 @@ a:hover{text-decoration:underline}
 .btn--principal:hover{background:#4E342E}
 
 /* ===============================
-   Tablas / Formularios (se conservan)
+  Tablas / Formularios
 =============================== */
 .actions-top{margin-bottom:20px;text-align:right}
 .admin-table{

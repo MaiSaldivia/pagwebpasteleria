@@ -18,16 +18,15 @@
     if (Array.isArray(raw)) saved = raw.map(norm);
   } catch (e) {}
 
-  // Map por id: primero base, luego saved (saved sobreescribe si coincide)
   const byId = new Map();
   for (const p of base)  if (p.id) byId.set(String(p.id), p);
   for (const p of saved) if (p.id) byId.set(String(p.id), { ...byId.get(String(p.id)), ...p });
 
-  // Lista final y la dejamos disponible
+  // Lista final
   const ALL = Array.from(byId.values());
   window.PRODUCTS = ALL;
 
-  // ===== Helpers para leer campos =====
+  // ===== Helpers =====
   const getName  = p => p.name || p.nombre || p.title || "";
   const getCat   = p => p.category || p.categoria || p.categoryName || "";
   const getAttr  = p => p.attr || p.atributo || p.attributes || "";

@@ -33,7 +33,6 @@
       maximumFractionDigits: 0
     });
 
-  // Base tomada de la tienda (data.js) o de DataAdmin.js como fallback
   function getBase() {
     if (Array.isArray(window.PRODUCTS) && window.PRODUCTS.length) {
       return window.PRODUCTS.map(toAdmin);
@@ -44,7 +43,6 @@
     return [];
   }
 
-  // Fusiona por código: base + guardado (prioriza lo guardado)
   function mergeByCodigo(baseList, savedList) {
     const map = new Map();
     baseList.forEach(p => map.set(p.codigo, p));
@@ -134,7 +132,7 @@
       }
     });
 
-    // ---- Render usuarios (si existe la tabla) ----
+    // ---- Render usuarios ----
     const tablaUsuarios = document.querySelector('#tablaUsuarios tbody');
     if (tablaUsuarios && Array.isArray(window.usuarios)) {
       tablaUsuarios.innerHTML = window.usuarios

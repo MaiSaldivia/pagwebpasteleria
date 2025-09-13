@@ -1,5 +1,5 @@
 // ================================
-// VALIDACIONES ADMINISTRADOR (actualizado)
+// VALIDACIONES ADMINISTRADOR
 // - Login consulta también usuarios guardados en LS (ADMIN_USERS_V1)
 // - Form Producto: igual, con categorías dinámicas
 // - Form Usuario (admin): crea/edita y PERSISTE en LS (ADMIN_USERS_V1)
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // (demo) no validamos password real
+      // no validamos password real
       const session = { correo: user.correo, nombre: user.nombre, rol: user.rol };
       localStorage.setItem("session", JSON.stringify(session));
       alert("Ingreso exitoso ✔️");
@@ -264,7 +264,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const regionSel = $("#region"), comunaSel = $("#comuna");
         if (regionSel) {
           regionSel.value = u.region || "";
-          // si DataAdmin.js pobla comunas en change:
           regionSel.dispatchEvent(new Event("change"));
         }
         if (comunaSel) {

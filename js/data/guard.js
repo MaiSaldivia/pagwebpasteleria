@@ -13,7 +13,7 @@
     return;
   }
 
-  // Logout si hay botón
+  // Logout
   document.getElementById("logoutBtn")?.addEventListener("click", () => {
     localStorage.removeItem("session");
     location.href = "AdminLogin.html";

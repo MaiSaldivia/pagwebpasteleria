@@ -167,7 +167,7 @@
   }
   
   .stock-bajo {
-    color: #D32F2F; /* Rojo para stock bajo */
+    color: #D32F2F;
     font-weight: bold;
   }
   
@@ -187,7 +187,7 @@
   }
   
   .btn--principal:hover {
-    background-color: #4E342E; /* Un tono más oscuro */
+    background-color: #4E342E;
   }
   
   /* Responsive */

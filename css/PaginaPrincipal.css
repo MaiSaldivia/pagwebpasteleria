@@ -33,7 +33,7 @@ h1,h2,h3{
 }
 
 /* ====================================
-   2) HEADER (igual al resto)
+   2) HEADER
 ==================================== */
 .topbar{
   background:#fff;
@@ -108,7 +108,7 @@ h1,h2,h3{
 .section{ padding:64px 0; }
 .section--clara{ background:#F7EFE1; }  /* tono del tema, no gris */
 
-/* Tarjetas (si usas grillas en index) */
+/* Tarjetas */
 .products__grid, .blog__grid{
   display:grid; gap:32px;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -121,10 +121,10 @@ h1,h2,h3{
 .product-card img, .blog-card img{ width:100%; height:auto; display:block; }
 
 /* ====================================
-   6) FOOTER (igual al resto)
+   6) FOOTER
 ==================================== */
 .footer{
-  background:#F7EFE1;            /* ← footer claro */
+  background:#F7EFE1;
   color:var(--text);
   padding:24px 0;
   margin-top:40px;

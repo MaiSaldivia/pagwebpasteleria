@@ -34,7 +34,7 @@
   const getImg   = p => p.img || p.image || p.picture || "";
   const fmtCLP   = n => (n || 0).toLocaleString('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 });
 
-  // === Descripciones largas (fallback) ===
+  // === Descripciones largas ===
   const DESCS = window.DESCRIPTIONS || {
     "Torta Cuadrada de Chocolate": "Deliciosa torta de chocolate con capas de ganache y un toque de avellanas. Personalizable con mensajes especiales.",
     "Torta Cuadrada de Frutas": "Mezcla de frutas frescas y crema chantilly sobre un suave bizcocho de vainilla. Ideal para celebraciones.",

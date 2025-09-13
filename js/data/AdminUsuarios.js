@@ -22,11 +22,9 @@
     try { saved = JSON.parse(localStorage.getItem(USERS_KEY) || "[]"); } catch {}
     const base = baseUsers();
 
-    // si no hay guardados, sembramos con los base
     const list = (Array.isArray(saved) && saved.length) ? mergeByRun(base, saved) : base;
     if (!saved || !saved.length) localStorage.setItem(USERS_KEY, JSON.stringify(list));
 
-    // mantenemos sincronizado el global para otras pantallas (login, etc)
     window.usuarios = mergeByRun(base, list);
     return list;
   }
@@ -128,11 +126,10 @@
           region.dispatchEvent(new Event("change"));
         }
         if (comuna) {
-          // esperar que se carguen comunas
           setTimeout(() => { comuna.value = u.comuna || ""; }, 0);
         }
 
-        form.run.readOnly = true; // evitar cambiar RUN al editar
+        form.run.readOnly = true;
       }
     }
 
