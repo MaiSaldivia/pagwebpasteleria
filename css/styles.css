@@ -1139,3 +1139,56 @@ img, svg, video{ max-width: 100%; height: auto; }
   color: inherit;      /* toma el color del texto normal */
   opacity: 1;          /* elimina el atenuado */
 }
+
+/* ====== MOBILE FIX PACK (no cambia escritorio) ====== */
+
+/* Menú visible en móvil (anula .nav{display:none}) + scroll horizontal si no cabe */
+@media (max-width: 560px){
+  .topbar__inner{ flex-wrap: wrap; gap: 8px; }
+  .nav{
+    display: flex !important;
+    gap: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar{ display: none; }
+  .actions{ margin-left: auto; }
+
+  /* PDP: fila de compra en 1 columna */
+  .pdp__buyrow{ grid-template-columns: 1fr; }
+  .pdp__add{ width: 100%; }
+
+  /* Cupón: input y botón apilados */
+  .coupon-row{ flex-direction: column; }
+  .coupon-btn{ width: 100%; }
+
+  /* Grid de productos: 1 por fila en teléfonos (refuerzo) */
+  .products__grid{ grid-template-columns: 1fr; }
+
+  /* Contenedor con un poco más de respiro + evitar desbordes horizontales */
+  .container{ padding: 0 14px; }
+  body{ overflow-x: hidden; }
+}
+
+/* Tablas con scroll horizontal en pantallas chicas */
+@media (max-width: 768px){
+  .table, .cart-table{
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Admin en una columna en pantallas medianas/chicas */
+@media (max-width: 900px){
+  .admin{ grid-template-columns: 1fr; }
+  .cart-grid{ grid-template-columns: 1fr; } /* refuerzo para carrito */
+  .footer__grid{ grid-template-columns: 1fr; } /* pie apilado */
+}
+
+/* Hero y rejillas cómodas en tablets */
+@media (max-width: 1000px){
+  .hero__grid{ grid-template-columns: 1fr; }
+  .products__grid{ grid-template-columns: repeat(2, 1fr); }
+}

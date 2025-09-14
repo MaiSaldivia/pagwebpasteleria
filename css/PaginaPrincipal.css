@@ -2,7 +2,6 @@
    1) TOKENS / BASE
 ==================================== */
 :root{
-  /* Paleta unificada con el resto del sitio */
   --bg:#FFF5E1;
   --text:#5D4037;
   --brand:#8a4f3a;
@@ -18,8 +17,9 @@ body{
   line-height:1.6;
   margin:0;
   padding:0;
-  background:var(--bg);           /* ← elimina el blanco del fondo */
+  background:var(--bg);
 }
+img,video{max-width:100%;height:auto;display:block}
 
 /* Contenedor */
 .container{ max-width:1200px; margin:0 auto; padding:0 20px; }
@@ -41,7 +41,7 @@ h1,h2,h3{
   padding:16px 0;
   position:sticky; top:0; z-index:40;
 }
-.topbar__inner{ display:flex; justify-content:space-between; align-items:center; }
+.topbar__inner{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
 .brand__name{
   color:var(--brand);
   font-size:28px;
@@ -106,9 +106,8 @@ h1,h2,h3{
    5) SECCIONES
 ==================================== */
 .section{ padding:64px 0; }
-.section--clara{ background:#F7EFE1; }  /* tono del tema, no gris */
+.section--clara{ background:#F7EFE1; }
 
-/* Tarjetas */
 .products__grid, .blog__grid{
   display:grid; gap:32px;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -165,24 +164,33 @@ h1,h2,h3{
 /* ====================================
    7) RESPONSIVE
 ==================================== */
+@media (max-width:992px){
+  .container{ padding: 0 14px; }
+}
 @media (max-width:768px){
   .footer__grid{ grid-template-columns:1fr; }
   .brand__name--footer, .footer__links, .newsletter{ text-align:center; }
   .newsletter__row{ flex-direction:column; }
 }
+@media (max-width:560px){
+  .topbar__inner{ flex-wrap:wrap; gap:8px; }
+  .nav{
+    gap:12px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .nav::-webkit-scrollbar{ display:none; }
+  .actions{ margin-left:auto; }
+}
 
 /* ========= Responsive Fix Pack (home) ========= */
-
-/* Títulos del hero con clamp */
 .title-alt{ font-size: clamp(28px, 7vw, 48px); }
 .lead-alt{ font-size: clamp(14px, 2.8vw, 19px); max-width: 80ch; margin-left:auto; margin-right:auto; }
 
-/* Altura del hero en móviles */
 @media (max-width: 720px){
   .hero-alt{ min-height: 56vh; height: auto; padding: 32px 0; }
+  .products__grid, .blog__grid{ grid-template-columns: 1fr; }
 }
 
-/* Botón del hero visible en blanco */
+/* Botón del hero en blanco */
 .hero-alt .btn--secondary,
 .hero-alt .btn.btn--secundario{
   background: transparent;
@@ -193,11 +201,4 @@ h1,h2,h3{
 .hero-alt .btn--secondary:hover,
 .hero-alt .btn.btn--secundario:hover{
   background: #fff; color: var(--brand) !important;
-}
-
-/* Cards y blog en una columna en pantallas pequeñas */
-@media (max-width: 720px){
-  .products__grid, .blog__grid{
-    grid-template-columns: 1fr;
-  }
 }
