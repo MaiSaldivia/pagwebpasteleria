@@ -141,7 +141,7 @@ const COUPON_KEY = "couponCode_v1";
 
 // Mapa de cupones
 const COUPONS = {
-  "DUOC10":      { type: "percent", value: 10,   label: "10% OFF" },
+  "FELICES50":      { type: "percent", value: 10,   label: "10% OFF" },
   "DUOC20":      { type: "percent", value: 20,   label: "20% OFF" },
   "5000OFF":     { type: "amount",  value: 5000, label: "$5.000 OFF" },
   "ENVIOGRATIS": { type: "ship",    value: 0,    label: "Envío gratis" }
@@ -270,11 +270,11 @@ function renderCart(){
         <div class="coupon-box">
           <label for="couponInput" class="coupon-label">Ingrese el cupón de descuento</label>
           <div class="coupon-row">
-            <input type="text" id="couponInput" class="coupon-input" placeholder="Ej: DUOC10" value="${currentCoupon || ""}" />
+            <input type="text" id="couponInput" class="coupon-input" placeholder="Ej: FELICES50" value="${currentCoupon || ""}" />
             <button type="button" class="coupon-btn" id="couponBtn">${cup.valid ? "REAPLICAR" : "APLICAR"}</button>
             ${cup.valid ? `<button type="button" class="coupon-btn" id="couponRemove" style="margin-left:6px; background:#eee;color:#333;">Quitar</button>` : ""}
           </div>
-          <small id="couponMsg" class="muted">${cup.valid ? "Cupón aplicado" : "Ej: DUOC10, ENVIOGRATIS, 5000OFF"}</small>
+          <small id="couponMsg" class="muted">${cup.valid ? "Cupón aplicado" : "Ej: FELICES50, ENVIOGRATIS, 5000OFF"}</small>
         </div>
 
         <div class="sum-row total">
