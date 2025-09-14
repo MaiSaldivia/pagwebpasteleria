@@ -1132,3 +1132,10 @@ img, svg, video{ max-width: 100%; height: auto; }
 @media (max-width: 900px){
   .boletin__fila{ flex-direction:column; }
 }
+
+/* --- Ajuste de color para textos "muted" en header y carrito --- */
+.topbar .actions .small.muted,
+.cart-summary .small.muted {
+  color: inherit;      /* toma el color del texto normal */
+  opacity: 1;          /* elimina el atenuado */
+}

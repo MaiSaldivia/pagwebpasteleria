@@ -44,8 +44,6 @@
     "Tiramisú Clásico": "Postre italiano individual con capas de café, mascarpone y cacao. Perfecto para finalizar cualquier comida.",
     "Torta Sin Azúcar de Naranja": "Ligera y deliciosa, endulzada naturalmente. Ideal para opciones más saludables.",
     "Cheesecake Sin Azúcar": "Suave y cremoso, opción perfecta para disfrutar sin culpa.",
-    "Empanada de Manzana": "Rellena de manzanas especiadas; perfecta para un dulce desayuno o merienda.",
-    "Tarta de Santiago": "Tradicional tarta española con almendras. Delicia para amantes de los postres clásicos.",
     "Brownie Sin Gluten": "Rico y denso; ideal para quienes evitan el gluten sin sacrificar el sabor.",
     "Pan Sin Gluten": "Suave y esponjoso, perfecto para sándwiches o acompañar cualquier comida.",
     "Torta Vegana de Chocolate": "Torta húmeda y deliciosa, sin productos de origen animal.",
@@ -71,7 +69,11 @@
   const name  = getName(prod);
   const cat   = getCat(prod);
   const attr  = getAttr(prod);
-  const price = fmtCLP(getPrice(prod));
+  const basePrice = getPrice(prod);
+
+  const user = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
+  const ben  = (typeof computeUserBenefits === 'function') ? computeUserBenefits(user) : {percent:0};
+  const finalPrice = (typeof priceWithBenefits === 'function') ? priceWithBenefits(basePrice, ben) : basePrice;
 
   document.title = name + ' · Mil Sabores';
   document.getElementById('pName').textContent = name;
@@ -79,7 +81,10 @@
   pCatEl.textContent = cat || 'Productos';
   pCatEl.href = 'productos.html' + (cat ? ('#' + encodeURIComponent(cat)) : '');
   document.getElementById('pAttr').textContent = attr ? ('• ' + attr) : '';
-  document.getElementById('pPrice').textContent = price;
+  document.getElementById('pPrice').innerHTML =
+    ben.percent
+      ? `<s class="muted">${fmtCLP(basePrice)}</s> <strong>${fmtCLP(finalPrice)}</strong>`
+      : `<strong>${fmtCLP(basePrice)}</strong>`;
   document.getElementById('pLong').textContent =
     DESCS[name] || DESCS[getId(prod)] || 'Deliciosa preparación de la casa, ideal para tus celebraciones.';
 
@@ -124,9 +129,14 @@
   relBox.innerHTML = related.map(p => {
     const rid    = encodeURIComponent(getId(p));
     const rname  = getName(p);
-    const rprice = fmtCLP(getPrice(p));
+    const rbase  = getPrice(p);
+    const rfin   = (typeof priceWithBenefits === 'function') ? priceWithBenefits(rbase, ben) : rbase;
     const rattr  = getAttr(p) || '&nbsp;';
     const rimg   = encodeURI(getImg(p) || 'img/placeholder.png');
+    const priceHTML = ben.percent
+      ? `<s class="muted">${fmtCLP(rbase)}</s> <strong>${fmtCLP(rfin)}</strong>`
+      : `<strong>${fmtCLP(rbase)}</strong>`;
+
     return `
       <article class="tarjeta">
         <a href="producto.html?id=${rid}" class="tarjeta__imagen" aria-label="${rname}">
@@ -134,7 +144,7 @@
         </a>
         <a class="tarjeta__titulo" href="producto.html?id=${rid}">${rname}</a>
         <p class="tarjeta__atributo">${rattr}</p>
-        <p class="tarjeta__precio">${rprice}</p>
+        <p class="tarjeta__precio">${priceHTML}</p>
         <a class="btn btn--fantasma" href="producto.html?id=${rid}">Ver detalle</a>
       </article>
     `;

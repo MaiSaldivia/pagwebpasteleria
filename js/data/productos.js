@@ -70,7 +70,15 @@
 
   // ===== 2) HTML de tarjeta =====
   function cardHTML(p) {
-    const price = (getPrice(p) || 0).toLocaleString("es-CL", { style: "currency", currency: "CLP", maximumFractionDigits: 0 });
+    const user = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
+    const ben  = (typeof computeUserBenefits === 'function') ? computeUserBenefits(user) : {percent:0};
+    const base = getPrice(p);
+    const fin  = (typeof priceWithBenefits === 'function') ? priceWithBenefits(base, ben) : base;
+
+    const priceHTML = ben.percent
+      ? `<s class="muted">${(base||0).toLocaleString("es-CL",{style:"currency",currency:"CLP",maximumFractionDigits:0})}</s> <strong>${(fin||0).toLocaleString("es-CL",{style:"currency",currency:"CLP",maximumFractionDigits:0})}</strong>`
+      : `<strong>${(base||0).toLocaleString("es-CL",{style:"currency",currency:"CLP",maximumFractionDigits:0})}</strong>`;
+
     const name  = getName(p);
     const attr  = getAttr(p);
     const id    = encodeURIComponent(getId(p));
@@ -83,7 +91,7 @@
         </a>
         <a class="tarjeta__titulo" href="producto.html?id=${id}">${name}</a>
         ${attr ? `<p class="tarjeta__atributo">${attr}</p>` : `<p class="tarjeta__atributo">&nbsp;</p>`}
-        <p class="tarjeta__precio">${price}</p>
+        <p class="tarjeta__precio">${priceHTML}</p>
         <button class="btn btn--fantasma boton-añadir-carrito" data-id="${id}">Añadir</button>
       </article>
     `;

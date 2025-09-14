@@ -38,48 +38,39 @@
 
   <section class="auth-card">
     <div class="auth-card__header">Registro de usuario</div>
-    <form id="registroForm" class="auth-form reg-form" novalidate>
 
-      <div class="form-group grid-2">
-        <div>
-          <label for="run">RUN (sin puntos ni guion)</label>
-          <input id="run" class="form-control" type="text" required />
-          <small class="help"></small>
-        </div>
-        <div>
-          <label for="tipo">Tipo de Usuario</label>
-          <select id="tipo" class="form-control" required>
-            <option value="">Seleccione</option>
-            <option>Cliente</option>
-            <option>Vendedor</option>
-          </select>
-          <small class="help"></small>
-        </div>
+    <input type="hidden" id="tipo" value="Cliente" />
+
+    <form id="registroForm" class="auth-form reg-form" novalidate>
+      <div class="form-group">
+        <label for="run">RUN (sin puntos ni guion)</label>
+        <input id="run" class="form-control" type="text" inputmode="text" autocomplete="off" required />
+        <small class="help"></small>
       </div>
 
       <div class="form-group grid-2">
         <div>
           <label for="nombre">Nombres</label>
-          <input id="nombre" class="form-control" type="text" required />
+          <input id="nombre" class="form-control" type="text" maxlength="50" autocomplete="given-name" required />
           <small class="help"></small>
         </div>
         <div>
           <label for="apellidos">Apellidos</label>
-          <input id="apellidos" class="form-control" type="text" required />
+          <input id="apellidos" class="form-control" type="text" maxlength="100" autocomplete="family-name" required />
           <small class="help"></small>
         </div>
       </div>
 
       <div class="form-group grid-2">
         <div>
-          <label for="correo">Correo</label>
-          <input id="correo" type="email" class="form-control" required />
-          <small class="help"></small>
+          <label for="correo">Correo <span class="small muted">(usa tu <b>@duoc.cl</b> si eres estudiante)</span></label>
+          <input id="correo" type="email" class="form-control" maxlength="100" autocomplete="email" required />
+          <small class="help">Si usas tu correo DUOC tendrás beneficios el día de tu cumpleaños.</small>
         </div>
         <div>
-          <label for="fnac">Fecha de nacimiento (opcional)</label>
-          <input id="fnac" type="date" class="form-control" />
-          <small class="help"></small>
+          <label for="fnac">Fecha de nacimiento (recomendado)</label>
+          <input id="fnac" type="date" class="form-control" autocomplete="bday" />
+          <small class="help">Necesaria para 50% 50+ y regalo de cumpleaños.</small>
         </div>
       </div>
 
@@ -102,19 +93,19 @@
 
       <div class="form-group">
         <label for="direccion">Dirección</label>
-        <input id="direccion" class="form-control" type="text" required />
+        <input id="direccion" class="form-control" type="text" maxlength="300" autocomplete="street-address" required />
         <small class="help"></small>
       </div>
 
       <div class="form-group grid-2">
         <div>
           <label for="pass">Contraseña</label>
-          <input id="pass" type="password" class="form-control" required />
+          <input id="pass" type="password" class="form-control" minlength="4" maxlength="10" autocomplete="new-password" required />
           <small class="help"></small>
         </div>
         <div>
           <label for="pass2">Confirmar contraseña</label>
-          <input id="pass2" type="password" class="form-control" required />
+          <input id="pass2" type="password" class="form-control" minlength="4" maxlength="10" autocomplete="new-password" required />
           <small class="help"></small>
         </div>
       </div>
@@ -122,10 +113,14 @@
       <div class="form-group grid-2">
         <div>
           <label for="fono">Teléfono (opcional)</label>
-          <input id="fono" class="form-control" type="text" />
+          <input id="fono" class="form-control" type="text" inputmode="tel" autocomplete="tel" />
           <small class="help"></small>
         </div>
-        <div></div>
+        <div>
+          <label for="promo">Código de promoción (opcional)</label>
+          <input id="promo" class="form-control" type="text" placeholder="FELICES50" />
+          <small class="help">Si usas FELICES50 tendrás 10% permanente.</small>
+        </div>
       </div>
 
       <div class="form-actions">
