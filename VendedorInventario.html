@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/Vendedor.css" />
 </head>
-<body>
+<body data-role="Vendedor">
   <div class="vendedor-layout">
     <aside class="vendedor-sidebar">
       <h2 class="sidebar__title">Mil Sabores</h2>
@@ -16,7 +16,8 @@
         <a href="VendedorHome.html" class="sidebar__link">🏠 Inicio</a>
         <a href="VendedorPedidos.html" class="sidebar__link">🛒 Pedidos</a>
         <a href="VendedorInventario.html" class="sidebar__link active">📦 Inventario</a>
-        <a href="index.html" class="sidebar__link logout">🚪 Volver a tienda</a>
+        <a href="index.html" class="sidebar__link">🛍️ Volver a tienda</a>
+        <a href="AdminLogin.html" class="sidebar__link logout" id="logoutBtn">🚪 Cerrar sesión</a>
       </nav>
     </aside>
 
@@ -42,7 +43,8 @@
     </main>
   </div>
 
-  <script defer src="js/data/DataAdmin.js"></script>
+  <script defer src="js/data/data.js"></script>
   <script defer src="js/data/Vendedor.js"></script>
+  <script defer src="js/data/guard.js"></script>
 </body>
 </html>

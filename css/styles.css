@@ -1192,3 +1192,30 @@ img, svg, video{ max-width: 100%; height: auto; }
   .hero__grid{ grid-template-columns: 1fr; }
   .products__grid{ grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ====== Comentarios (blog) ====== */
+.comments .comment { padding:12px 0; border-bottom:1px solid #eee; }
+.comment__head { display:flex; gap:8px; align-items:center; margin-bottom:6px; }
+.comment__text { margin:0; white-space:pre-wrap; line-height:1.5; }
+.comment__actions { display:flex; gap:8px; margin-top:8px; }
+
+/* inputs/textarea del formulario y editor en línea */
+.comment__form .input,
+.comment__form textarea,
+.comment__edit {
+  display:block;
+  width:100%;
+  max-width:100%;
+  min-height:140px;
+  padding:12px;
+  font-size:16px;
+  line-height:1.4;
+  resize:vertical;
+}
+
+/* en pantallas chicas, un poquito más compacto */
+@media (max-width:640px){
+  .comment__form .input,
+  .comment__form textarea,
+  .comment__edit { min-height:120px; font-size:15px; }
+}

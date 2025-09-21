@@ -8,12 +8,26 @@
   const $ = (s, ctx=document) => ctx.querySelector(s);
   const money = v => "$" + Number(v||0).toLocaleString("es-CL");
 
-  // --- Limitar navegación a lo permitido (Inicio, Pedidos, Inventario, Volver a tienda) ---
+  // --- Menú permitido + logout funcional
   document.addEventListener("DOMContentLoaded", () => {
-    const allowed = new Set(["VendedorHome.html","VendedorPedidos.html","VendedorInventario.html","index.html"]);
+    const allowed = new Set([
+      "VendedorHome.html",
+      "VendedorPedidos.html",
+      "VendedorInventario.html",
+      "index.html"
+    ]);
     document.querySelectorAll(".vendedor-sidebar .sidebar__nav a").forEach(a=>{
+      if (a.classList.contains("logout")) return; // conserva logout
       const href = a.getAttribute("href") || "";
       if(!allowed.has(href)) a.remove();
+    });
+
+    document.querySelectorAll(".vendedor-sidebar .sidebar__nav a.logout").forEach(a=>{
+      a.addEventListener("click", (e)=>{
+        e.preventDefault();
+        localStorage.removeItem("session");
+        window.location.href = "AdminLogin.html";
+      });
     });
   });
 
@@ -30,18 +44,34 @@
     descripcion: p.descripcion || ""
   });
 
+  // Mezcla guardado (LS) con base (data.js) para rellenar stock si faltara
+  function mergeByCodigo(base, saved) {
+    const map = new Map();
+    base.forEach(p => map.set(p.codigo, { ...p }));
+    saved.forEach(p => {
+      const prev = map.get(p.codigo) || {};
+      map.set(p.codigo, { ...prev, ...p });
+      // si el guardado no trae stock pero la base sí, conserva el de base
+      const cur = map.get(p.codigo);
+      if ((p.stock === undefined || p.stock === null) && prev.stock != null) {
+        cur.stock = prev.stock;
+      }
+      if ((p.stockCritico === undefined || p.stockCritico === null) && prev.stockCritico != null) {
+        cur.stockCritico = prev.stockCritico;
+      }
+    });
+    return [...map.values()];
+  }
+
   function loadProducts() {
+    const base = Array.isArray(window.PRODUCTS) ? window.PRODUCTS.map(toAdmin) : [];
     try {
       const saved = JSON.parse(localStorage.getItem(PRODUCTS_KEY) || "[]");
-      if (Array.isArray(saved) && saved.length) return saved;
+      if (Array.isArray(saved) && saved.length) {
+        return mergeByCodigo(base, saved);
+      }
     } catch {}
-    if (Array.isArray(window.PRODUCTS) && window.PRODUCTS.length) {
-      return window.PRODUCTS.map(toAdmin);
-    }
-    if (Array.isArray(window.productos) && window.productos.length) {
-      return window.productos.map(toAdmin);
-    }
-    return [];
+    return base;
   }
   function saveProducts(list){
     localStorage.setItem(PRODUCTS_KEY, JSON.stringify(list));
@@ -162,7 +192,7 @@
     const paint = () => { tbody.innerHTML = products.map(rowHtml).join(""); };
     paint();
 
-    // Actualizar stock y persistir al mismo storage que usa Admin
+    // Actualizar stock y persistir
     tbody.addEventListener("click", (e)=>{
       const code = e.target?.dataset?.stock;
       if(!code) return;

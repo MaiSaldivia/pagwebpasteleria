@@ -17,13 +17,16 @@
     descripcion: p.descripcion || ''
   });
 
+  // ⬅️ IMPORTANTE: ahora mantenemos stock y stockCritico
   const toPublic = a => ({
     id: a.codigo,
     nombre: a.nombre,
     precio: Number(a.precio || 0),
     categoria: a.categoria || '',
     attr: a.attr || '',
-    img: a.imagen || ''
+    img: a.imagen || '',
+    stock: Number(a.stock ?? 0),
+    stockCritico: Number(a.stockCritico ?? 0)
   });
 
   const fmtCLP = n =>
@@ -34,11 +37,9 @@
     });
 
   function getBase() {
+    // SOLO data.js
     if (Array.isArray(window.PRODUCTS) && window.PRODUCTS.length) {
       return window.PRODUCTS.map(toAdmin);
-    }
-    if (Array.isArray(window.productos) && window.productos.length) {
-      return window.productos.map(toAdmin);
     }
     return [];
   }
@@ -53,9 +54,7 @@
   function loadList() {
     const base = getBase();
     let saved = [];
-    try {
-      saved = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
-    } catch {}
+    try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch {}
 
     // Si no hay nada guardado, sembramos con la base y persistimos
     if (!Array.isArray(saved) || saved.length === 0) {
@@ -70,7 +69,7 @@
 
   function saveList(list) {
     localStorage.setItem(STORE_KEY, JSON.stringify(list));
-    // Mantener la tienda sincronizada durante la sesión
+    // Mantener la tienda sincronizada durante la sesión (preservando stock)
     window.PRODUCTS = list.map(toPublic);
   }
 
@@ -86,9 +85,7 @@
         tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#666;">No hay productos</td></tr>`;
         return;
       }
-      tbody.innerHTML = data
-        .map(
-          p => `
+      tbody.innerHTML = data.map(p => `
         <tr data-code="${p.codigo}">
           <td>${p.codigo}</td>
           <td>${p.nombre}</td>
@@ -101,9 +98,8 @@
               <button class="btn-delete">🗑️ Eliminar</button>
             </div>
           </td>
-        </tr>`
-        )
-        .join('');
+        </tr>
+      `).join('');
     }
 
     render();
@@ -115,8 +111,7 @@
       const code = row.dataset.code;
 
       if (e.target.closest('.btn-edit')) {
-        window.location.href =
-          'AdminProductoNuevo.html?codigo=' + encodeURIComponent(code);
+        window.location.href = 'AdminProductoNuevo.html?codigo=' + encodeURIComponent(code);
         return;
       }
 
@@ -135,9 +130,7 @@
     // ---- Render usuarios ----
     const tablaUsuarios = document.querySelector('#tablaUsuarios tbody');
     if (tablaUsuarios && Array.isArray(window.usuarios)) {
-      tablaUsuarios.innerHTML = window.usuarios
-        .map(
-          u => `
+      tablaUsuarios.innerHTML = window.usuarios.map(u => `
         <tr>
           <td>${u.run}</td>
           <td>${u.nombre}</td>
@@ -150,9 +143,8 @@
               <button class="btn-delete">🗑️ Eliminar</button>
             </div>
           </td>
-        </tr>`
-        )
-        .join('');
+        </tr>
+      `).join('');
     }
   });
 })();

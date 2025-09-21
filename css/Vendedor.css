@@ -87,7 +87,8 @@ img,video{max-width:100%;height:auto;display:block}
   }
   .sidebar__title{display:none}
   .sidebar__nav{flex-direction:row;flex-wrap:wrap;justify-content:center}
-  .sidebar__link.logout{display:none}
+  /* Mostrar Cerrar sesión también en móviles */
+  .sidebar__link.logout{display:inline-flex}
   .vendedor-table{display:block;overflow-x:auto}
 }
 @media (max-width:560px){

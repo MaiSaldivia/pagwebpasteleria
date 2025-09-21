@@ -17,6 +17,32 @@
     return [...map.values()];
   };
 
+  // --- Validadores compartidos (RUN + edad) ---
+  function adminCleanRun(run){ return (run||"").toUpperCase().replace(/[^0-9K]/g,""); }
+  function adminValidRun(run){
+    run = adminCleanRun(run);
+    if(run.length < 7 || run.length > 9) return false;
+    const body = run.slice(0,-1), dv = run.at(-1);
+    let sum=0, mult=2;
+    for(let i=body.length-1;i>=0;i--){
+      sum += parseInt(body[i],10)*mult;
+      mult = mult===7 ? 2 : mult+1;
+    }
+    const res = 11 - (sum % 11);
+    const dvCalc = res===11 ? '0' : (res===10 ? 'K' : String(res));
+    return dvCalc === dv;
+  }
+  function adminComputeAge(iso){
+    const m = String(iso||"").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return null;
+    const d = new Date(+m[1], +m[2]-1, +m[3]);
+    const t = new Date();
+    let age = t.getFullYear() - d.getFullYear();
+    const mm = t.getMonth() - d.getMonth();
+    if (mm < 0 || (mm === 0 && t.getDate() < d.getDate())) age--;
+    return age;
+  }
+
   function loadUsers() {
     let saved = [];
     try { saved = JSON.parse(localStorage.getItem(USERS_KEY) || "[]"); } catch {}
@@ -95,12 +121,12 @@
     const region = document.getElementById("region");
     const comuna = document.getElementById("comuna");
 
-    // Poblar regiones y comunas desde window.regiones
-    if (region && comuna && window.regiones) {
+    // Poblar regiones y comunas desde window.REGIONES
+    if (region && comuna && window.REGIONES) {
       region.innerHTML = `<option value="">-- Selecciona --</option>` +
-        Object.keys(window.regiones).map(r => `<option value="${r}">${r}</option>`).join("");
+        Object.keys(window.REGIONES).map(r => `<option value="${r}">${r}</option>`).join("");
       region.addEventListener("change", () => {
-        const list = window.regiones[region.value] || [];
+        const list = window.REGIONES[region.value] || [];
         comuna.innerHTML = `<option value="">-- Selecciona --</option>` +
           list.map(c => `<option value="${c}">${c}</option>`).join("");
       });
@@ -129,6 +155,9 @@
           setTimeout(() => { comuna.value = u.comuna || ""; }, 0);
         }
 
+        // si existe fecha guardada, precargarla
+        if (form.fechaNacimiento && u.fnac) form.fechaNacimiento.value = u.fnac;
+
         form.run.readOnly = true;
       }
     }
@@ -137,7 +166,8 @@
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const run = (form.run.value || "").toUpperCase().trim();
+      const runRaw = (form.run.value || "").trim();
+      const run = adminCleanRun(runRaw);
       const nombre = (form.nombre.value || "").trim();
       const apellidos = (form.apellidos.value || "").trim();
       const correo = (form.correo.value || "").trim();
@@ -145,26 +175,49 @@
       const regionVal = region?.value || "";
       const comunaVal = comuna?.value || "";
       const direccion = (form.direccion.value || "").trim();
+      const fnac = (form.fechaNacimiento?.value || "").trim();
 
       let ok = true;
-      if (!/^[0-9]{7,8}[0-9Kk]$/.test(run)) { setHelp("runHelp","RUN sin puntos ni guion (Ej: 19011022K)"); ok = false; } else setHelp("runHelp","");
+
+      // RUN con DV y sin puntos/guion (7–9)
+      if(!adminValidRun(run)){
+        setHelp("runHelp","RUN inválido (sin puntos ni guion). Ej: 19011022K");
+        ok = false;
+      } else setHelp("runHelp","");
+
       if (!nombre) { setHelp("nombreHelp","Requerido"); ok = false; } else setHelp("nombreHelp","");
       if (!apellidos) { setHelp("apellidosHelp","Requerido"); ok = false; } else setHelp("apellidosHelp","");
-      if (!/^[\w.%+-]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i.test(correo)) { setHelp("correoHelp","Correo no válido"); ok = false; } else setHelp("correoHelp","");
+
+      if (!/^[\w.%+-]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i.test(correo)) {
+        setHelp("correoHelp","Correo no válido"); ok = false;
+      } else setHelp("correoHelp","");
+
       if (!rol) { setHelp("rolHelp","Selecciona un rol"); ok = false; } else setHelp("rolHelp","");
       if (!regionVal) { setHelp("regionHelp","Selecciona una región"); ok = false; } else setHelp("regionHelp","");
       if (!comunaVal) { setHelp("comunaHelp","Selecciona una comuna"); ok = false; } else setHelp("comunaHelp","");
       if (!direccion) { setHelp("direccionHelp","Requerida"); ok = false; } else setHelp("direccionHelp","");
 
+      // Fecha obligatoria y mayor de 18
+      if(!fnac){
+        alert("La fecha de nacimiento es obligatoria.");
+        ok = false;
+      }else{
+        const age = adminComputeAge(fnac);
+        if(typeof age !== "number" || age < 18){
+          alert("El usuario debe ser mayor de 18 años.");
+          ok = false;
+        }
+      }
+
       if (!ok) return;
 
-      const nuevo = { run, nombre, apellidos, correo, rol, region: regionVal, comuna: comunaVal, direccion };
+      const nuevo = { run, nombre, apellidos, correo, rol, region: regionVal, comuna: comunaVal, direccion, fnac };
 
-      const idx = users.findIndex(x => (x.run || "").toUpperCase() === run);
+      const idx = users.findIndex(x => (x.run || "").toUpperCase() === run.toUpperCase());
       if (idx >= 0) {
         users[idx] = { ...users[idx], ...nuevo };
       } else {
-        if (users.some(x => (x.run || "").toUpperCase() === run)) {
+        if (users.some(x => (x.run || "").toUpperCase() === run.toUpperCase())) {
           setHelp("runHelp","Ese RUN ya existe");
           return;
         }

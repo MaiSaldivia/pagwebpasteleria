@@ -1,5 +1,5 @@
 (function () {
-  // --- Fusionar base (data.js) + lo del admin (localStorage) ---
+  // --- Fuente única: base (data.js) + admin (localStorage) ---
   const STORE_KEY = 'ADMIN_PRODUCTS_V1';
   const norm = p => ({
     id:        p.id || p.codigo || p.code || p.nombre || p.name || '',
@@ -7,7 +7,11 @@
     precio:    Number(p.precio ?? p.price ?? 0),
     categoria: p.categoria || p.category || p.categoryName || '',
     attr:      p.attr || p.atributo || p.attributes || '',
-    img:       p.imagen || p.img || p.image || p.picture || ''
+    img:       p.imagen || p.img || p.image || p.picture || '',
+    // ---> campos de stock que ahora usamos en la tienda
+    stock:         Number(p.stock ?? 0),
+    stockCritico:  Number(p.stockCritico ?? 0),
+    descripcion:   p.descripcion || ''
   });
 
   const base  = Array.isArray(window.PRODUCTS) ? window.PRODUCTS.map(norm) : [];
@@ -17,12 +21,13 @@
     if (Array.isArray(raw)) saved = raw.map(norm);
   } catch (e) {}
 
+  // merge: lo guardado por admin sobreescribe a la base
   const byId = new Map();
   for (const p of base)  if (p.id) byId.set(String(p.id), p);
   for (const p of saved) if (p.id) byId.set(String(p.id), { ...byId.get(String(p.id)), ...p });
 
   const ALL = Array.from(byId.values());
-  window.PRODUCTS = ALL; // dejarlo disponible para otras vistas
+  window.PRODUCTS = ALL; // disponible para otras vistas
 
   // === Helpers ===
   const getName  = p => p.name || p.nombre || p.title;
@@ -71,6 +76,7 @@
   const attr  = getAttr(prod);
   const basePrice = getPrice(prod);
 
+  // Si usas beneficios dinámicos, mantenemos la lógica:
   const user = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
   const ben  = (typeof computeUserBenefits === 'function') ? computeUserBenefits(user) : {percent:0};
   const finalPrice = (typeof priceWithBenefits === 'function') ? priceWithBenefits(basePrice, ben) : basePrice;
@@ -87,6 +93,18 @@
       : `<strong>${fmtCLP(basePrice)}</strong>`;
   document.getElementById('pLong').textContent =
     DESCS[name] || DESCS[getId(prod)] || 'Deliciosa preparación de la casa, ideal para tus celebraciones.';
+
+  // ===== Mostrar STOCK y bloquear compra si no hay =====
+  const stock = Number(prod.stock ?? 0);
+  const infoBox = document.querySelector('.pdp__info');
+  let stockBadge = document.getElementById('pStock');
+  if (!stockBadge) {
+    stockBadge = document.createElement('p');
+    stockBadge.id = 'pStock';
+    stockBadge.className = 'muted';
+    if (infoBox) infoBox.insertBefore(stockBadge, document.getElementById('pLong'));
+  }
+  stockBadge.textContent = stock > 0 ? `Stock disponible: ${stock}` : 'Sin stock';
 
   // ===== Ruta de navegación dinámica =====
   const crumbCat    = document.getElementById('crumbCat');
@@ -109,16 +127,53 @@
     hero.style.backgroundRepeat = 'no-repeat';
   }
 
-  // ===== Añadir al carrito =====
+  // ===== Personalización: mensaje en tortas =====
+  const customBox = document.getElementById('customBox');
+  const isCake = /torta/i.test(name);
+  if (isCake && customBox) {
+    customBox.classList.remove('hide');
+  }
+
+  // ===== Añadir al carrito (respetando stock) =====
   const addBtn = document.getElementById('addBtn');
   const qtyEl  = document.getElementById('qty');
-  addBtn.addEventListener('click', () => {
-    const qty = Math.max(1, Number(qtyEl.value || 1));
-    if (typeof window.addToCart === 'function') {
-      for (let i = 0; i < qty; i++) window.addToCart(getId(prod));
+  const msgEl  = document.getElementById('customMsg');
+
+  if (qtyEl){
+    // limitar por stock
+    qtyEl.min = 1;
+    qtyEl.max = Math.max(1, stock);
+    if (stock <= 0){
+      qtyEl.value = 0;
+      qtyEl.disabled = true;
+    } else {
+      // si el usuario escribe más que el stock, lo capamos
+      qtyEl.addEventListener('input', ()=>{
+        let v = Number(qtyEl.value || 1);
+        if (!Number.isFinite(v) || v < 1) v = 1;
+        if (v > stock) v = stock;
+        qtyEl.value = v;
+      });
     }
-    alert('Añadido al carrito: ' + name + ' × ' + qty);
-  });
+  }
+
+  if (addBtn){
+    addBtn.disabled = stock <= 0;
+    addBtn.textContent = stock > 0 ? 'Añadir al carrito' : 'Sin stock';
+
+    addBtn.addEventListener('click', () => {
+      if (stock <= 0){ return; }
+
+      const qty = Math.max(1, Number(qtyEl?.value || 1));
+      const customMsg = msgEl ? msgEl.value.trim() : "";
+
+      if (typeof window.addToCart === 'function') {
+        // La versión nueva de addToCart ya valida contra stock.
+        window.addToCart(getId(prod), qty, customMsg);
+      }
+      alert('Añadido al carrito: ' + name + ' × ' + qty);
+    });
+  }
 
   // ===== Relacionados (misma categoría) =====
   const related = products

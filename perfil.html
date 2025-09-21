@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mi perfil · Mil Sabores</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="container topbar__inner">
+    <div class="brand">
+      <a class="brand__name" href="index.html">Mil Sabores</a>
+    </div>
+
+    <nav class="nav">
+      <a href="index.html" class="nav__link">Inicio</a>
+      <a href="productos.html" class="nav__link">Productos</a>
+      <a href="nosotros.html" class="nav__link">Nosotros</a>
+      <a href="blog.html" class="nav__link">Blog</a>
+      <a href="contacto.html" class="nav__link">Contacto</a>
+    </nav>
+
+    <div class="actions">
+      <a href="login.html" class="link">Iniciar sesión</a>
+      <a href="registro.html" class="link">Registrarse</a>
+      <a id="cartBtn" class="cart" href="carrito.html">🛒 <span id="cartCount">0</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="container relleno">
+  <section class="auth-hero">
+    <img class="auth-hero__logo" src="img/logo.png" alt="Logo" onerror="this.style.display='none'">
+    <h1 class="auth-hero__title">Mi Perfil</h1>
+    <p class="muted small" id="perfilWelcome"></p>
+  </section>
+
+  <section class="auth-card">
+    <div class="auth-card__header">Datos personales</div>
+    <form id="perfilForm" class="auth-form reg-form">
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="pfNombre">Nombres</label>
+          <input id="pfNombre" class="form-control input" type="text" maxlength="50">
+          <small class="help"></small>
+        </div>
+        <div class="form-group">
+          <label for="pfApellidos">Apellidos</label>
+          <input id="pfApellidos" class="form-control input" type="text" maxlength="100">
+          <small class="help"></small>
+        </div>
+        <div class="form-group">
+          <label for="pfEmail">Correo (no editable)</label>
+          <input id="pfEmail" class="form-control input" type="email" disabled>
+          <small class="help"></small>
+        </div>
+        <div class="form-group">
+          <label for="pfFono">Teléfono</label>
+          <input id="pfFono" class="form-control input" type="tel" maxlength="30" placeholder="+56 9 ....">
+          <small class="help"></small>
+        </div>
+        <div class="form-group">
+          <label for="pfFnac">Fecha de nacimiento</label>
+          <input id="pfFnac" class="form-control input" type="date">
+          <small class="help"></small>
+        </div>
+        <div class="form-group">
+          <label for="pfDireccion">Dirección</label>
+          <input id="pfDireccion" class="form-control input" type="text" maxlength="300">
+          <small class="help"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="pfRegion">Región</label>
+          <select id="pfRegion" class="form-control input"></select>
+          <small class="help"></small>
+        </div>
+        <div class="form-group">
+          <label for="pfComuna">Comuna</label>
+          <select id="pfComuna" class="form-control input"></select>
+          <small class="help"></small>
+        </div>
+      </div>
+
+      <h3 class="about-subtitle">Preferencias de compra</h3>
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="pfShip">Envío por defecto</label>
+          <select id="pfShip" class="form-control input">
+            <option value="0">Retiro en tienda (gratis)</option>
+            <option value="3000">Envío urbano ($3.000)</option>
+            <option value="6000">Envío regional ($6.000)</option>
+          </select>
+          <small class="help">Se usará en el carrito si no has elegido otro.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="pfDefaultCoupon">Cupón por defecto (opcional)</label>
+          <input id="pfDefaultCoupon" class="form-control input" type="text" maxlength="20" placeholder="ENVIOGRATIS, 5000OFF...">
+          <small class="help">Se aplicará automáticamente si está vacío el cupón del carrito.</small>
+        </div>
+
+        <div class="form-group span-2">
+          <label>Preferencias</label>
+          <div class="chk">
+            <input id="pfNewsletter" type="checkbox">
+            <label for="pfNewsletter">Quiero recibir promociones por email</label>
+          </div>
+          <div class="chk">
+            <input id="pfSaveAddr" type="checkbox">
+            <label for="pfSaveAddr">Guardar dirección para próximos pedidos</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn--primary" type="submit">Guardar cambios</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="auth-card" style="margin-top:14px">
+    <div class="auth-card__header">Cambiar contraseña</div>
+    <form id="passForm" class="auth-form">
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="pfPassOld">Contraseña actual</label>
+          <input id="pfPassOld" class="form-control input" type="password" maxlength="10">
+          <small class="help"></small>
+        </div>
+        <div class="form-group">
+          <label for="pfPassNew">Nueva contraseña</label>
+          <input id="pfPassNew" class="form-control input" type="password" maxlength="10" placeholder="4 a 10 caracteres">
+          <small class="help"></small>
+        </div>
+        <div class="form-group">
+          <label for="pfPassNew2">Repetir nueva contraseña</label>
+          <input id="pfPassNew2" class="form-control input" type="password" maxlength="10">
+          <small class="help"></small>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn--ghost" type="submit">Actualizar contraseña</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div>
+      <p class="brand__name brand__name--footer">Mil Sabores</p>
+      <nav class="footer__links">
+        <a class="link" href="productos.html">Tortas Cuadradas</a>
+        <a class="link" href="productos.html">Tortas Circulares</a>
+        <a class="link" href="productos.html">Sin Azúcar</a>
+        <a class="link" href="productos.html">Veganas</a>
+        <a class="link" href="productos.html">Sin Gluten</a>
+      </nav>
+      <div class="pay"><span>💳</span><span>💳</span><span>🏦</span></div>
+    </div>
+
+    <form id="newsletterForm" class="newsletter" novalidate>
+      <label class="newsletter__label" for="email">Recibe actualizaciones, novedades y promociones.</label>
+      <div class="newsletter__row">
+        <input id="email" type="email" required placeholder="Ingresa tu email" />
+        <button class="btn btn--primary" type="submit">Suscribirse</button>
+      </div>
+      <small id="emailHelp" class="help"></small>
+    </form>
+  </div>
+  <p class="copy">© 2025 Pastelería Mil Sabores</p>
+</footer>
+
+<script src="js/data/data.js"></script>
+<script src="js/data/script.js"></script>
+</body>
+</html>

@@ -127,9 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (Array.isArray(window.PRODUCTS) && window.PRODUCTS.length) {
         return window.PRODUCTS.map(toAdmin);
       }
-      if (typeof window.productos !== "undefined") {
-        return window.productos.map(toAdmin);
-      }
       return [];
     };
 
