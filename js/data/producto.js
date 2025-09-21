@@ -8,7 +8,6 @@
     categoria: p.categoria || p.category || p.categoryName || '',
     attr:      p.attr || p.atributo || p.attributes || '',
     img:       p.imagen || p.img || p.image || p.picture || '',
-    // ---> campos de stock que ahora usamos en la tienda
     stock:         Number(p.stock ?? 0),
     stockCritico:  Number(p.stockCritico ?? 0),
     descripcion:   p.descripcion || ''
@@ -21,13 +20,12 @@
     if (Array.isArray(raw)) saved = raw.map(norm);
   } catch (e) {}
 
-  // merge: lo guardado por admin sobreescribe a la base
   const byId = new Map();
   for (const p of base)  if (p.id) byId.set(String(p.id), p);
   for (const p of saved) if (p.id) byId.set(String(p.id), { ...byId.get(String(p.id)), ...p });
 
   const ALL = Array.from(byId.values());
-  window.PRODUCTS = ALL; // disponible para otras vistas
+  window.PRODUCTS = ALL;
 
   // === Helpers ===
   const getName  = p => p.name || p.nombre || p.title;
@@ -76,7 +74,6 @@
   const attr  = getAttr(prod);
   const basePrice = getPrice(prod);
 
-  // Si usas beneficios dinámicos, mantenemos la lógica:
   const user = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
   const ben  = (typeof computeUserBenefits === 'function') ? computeUserBenefits(user) : {percent:0};
   const finalPrice = (typeof priceWithBenefits === 'function') ? priceWithBenefits(basePrice, ben) : basePrice;
@@ -117,15 +114,15 @@
     crumbCat.innerHTML = `<a href="productos.html#${encodeURIComponent(cat)}">${cat}</a>`;
   }
 
-  // ===== Galería (solo 1 imagen) =====
+
+  // ===== Galería (img directa, sin fondo) =====
   const hero = document.getElementById('heroImg');
   const heroSrc = encodeURI(getImg(prod) || 'img/placeholder.png');
   if (hero) {
-    hero.style.backgroundImage = `url('${heroSrc}')`;
-    hero.style.backgroundSize = 'cover';
-    hero.style.backgroundPosition = 'center';
-    hero.style.backgroundRepeat = 'no-repeat';
+    hero.src = heroSrc;
+    hero.alt = name;
   }
+
 
   // ===== Personalización: mensaje en tortas =====
   const customBox = document.getElementById('customBox');
@@ -140,14 +137,12 @@
   const msgEl  = document.getElementById('customMsg');
 
   if (qtyEl){
-    // limitar por stock
     qtyEl.min = 1;
     qtyEl.max = Math.max(1, stock);
     if (stock <= 0){
       qtyEl.value = 0;
       qtyEl.disabled = true;
     } else {
-      // si el usuario escribe más que el stock, lo capamos
       qtyEl.addEventListener('input', ()=>{
         let v = Number(qtyEl.value || 1);
         if (!Number.isFinite(v) || v < 1) v = 1;
@@ -163,12 +158,9 @@
 
     addBtn.addEventListener('click', () => {
       if (stock <= 0){ return; }
-
       const qty = Math.max(1, Number(qtyEl?.value || 1));
       const customMsg = msgEl ? msgEl.value.trim() : "";
-
       if (typeof window.addToCart === 'function') {
-        // La versión nueva de addToCart ya valida contra stock.
         window.addToCart(getId(prod), qty, customMsg);
       }
       alert('Añadido al carrito: ' + name + ' × ' + qty);
@@ -191,7 +183,6 @@
     const priceHTML = ben.percent
       ? `<s class="muted">${fmtCLP(rbase)}</s> <strong>${fmtCLP(rfin)}</strong>`
       : `<strong>${fmtCLP(rbase)}</strong>`;
-
     return `
       <article class="tarjeta">
         <a href="producto.html?id=${rid}" class="tarjeta__imagen" aria-label="${rname}">
@@ -204,4 +195,62 @@
       </article>
     `;
   }).join('');
+
+  // ======== COMPARTIR (inline, sin share.js) ========
+  function buildProductURL(productId, source="direct"){
+    const base = location.origin ? location.origin + location.pathname.replace(/[^/]+$/, "") : "";
+    const url = `${base}producto.html?id=${encodeURIComponent(productId)}`;
+    const params = new URLSearchParams({
+      utm_source: source,
+      utm_medium: "social",
+      utm_campaign: "share_product"
+    });
+    return url + (url.includes("?") ? "&" : "?") + params.toString();
+  }
+
+  (function initShare(){
+    const shareMsg = document.getElementById("shareMsg");
+    const elWA  = document.getElementById("shareWA");
+    const elFB  = document.getElementById("shareFB");
+    const elX   = document.getElementById("shareX");
+    const elCopy= document.getElementById("shareCopy");
+    const elNat = document.getElementById("shareNative");
+
+    if(!elWA || !elFB || !elX || !elCopy || !elNat) return;
+    const pid   = getId(prod);
+    const urlWA = buildProductURL(pid, "whatsapp");
+    const urlFB = buildProductURL(pid, "facebook");
+    const urlX  = buildProductURL(pid, "x");
+    const urlCP = buildProductURL(pid, "copy");
+
+    const texto = `Mira "${name}" en Mil Sabores 🍰`;
+    const body  = `${texto} — ${fmtCLP(finalPrice)}\n${urlCP}`;
+
+    elNat.style.display = (navigator.share ? "inline-block" : "none");
+    elNat.addEventListener("click", async () => {
+      try{
+        await navigator.share({ title: name + " · Mil Sabores", text: texto, url: urlCP });
+      }catch(e){}
+    });
+
+    elWA.href = `https://wa.me/?text=${encodeURIComponent(body)}`;
+    elFB.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlFB)}`;
+    elX.href  = `https://twitter.com/intent/tweet?text=${encodeURIComponent(texto)}&url=${encodeURIComponent(urlX)}`;
+
+    elCopy.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(urlCP);
+        if (shareMsg) { shareMsg.textContent = "¡Enlace copiado!"; setTimeout(()=>shareMsg.textContent="", 2000); }
+      }catch(e){
+        if (shareMsg) { shareMsg.textContent = "No se pudo copiar 😕"; setTimeout(()=>shareMsg.textContent="", 2000); }
+      }
+    });
+  })();
+
+  // (Opcional) actualizar metas OG
+  try {
+    const ogt = document.querySelector('meta[property="og:title"]'); if (ogt) ogt.content = name + ' · Mil Sabores';
+    const ogi = document.querySelector('meta[property="og:image"]'); if (ogi) ogi.content = heroSrc;
+    const ogu = document.querySelector('meta[property="og:url"]');   if (ogu) ogu.content = location.href;
+  } catch {}
 })();

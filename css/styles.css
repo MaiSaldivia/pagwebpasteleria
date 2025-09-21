@@ -218,36 +218,48 @@ body{font-family:"Lato",system-ui,Segoe UI,Roboto,Arial,sans-serif;background:va
 }
 .chip:hover{ transform:translateY(-1px) }
 
-/* ====== Product Detail Page ====== */
+/* ====== Product Detail Page — tamaño más pequeño sin recorte ====== */
 .pdp{
   margin-top:8px;
   display:grid;
   grid-template-columns: 1.2fr 1fr;
   gap:20px;
 }
+
+/* Contenedor de la imagen */
 .pdp__gallery{
-  background:#eae3d7;
+  background:#fff;                 /* sin fondo “crema” detrás */
   border-radius:12px;
-  padding:14px;
+  padding:10px;                    /* borde fino alrededor */
   box-shadow:0 3px 0 rgba(0,0,0,.06) inset;
 }
+
+/* Marco mínimo y centrado de la imagen */
 .pdp__hero{
-  height:360px;
-  border:3px solid #c9c3b8;
+  margin:0;
+  padding:6px;
+  border:1px solid #e6ddcb;
   border-radius:12px;
-  background:#d9d3c8;
-}
-.pdp__thumbs{
-  margin-top:10px;
-  display:flex; gap:10px;
-}
-.pdp__thumb{
-  width:70px; height:70px; border-radius:10px;
-  border:2px solid #c9c3b8; background:#d9d3c8; cursor:pointer;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
+/* 👇 Clave: mostrar la imagen completa y MÁS PEQUEÑA */
+.pdp__hero img{
+  display:block;
+  width:100%;
+  height:auto;
+  /* reduce el alto: elige el menor entre 220px, ~28% del ancho viewport y 380px */
+  max-height: clamp(220px, 28vw, 380px);
+  object-fit: contain;             /* nunca recorta */
+}
+
+/* Info del producto */
 .pdp__info{
-  background:#eee5d7;
+  background:#fff;
+  border:1px solid #e6ddcb;
   border-radius:12px;
   padding:16px;
   box-shadow:0 3px 0 rgba(0,0,0,.06) inset;
@@ -265,10 +277,12 @@ body{font-family:"Lato",system-ui,Segoe UI,Roboto,Arial,sans-serif;background:va
 
 .pdp__related{ margin-top:22px }
 
-@media (max-width: 1000px){
+/* Móvil: aún más compacta */
+@media (max-width:1000px){
   .pdp{ grid-template-columns:1fr; }
-  .pdp__hero{ height:280px }
+  .pdp__hero img{ max-height: clamp(200px, 42vw, 300px); }
 }
+
 
 /* ====== Breadcrumb ====== */
 .breadcrumb{
@@ -1218,4 +1232,252 @@ img, svg, video{ max-width: 100%; height: auto; }
   .comment__form .input,
   .comment__form textarea,
   .comment__edit { min-height:120px; font-size:15px; }
+}
+
+/* Fila de botones de compartir */
+.share-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  align-items:center;
+}
+
+/* Botón base, mismo alto para todos */
+.share-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding:0 .9rem;
+  height:40px;                 /* <- normaliza la altura */
+  border-radius:10px;
+  border:1px solid #c9c3bd;
+  background:#fff;
+  color:#5D4037;               /* mismo tono que usas en la UI */
+  font-weight:700;
+  line-height:1;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background .15s ease, border-color .15s ease, transform .02s ease;
+}
+.share-btn:hover{ background:#f6f3f0; }
+.share-btn:active{ transform:translateY(1px); }
+
+/* El emoji/icono con tamaño fijo */
+.share-icon{
+  width:20px; height:20px;
+  display:inline-flex;
+  align-items:center; justify-content:center;
+  font-size:18px;              /* <- todos los emojis al mismo tamaño */
+  line-height:20px;
+}
+
+/* Texto siempre alineado verticalmente */
+.share-label{ line-height:20px; }
+
+/* (Opcional) colorcitos por red, mismo alto no cambia */
+.share-wa{ border-color:#25D36633; }
+.share-wa:hover{ background:#25D36614; }
+.share-fb{ border-color:#1877F233; }
+.share-fb:hover{ background:#1877F214; }
+.share-x{ border-color:#00000033; }
+.share-x:hover{ background:#00000010; }
+
+/* Responsive, que pasen a ocupar toda la fila si no caben */
+@media (max-width:560px){
+  .share-row{ gap:.4rem; }
+  .share-btn{ flex:1 1 auto; justify-content:center; }
+}
+
+/* === PDP: SIN marco, SIN sombra, SIN padding alrededor de la imagen === */
+
+/* Sube la especificidad para sobreescribir el set donde añadiste .pdp__gallery a “cards” */
+.pdp .pdp__gallery,
+.pdp .pdp__gallery::before,
+.pdp .pdp__gallery::after,
+.pdp .pdp__hero{
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;  /* si aún ves esquinas “grises”, esto las elimina */
+}
+
+/* Mantén solo la imagen con su tamaño, sin recortes ni huecos */
+.pdp__hero{
+  width: min(100%, 520px);   /* ajusta 520px al tamaño que quieras */
+  margin: 0 !important;
+}
+.pdp__hero img{
+  display: block;
+  width: 100%;
+  height: auto;              /* nada de recortes */
+  object-fit: contain;
+}
+
+/* La grilla: columna de imagen + info */
+.pdp{
+  grid-template-columns: minmax(320px, 520px) 1fr; /* que coincida con el ancho del hero */
+  align-items: start;
+}
+
+@media (max-width: 1000px){
+  .pdp{ grid-template-columns: 1fr; }
+  .pdp__hero{ width: 100%; }
+}
+
+/* ===== Marco blanco para la imagen del producto ===== */
+.pdp__gallery{
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.pdp__gallery .pdp__frame{
+  /* marco/blanco tipo “tarjeta” */
+  background: #fff;
+  border: 3px solid #c9c3b8;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+  margin: 0;                 /* evita sangrías raras del figure */
+  display: block;
+  max-width: clamp(320px, 28vw, 520px);   /* mismo ancho que venías usando */
+}
+
+.pdp__gallery .pdp__frame .pdp__img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;       /* redondeo interior, para que el marco se vea fino */
+  object-fit: contain;       /* muestra la imagen completa sin recortar */
+}
+
+/* ===== MOBILE POLISH – sitio público ===== */
+
+/* Evita zoom en iOS y saltos de tamaño */
+html{-webkit-text-size-adjust:100%}
+
+/* Evita scroll horizontal accidental */
+html, body { overflow-x: hidden; }
+
+/* El contenedor respira mejor en móviles estrechos */
+@media (max-width: 720px){
+  .container{ padding: 0 14px; }
+}
+
+/* Topbar: asegura altura y que no tape contenido en sticky */
+.topbar{ min-height: 56px; }
+@supports (padding: max(env(safe-area-inset-top), 0px)){
+  .topbar{ padding-top: max(16px, env(safe-area-inset-top)); }
+}
+
+/* Menú visible y scrolleable en móviles muy chicos */
+@media (max-width: 560px){
+  .topbar__inner{ flex-wrap: wrap; gap: 8px; }
+  .nav{
+    display: flex !important;
+    gap: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar{ display:none; }
+  .actions{ margin-left:auto; }
+}
+
+/* Rejillas: 1 por fila cuando toca */
+@media (max-width: 560px){
+  .products__grid,
+  .rejilla-productos{ grid-template-columns: 1fr; }
+}
+
+/* PDP: fila de compra apilada en móviles */
+@media (max-width: 560px){
+  .pdp__buyrow{ grid-template-columns: 1fr; }
+  .pdp__add{ width: 100%; }
+}
+
+/* Tablas/Carrito: scroll horizontal cómodo */
+@media (max-width: 768px){
+  .table, .cart-table{
+    display:block;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+}
+
+/* Formularios: tamaño mínimo 16px para evitar zoom en iOS */
+input, select, textarea, .input{ font-size:16px; }
+
+/* Footer apilado (refuerzo) */
+@media (max-width: 900px){
+  .footer__grid, .pie__rejilla{ grid-template-columns: 1fr; }
+  .newsletter__row{ flex-direction: column; }
+}
+
+/* Tarjetas/figuras: imágenes fluidas siempre */
+img, svg, video{ max-width:100%; height:auto; }
+
+/* ===== Carrito: afinado móvil ===== */
+@media (max-width: 560px){
+  /* 1) La grilla del carrito pasa a 1 columna y sin “empujar” a la derecha */
+  .cart-layout{
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    align-items: start;
+  }
+
+  /* 2) La tarjeta de resumen ocupa todo el ancho disponible */
+  .cart-summary{
+    width: 100%;
+    margin: 0;
+  }
+
+  /* 3) La tabla nunca se hace más ancha que el contenedor */
+  .cart-table{
+    width: 100%;
+    box-sizing: border-box;
+    display: block;              /* ya la tienes así en otro breakpoint; refuerzo */
+    overflow-x: auto;            /* scroll horizontal si hace falta */
+  }
+  .cart-table th,
+  .cart-table td{
+    padding: 10px 8px;           /* un poco menos de padding */
+    word-break: break-word;
+  }
+
+  /* 4) Fila de acciones (vaciar / seguir) apilada y centrada */
+  .row-actions,
+  .cart-actions{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    text-align: center;
+  }
+  .row-actions .btn,
+  .cart-actions .btn{ width: 100%; }
+
+  /* 5) Contenedor con respiro y sin posibilidad de “correrse” */
+  .container{ padding-left: 14px; padding-right: 14px; }
+  html, body{ overflow-x: hidden; }
+}
+
+/* Un poco más de aire en tablets */
+@media (max-width: 900px){
+  .cart-layout{
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+  .cart-summary{ width: 100%; }
+}
+/* Quita el display:block solo a la tabla del carrito */
+@media (max-width: 768px){
+  .table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; } /* otras tablas */
+  .cart-table{ display: table !important; }   /* el carrito sigue siendo tabla */
+  .cart-table th, .cart-table td{ white-space: nowrap; }
+  /* el scroll se lo das al contenedor de la tabla (si lo tienes); si no,
+     puede bastar con esto: */
+  #cartPage{ overflow-x:auto; }                /* afecta solo el área del carrito */
 }

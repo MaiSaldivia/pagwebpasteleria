@@ -202,3 +202,27 @@ h1,h2,h3{
 .hero-alt .btn.btn--secundario:hover{
   background: #fff; color: var(--brand) !important;
 }
+
+/* ===== MOBILE POLISH – Página principal ===== */
+
+html, body { overflow-x: hidden; }
+
+/* Navegación scrolleable en móviles */
+@media (max-width: 560px){
+  .topbar__inner{ flex-wrap: wrap; gap: 8px; }
+  .nav{
+    gap: 12px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .nav::-webkit-scrollbar{ display:none; }
+  .actions{ margin-left:auto; }
+}
+
+/* Grids a 1 columna en pantallas chicas */
+@media (max-width: 720px){
+  .products__grid, .blog__grid{ grid-template-columns: 1fr; }
+}
+
+/* Newsletter: input y botón apilados en móvil (refuerzo) */
+@media (max-width: 768px){
+  .newsletter__row{ flex-direction: column; }
+}

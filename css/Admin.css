@@ -168,3 +168,98 @@ img,video{max-width:100%;height:auto;display:block}
 @media (max-width:560px){
   .form-actions .btn{width:100%}
 }
+
+/* ===== MOBILE POLISH – Admin ===== */
+
+/* Evita desbordes horizontales */
+html, body { overflow-x: hidden; }
+
+/* Sidebar horizontal: que haga scroll si no cabe */
+@media (max-width: 768px){
+  .sidebar{
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sidebar__nav{
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .sidebar__link{ white-space: nowrap; }
+}
+
+/* Tablas: wrapper con scroll si no está en el HTML */
+@media (max-width: 768px){
+  .admin-table{ display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+/* Formularios: botones apilados en pantallas muy chicas */
+@media (max-width: 560px){
+  .form-actions{ flex-direction: column; gap: 10px; }
+  .form-actions .btn{ width: 100%; }
+}
+
+/* ===== Barra superior Admin: visible sin scroll en móvil ===== */
+
+/* Desktop: una sola fila */
+.admin-header nav,
+.admin-tabs,
+.tabs-admin,
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;      /* 1 fila en pantallas anchas */
+  width: 100%;
+}
+
+/* Botones/píldoras */
+.admin-header nav a,
+.admin-tabs a,
+.tabs-admin a,
+.nav-tabs a {
+  padding: 10px 14px;
+  border-radius: 10px;
+  white-space: nowrap;    /* en desktop no se parte */
+}
+
+/* --- Móvil / tablets: que se acomoden en varias columnas --- */
+@media (max-width: 768px){
+  .admin-header nav,
+  .admin-tabs,
+  .tabs-admin,
+  .nav-tabs{
+    /* pasamos a grid para que BAJEN en filas */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 por fila si caben */
+    gap: 8px;
+    flex-wrap: initial;   /* anulamos el flex */
+  }
+
+  .admin-header nav a,
+  .admin-tabs a,
+  .tabs-admin a,
+  .nav-tabs a{
+    white-space: normal;  /* que el texto pueda partir en 2 líneas si hace falta */
+    text-align: center;
+    padding: 10px 12px;
+  }
+}
+
+/* Teléfonos angostos: 2 por fila */
+@media (max-width: 480px){
+  .admin-header nav,
+  .admin-tabs,
+  .tabs-admin,
+  .nav-tabs{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-header nav a,
+  .admin-tabs a,
+  .tabs-admin a,
+  .nav-tabs a{
+    font-size: 15px;        /* un pelín más compactas */
+    padding: 8px 10px;
+  }
+}

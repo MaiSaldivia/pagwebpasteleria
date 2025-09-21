@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Producto · Mil Sabores</title>
 
+  <!-- Metas OG/Twitter genéricas -->
+  <meta property="og:type" content="product">
+  <meta property="og:title" content="Mil Sabores">
+  <meta property="og:description" content="Los mejores pasteles y tortas artesanales.">
+  <meta property="og:image" content="img/placeholder.png">
+  <meta property="og:url" content="">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -42,8 +50,11 @@
   </nav>
 
   <section class="pdp">
+    <!-- Galería: IMG real envuelta en un marco (figure) -->
     <div class="pdp__gallery">
-      <div class="pdp__hero" id="heroImg" aria-label="Imagen producto"></div>
+      <figure class="pdp__frame">
+        <img id="heroImg" class="pdp__img" alt="Imagen del producto">
+      </figure>
     </div>
 
     <div class="pdp__info">
@@ -56,7 +67,9 @@
       <p id="pPrice" class="pdp__price">$0</p>
       <p id="pLong" class="pdp__desc">Descripción larga del producto…</p>
 
-      <!-- ===== Opciones de personalización ===== -->
+      <!-- (El JS inserta aquí el badge de Stock) -->
+
+      <!-- Personalización -->
       <div id="customBox" class="pdp__custom hide">
         <label for="customMsg" class="muted">Mensaje personalizado (máx 50 caracteres):</label>
         <input id="customMsg" type="text" maxlength="50" class="input" placeholder="Ej: ¡Feliz cumpleaños Ana! 🎉" />
@@ -66,6 +79,33 @@
         <label for="qty" class="muted">Cantidad</label>
         <input id="qty" type="number" min="1" value="1" class="input pdp__qty" />
         <button id="addBtn" class="btn btn--primary pdp__add">Añadir al carrito</button>
+      </div>
+
+      <!-- Compartir -->
+      <div class="share-row" aria-label="Compartir producto">
+        <span class="muted">Compartir:</span>
+
+        <button id="shareNative" class="share-btn" type="button" aria-label="Compartir nativo">
+          <span class="share-icon">📲</span><span class="share-label">Compartir</span>
+        </button>
+
+        <a id="shareWA" class="share-btn share-wa" target="_blank" rel="noopener" aria-label="Compartir por WhatsApp">
+          <span class="share-icon">🟢</span><span class="share-label">WhatsApp</span>
+        </a>
+
+        <a id="shareFB" class="share-btn share-fb" target="_blank" rel="noopener" aria-label="Compartir en Facebook">
+          <span class="share-icon">📘</span><span class="share-label">Facebook</span>
+        </a>
+
+        <a id="shareX" class="share-btn share-x" target="_blank" rel="noopener" aria-label="Compartir en X">
+          <span class="share-icon">✖️</span><span class="share-label">X</span>
+        </a>
+
+        <button id="shareCopy" class="share-btn" type="button" aria-label="Copiar enlace">
+          <span class="share-icon">📋</span><span class="share-label">Copiar enlace</span>
+        </button>
+
+        <small id="shareMsg" class="muted" style="margin-left:.5rem;"></small>
       </div>
     </div>
   </section>

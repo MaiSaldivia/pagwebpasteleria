@@ -94,3 +94,31 @@ img,video{max-width:100%;height:auto;display:block}
 @media (max-width:560px){
   .btn{width:100%}
 }
+
+/* ===== MOBILE POLISH – Vendedor ===== */
+
+html, body { overflow-x: hidden; }
+
+/* Sidebar horizontal con scroll si no cabe */
+@media (max-width: 768px){
+  .vendedor-sidebar{
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sidebar__nav{
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .sidebar__link{ white-space: nowrap; }
+}
+
+/* Tablas: scroll horizontal cómodo */
+@media (max-width: 768px){
+  .vendedor-table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+}
+
+/* Botones a ancho completo en móviles estrechos (refuerzo) */
+@media (max-width: 560px){
+  .btn{ width: 100%; }
+}
