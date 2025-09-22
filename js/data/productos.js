@@ -1,32 +1,47 @@
+// js/data/productos.js
 (function () {
-  // --- Fusionar base (data.js) + lo del admin (localStorage) ---
-  const STORE_KEY = 'ADMIN_PRODUCTS_V1';
+  // Preferimos la fuente canónica si está disponible
+  const HAS_STORE = typeof window.ProductsStore === "function" || typeof window.ProductsStore === "object";
 
+  // ==== Helpers de lectura unificada (con stock) ====
+  const STORE_KEY = "ADMIN_PRODUCTS_V1";
   const norm = p => ({
-    id:        p.id || p.codigo || p.code || p.nombre || p.name || '',
-    nombre:    p.nombre || p.name || '',
+    id:        p.id || p.codigo || p.code || p.nombre || p.name || "",
+    nombre:    p.nombre || p.name || p.title || "",
     precio:    Number(p.precio ?? p.price ?? 0),
-    categoria: p.categoria || p.category || p.categoryName || '',
-    attr:      p.attr || p.atributo || p.attributes || '',
-    img:       p.imagen || p.img || p.image || p.picture || ''
+    categoria: p.categoria || p.category || p.categoryName || "",
+    attr:      p.attr || p.atributo || p.attributes || "",
+    img:       p.imagen || p.img || p.image || p.picture || "",
+    // >>> inventario (lo que faltaba en tu versión)
+    stock:        Number(p.stock ?? 0),
+    stockCritico: Number(p.stockCritico ?? 0)
   });
 
-  const base  = Array.isArray(window.PRODUCTS) ? window.PRODUCTS.map(norm) : [];
-  let saved   = [];
-  try {
-    const raw = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
-    if (Array.isArray(raw)) saved = raw.map(norm);
-  } catch (e) {}
+  // Lista final (con stock)
+  let ALL = [];
 
-  const byId = new Map();
-  for (const p of base)  if (p.id) byId.set(String(p.id), p);
-  for (const p of saved) if (p.id) byId.set(String(p.id), { ...byId.get(String(p.id)), ...p });
+  if (HAS_STORE && window.ProductsStore?.getAll) {
+    // Usa la lista unificada que mantiene stock sincronizado
+    ALL = window.ProductsStore.getAll().map(norm);
+  } else {
+    // Fusión base (data.js) + admin (LS) preservando stock
+    const base = Array.isArray(window.PRODUCTS) ? window.PRODUCTS.map(norm) : [];
+    let saved = [];
+    try {
+      const raw = JSON.parse(localStorage.getItem(STORE_KEY) || "[]");
+      if (Array.isArray(raw)) saved = raw.map(norm);
+    } catch {}
 
-  // Lista final
-  const ALL = Array.from(byId.values());
-  window.PRODUCTS = ALL;
+    const byId = new Map();
+    for (const p of base)  if (p.id) byId.set(String(p.id), p);
+    for (const p of saved) if (p.id) byId.set(String(p.id), { ...byId.get(String(p.id)), ...p });
 
-  // ===== Helpers =====
+    ALL = Array.from(byId.values());
+    // Mantén window.PRODUCTS **con stock** solo si no existe ProductsStore
+    window.PRODUCTS = ALL;
+  }
+
+  // ===== Helpers UI =====
   const getName  = p => p.name || p.nombre || p.title || "";
   const getCat   = p => p.category || p.categoria || p.categoryName || "";
   const getAttr  = p => p.attr || p.atributo || p.attributes || "";
@@ -46,7 +61,7 @@
     "Productos Sin Azúcar", "Pastelería Tradicional",
     "Productos Sin Gluten", "Productos Vegana", "Tortas Especiales"
   ];
-  const fromData = Array.from(new Set((window.PRODUCTS || []).map(getCat))).filter(Boolean);
+  const fromData = Array.from(new Set((ALL || []).map(getCat))).filter(Boolean);
   const CATS = Array.from(new Set([...baseCats, ...fromData]));
 
   // Rellena select y chips
@@ -68,17 +83,10 @@
     chips.appendChild(chip);
   });
 
-  // ===== 2) HTML de tarjeta =====
+  // ===== 2) Tarjeta =====
   function cardHTML(p) {
-    const user = (typeof getCurrentUser === 'function') ? getCurrentUser() : null;
-    const ben  = (typeof computeUserBenefits === 'function') ? computeUserBenefits(user) : {percent:0};
     const base = getPrice(p);
-    const fin  = (typeof priceWithBenefits === 'function') ? priceWithBenefits(base, ben) : base;
-
-    const priceHTML = ben.percent
-      ? `<s class="muted">${(base||0).toLocaleString("es-CL",{style:"currency",currency:"CLP",maximumFractionDigits:0})}</s> <strong>${(fin||0).toLocaleString("es-CL",{style:"currency",currency:"CLP",maximumFractionDigits:0})}</strong>`
-      : `<strong>${(base||0).toLocaleString("es-CL",{style:"currency",currency:"CLP",maximumFractionDigits:0})}</strong>`;
-
+    const priceHTML = `<strong>${(base||0).toLocaleString("es-CL",{style:"currency",currency:"CLP",maximumFractionDigits:0})}</strong>`;
     const name  = getName(p);
     const attr  = getAttr(p);
     const id    = encodeURIComponent(getId(p));
@@ -97,9 +105,17 @@
     `;
   }
 
-  // ===== 3) Render principal =====
+  // ===== 3) Render =====
   function render() {
-    let list = (window.PRODUCTS || []).slice();
+    // Refresca de la fuente canónica por si el admin cambió algo en otra pestaña
+    const listSrc = (HAS_STORE && window.ProductsStore?.getAll)
+      ? window.ProductsStore.getAll().map(norm)
+      : ALL.slice();
+
+    // Guarda una copia visible (con stock) para otros módulos si no hay store
+    if (!HAS_STORE) window.PRODUCTS = listSrc;
+
+    let list = listSrc;
 
     // Búsqueda
     const term = q.value.trim().toLowerCase();
@@ -124,7 +140,7 @@
 
     grid.innerHTML = list.map(cardHTML).join("");
 
-    // Delegar click de "Añadir"
+    // Click en "Añadir" (usa addToCart que valida el stock real)
     grid.querySelectorAll(".boton-añadir-carrito").forEach(btn => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -144,4 +160,9 @@
 
   // Primera carga
   render();
+
+  // Si otra pestaña cambia el inventario, re-render (cuando usamos ProductsStore)
+  window.addEventListener("storage", (e) => {
+    if (e.key === "ADMIN_PRODUCTS_V1") render();
+  });
 })();
