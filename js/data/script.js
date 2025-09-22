@@ -258,7 +258,7 @@ function addToCart(id, qty=1, msg=""){
   const already = i>=0 ? Number(cart[i].qty||0) : 0;
   const wanted  = Math.min(qty, Math.max(0, max - already));
   if (wanted <= 0){
-    alert(`Solo quedan ${max} unidad(es) disponibles.`);
+    alert(`Sin stock disponible.`);
     return;
   }
 
