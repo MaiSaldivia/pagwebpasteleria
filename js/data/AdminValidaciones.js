@@ -1,7 +1,7 @@
 // ================================
 // VALIDACIONES ADMINISTRADOR
 // - Login consulta también usuarios guardados en LS (ADMIN_USERS_V1)
-// - Form Producto: igual, con categorías dinámicas
+// - Form Producto: igual, con categorías dinámicas (compat id/codigo)
 // - Form Usuario (admin): crea/edita y PERSISTE en LS (ADMIN_USERS_V1)
 // ================================
 document.addEventListener("DOMContentLoaded", () => {
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // mapeos entre formatos admin <-> público
     const toAdmin = p => ({
-      codigo: p.codigo || p.id || "",
+      codigo: (p.codigo || p.id || p.code || "").toString(),
       nombre: p.nombre || "",
       precio: Number(p.precio ?? 0),
       stock: Number(p.stock ?? 0),
@@ -119,10 +119,16 @@ document.addEventListener("DOMContentLoaded", () => {
       img: a.imagen || ""
     });
 
+    // 🔑 helper consistente de clave
+    const getCode = (x) => (x?.codigo || x?.id || x?.code || "").toString();
+
     const loadList = () => {
       try {
         const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "[]");
-        if (Array.isArray(saved) && saved.length) return saved;
+        if (Array.isArray(saved) && saved.length) {
+          // ⬅️ Normaliza lo que venga del LS (puede traer id en vez de codigo)
+          return saved.map(toAdmin);
+        }
       } catch (e) {}
       if (Array.isArray(window.PRODUCTS) && window.PRODUCTS.length) {
         return window.PRODUCTS.map(toAdmin);
@@ -158,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formProducto = document.getElementById("formProducto");
     if (formProducto) {
       const params = new URLSearchParams(location.search);
-      const editingCode = params.get("codigo") || "";
+      const editingCode = (params.get("codigo") || "").toString();
       let list = loadList();
 
       // pintar categorías antes de pre-cargar datos
@@ -167,7 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
       paintCategories(catSelect, allCats, "");
 
       if (editingCode) {
-        const p = list.find(x => x.codigo === editingCode);
+        // ✅ Compat: busca por codigo o id
+        const p = list.find(x => getCode(x) === editingCode);
         if (p) {
           $("#codigo").value = p.codigo;
           $("#nombre").value = p.nombre;
@@ -214,10 +221,15 @@ document.addEventListener("DOMContentLoaded", () => {
           imagen: imagen.value.trim()
         });
 
-        const idx = list.findIndex(x => x.codigo === nuevo.codigo);
-        if (idx >= 0) list[idx] = { ...list[idx], ...nuevo };
-        else {
-          if (list.some(x => x.codigo === nuevo.codigo)) { mostrarError("codigoHelp","Ya existe un producto con ese código"); return; }
+        // ✅ usa getCode para evitar inconsistencias
+        const idx = list.findIndex(x => getCode(x) === nuevo.codigo);
+        if (idx >= 0) {
+          list[idx] = { ...list[idx], ...nuevo };
+        } else {
+          if (list.some(x => getCode(x) === nuevo.codigo)) {
+            mostrarError("codigoHelp","Ya existe un producto con ese código");
+            return;
+          }
           list.push(nuevo);
         }
 
