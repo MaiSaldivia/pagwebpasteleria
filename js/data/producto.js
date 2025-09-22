@@ -114,7 +114,6 @@
     crumbCat.innerHTML = `<a href="productos.html#${encodeURIComponent(cat)}">${cat}</a>`;
   }
 
-
   // ===== Galería (img directa, sin fondo) =====
   const hero = document.getElementById('heroImg');
   const heroSrc = encodeURI(getImg(prod) || 'img/placeholder.png');
@@ -122,7 +121,6 @@
     hero.src = heroSrc;
     hero.alt = name;
   }
-
 
   // ===== Personalización: mensaje en tortas =====
   const customBox = document.getElementById('customBox');
@@ -196,7 +194,7 @@
     `;
   }).join('');
 
-  // ======== COMPARTIR ========
+  // ======== COMPARTIR (Instagram + Copiar + Nativo) ========
   function buildProductURL(productId, source="direct"){
     const base = location.origin ? location.origin + location.pathname.replace(/[^/]+$/, "") : "";
     const url = `${base}producto.html?id=${encodeURIComponent(productId)}`;
@@ -210,33 +208,25 @@
 
   (function initShare(){
     const shareMsg = document.getElementById("shareMsg");
-    const elWA  = document.getElementById("shareWA");
-    const elFB  = document.getElementById("shareFB");
-    const elX   = document.getElementById("shareX");
-    const elCopy= document.getElementById("shareCopy");
-    const elNat = document.getElementById("shareNative");
+    const elIG   = document.getElementById("shareIG");
+    const elCopy = document.getElementById("shareCopy");
+    const elNat  = document.getElementById("shareNative");
 
-    if(!elWA || !elFB || !elX || !elCopy || !elNat) return;
+    if(!elIG || !elCopy || !elNat) return;
+
     const pid   = getId(prod);
-    const urlWA = buildProductURL(pid, "whatsapp");
-    const urlFB = buildProductURL(pid, "facebook");
-    const urlX  = buildProductURL(pid, "x");
     const urlCP = buildProductURL(pid, "copy");
+    const texto = `Mira "${name}" en Mil Sabores 🍰 — ${fmtCLP(finalPrice)}`;
 
-    const texto = `Mira "${name}" en Mil Sabores 🍰`;
-    const body  = `${texto} — ${fmtCLP(finalPrice)}\n${urlCP}`;
-
-    elNat.style.display = (navigator.share ? "inline-block" : "none");
+    // Botón nativo (si el navegador lo soporta)
+    elNat.style.display = (navigator.share ? "inline-flex" : "none");
     elNat.addEventListener("click", async () => {
       try{
         await navigator.share({ title: name + " · Mil Sabores", text: texto, url: urlCP });
       }catch(e){}
     });
 
-    elWA.href = `https://wa.me/?text=${encodeURIComponent(body)}`;
-    elFB.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlFB)}`;
-    elX.href  = `https://twitter.com/intent/tweet?text=${encodeURIComponent(texto)}&url=${encodeURIComponent(urlX)}`;
-
+    // Copiar enlace
     elCopy.addEventListener("click", async () => {
       try{
         await navigator.clipboard.writeText(urlCP);
@@ -244,6 +234,24 @@
       }catch(e){
         if (shareMsg) { shareMsg.textContent = "No se pudo copiar 😕"; setTimeout(()=>shareMsg.textContent="", 2000); }
       }
+    });
+
+    // Instagram
+    elIG.addEventListener("click", async () => {
+      // Si hay Web Share, dejamos que el usuario elija Instagram desde el sheet nativo
+      if (navigator.share){
+        try{
+          await navigator.share({ title: name + " · Mil Sabores", text: texto, url: urlCP });
+          return;
+        }catch(e){}
+      }
+      // Fallback web: copia el enlace y abre Instagram para pegar
+      try{ await navigator.clipboard.writeText(urlCP); }catch(e){}
+      if (shareMsg) {
+        shareMsg.textContent = "Enlace copiado. Abre Instagram y pégalo.";
+        setTimeout(()=>shareMsg.textContent="", 3000);
+      }
+      window.open("https://www.instagram.com/", "_blank", "noopener");
     });
   })();
 
