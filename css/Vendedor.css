@@ -87,7 +87,6 @@ img,video{max-width:100%;height:auto;display:block}
   }
   .sidebar__title{display:none}
   .sidebar__nav{flex-direction:row;flex-wrap:wrap;justify-content:center}
-  /* Mostrar Cerrar sesión también en móviles */
   .sidebar__link.logout{display:inline-flex}
   .vendedor-table{display:block;overflow-x:auto}
 }
@@ -96,7 +95,6 @@ img,video{max-width:100%;height:auto;display:block}
 }
 
 /* ===== MOBILE POLISH – Vendedor ===== */
-
 html, body { overflow-x: hidden; }
 
 /* Sidebar horizontal con scroll si no cabe */
@@ -118,7 +116,7 @@ html, body { overflow-x: hidden; }
   .vendedor-table{ display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
 }
 
-/* Botones a ancho completo en móviles estrechos (refuerzo) */
+/* Botones a ancho completo en móviles estrechos */
 @media (max-width: 560px){
   .btn{ width: 100%; }
 }

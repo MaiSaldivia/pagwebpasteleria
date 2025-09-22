@@ -122,7 +122,6 @@
     if (s === "price-desc") list.sort((a, b) => getPrice(b) - getPrice(a));
     if (s === "name-asc")   list.sort((a, b) => getName(a).localeCompare(getName(b), "es"));
 
-    // Pintar
     grid.innerHTML = list.map(cardHTML).join("");
 
     // Delegar click de "Añadir"

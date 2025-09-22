@@ -196,7 +196,7 @@
     `;
   }).join('');
 
-  // ======== COMPARTIR (inline, sin share.js) ========
+  // ======== COMPARTIR ========
   function buildProductURL(productId, source="direct"){
     const base = location.origin ? location.origin + location.pathname.replace(/[^/]+$/, "") : "";
     const url = `${base}producto.html?id=${encodeURIComponent(productId)}`;

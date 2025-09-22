@@ -181,7 +181,7 @@ h1,h2,h3{
   .actions{ margin-left:auto; }
 }
 
-/* ========= Responsive Fix Pack (home) ========= */
+/* ========= Responsive (home) ========= */
 .title-alt{ font-size: clamp(28px, 7vw, 48px); }
 .lead-alt{ font-size: clamp(14px, 2.8vw, 19px); max-width: 80ch; margin-left:auto; margin-right:auto; }
 
@@ -190,7 +190,6 @@ h1,h2,h3{
   .products__grid, .blog__grid{ grid-template-columns: 1fr; }
 }
 
-/* Botón del hero en blanco */
 .hero-alt .btn--secondary,
 .hero-alt .btn.btn--secundario{
   background: transparent;
@@ -217,12 +216,10 @@ html, body { overflow-x: hidden; }
   .actions{ margin-left:auto; }
 }
 
-/* Grids a 1 columna en pantallas chicas */
 @media (max-width: 720px){
   .products__grid, .blog__grid{ grid-template-columns: 1fr; }
 }
 
-/* Newsletter: input y botón apilados en móvil (refuerzo) */
 @media (max-width: 768px){
   .newsletter__row{ flex-direction: column; }
 }

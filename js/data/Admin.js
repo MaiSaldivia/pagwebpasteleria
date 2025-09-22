@@ -17,7 +17,7 @@
     descripcion: p.descripcion || ''
   });
 
-  // ⬅️ IMPORTANTE: ahora mantenemos stock y stockCritico
+  // IMPORTANTE: ahora mantenemos stock y stockCritico
   const toPublic = a => ({
     id: a.codigo,
     nombre: a.nombre,

@@ -1,5 +1,5 @@
 /* ===============================
-  THEME (igual al Vendedor)
+  THEME
 =============================== */
 :root{
   --color-principal:#5D4037;   /* café oscuro */
@@ -41,7 +41,7 @@ img,video{max-width:100%;height:auto;display:block}
 .footer-login{text-align:center;padding:16px;font-size:14px;color:var(--color-texto)}
 
 /* ===============================
-   Admin layout (igual al Vendedor)
+   Admin layout
 =============================== */
 .admin-layout{display:flex;min-height:100vh}
 
@@ -103,7 +103,7 @@ img,video{max-width:100%;height:auto;display:block}
 .widget h3{margin-bottom:12px;color:var(--color-principal)}
 .widget p{color:#555;margin-bottom:20px}
 
-/* Botones (igual que Vendedor) */
+/* Botones */
 .btn{
   display:inline-block;padding:10px 16px;border-radius:8px;
   font-weight:700;text-align:center;transition:background-color .2s ease;
@@ -170,11 +170,10 @@ img,video{max-width:100%;height:auto;display:block}
 }
 
 /* ===== MOBILE POLISH – Admin ===== */
-
 /* Evita desbordes horizontales */
 html, body { overflow-x: hidden; }
 
-/* Sidebar horizontal: que haga scroll si no cabe */
+/* Sidebar horizontal*/
 @media (max-width: 768px){
   .sidebar{
     gap: 10px;
@@ -188,7 +187,6 @@ html, body { overflow-x: hidden; }
   .sidebar__link{ white-space: nowrap; }
 }
 
-/* Tablas: wrapper con scroll si no está en el HTML */
 @media (max-width: 768px){
   .admin-table{ display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
@@ -199,9 +197,7 @@ html, body { overflow-x: hidden; }
   .form-actions .btn{ width: 100%; }
 }
 
-/* ===== Barra superior Admin: visible sin scroll en móvil ===== */
-
-/* Desktop: una sola fila */
+/* ===== Barra superior Admin ===== */
 .admin-header nav,
 .admin-tabs,
 .tabs-admin,
@@ -209,7 +205,7 @@ html, body { overflow-x: hidden; }
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-wrap: nowrap;      /* 1 fila en pantallas anchas */
+  flex-wrap: nowrap;
   width: 100%;
 }
 
@@ -220,7 +216,7 @@ html, body { overflow-x: hidden; }
 .nav-tabs a {
   padding: 10px 14px;
   border-radius: 10px;
-  white-space: nowrap;    /* en desktop no se parte */
+  white-space: nowrap;
 }
 
 /* --- Móvil / tablets: que se acomoden en varias columnas --- */
@@ -229,18 +225,17 @@ html, body { overflow-x: hidden; }
   .admin-tabs,
   .tabs-admin,
   .nav-tabs{
-    /* pasamos a grid para que BAJEN en filas */
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 por fila si caben */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
-    flex-wrap: initial;   /* anulamos el flex */
+    flex-wrap: initial;
   }
 
   .admin-header nav a,
   .admin-tabs a,
   .tabs-admin a,
   .nav-tabs a{
-    white-space: normal;  /* que el texto pueda partir en 2 líneas si hace falta */
+    white-space: normal;
     text-align: center;
     padding: 10px 12px;
   }
@@ -259,7 +254,7 @@ html, body { overflow-x: hidden; }
   .admin-tabs a,
   .tabs-admin a,
   .nav-tabs a{
-    font-size: 15px;        /* un pelín más compactas */
+    font-size: 15px;
     padding: 8px 10px;
   }
 }

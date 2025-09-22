@@ -739,7 +739,7 @@ function bindUserForm(form){
   if(region && !region.value){ setErr(region,"Seleccione región"); ok=false; } else setErr(region,"");
   if(comuna && !comuna.value){ setErr(comuna,"Seleccione comuna"); ok=false; } else setErr(comuna,"");
 
-  // 👇 NUEVO: fecha obligatoria y mayor de 18
+  // NUEVO: fecha obligatoria y mayor de 18
   if(!fecha?.value){
     setErr(fecha,"Requerida");
     ok=false;
@@ -767,7 +767,7 @@ function bindUserForm(form){
     nombre: nombre.value.trim(),
     apellidos: apellidos.value.trim(),
     email: correo.value.trim(),
-    fnac: fecha.value, // guardamos la fecha validada
+    fnac: fecha.value,
     region: region?.value || "",
     comuna: comuna?.value || "",
     direccion: direccion?.value || "",
@@ -872,8 +872,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   bindContactForm();
   bindUserForm($("#registroForm"));
   bindUserForm($("#adminUserForm"));
-  migrateComments();           // <-- asegura retro-compatibilidad de comentarios
-  bindProfileForm();           // <-- activa la página perfil.html si existe (2.3)
+  migrateComments();
+  bindProfileForm();
 });
 
 /* ======= Comentarios de Blog (con ownerId y rescate) ======= */

@@ -162,7 +162,7 @@
       }
     }
 
-    // Validación + guardar
+    // Validación
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -197,7 +197,6 @@
       if (!comunaVal) { setHelp("comunaHelp","Selecciona una comuna"); ok = false; } else setHelp("comunaHelp","");
       if (!direccion) { setHelp("direccionHelp","Requerida"); ok = false; } else setHelp("direccionHelp","");
 
-      // Fecha obligatoria y mayor de 18
       if(!fnac){
         alert("La fecha de nacimiento es obligatoria.");
         ok = false;
